@@ -1,0 +1,33 @@
+import React from 'react';
+import {API_BASED_URL} from './url';
+import {Text} from 'react-native';
+
+export const ApiPost = async (url, body) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+  return fetch(url, {
+    //   return fetch('http://localhost:5000/api/v1/auth/register', {
+    method: 'POST',
+    body: body,
+    headers: myHeaders,
+    redirect: 'follow',
+  })
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const ApiGet = async url => {
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .catch(err => {
+      return err;
+    });
+};

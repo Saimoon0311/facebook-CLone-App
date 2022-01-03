@@ -92,7 +92,40 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+    // backgroundColor: 'purple',
+    width: wp('60'),
+    justifyContent: 'center',
+    paddingLeft: wp('2'),
+  },
+  modalHeader: {
+    // backgroundColor: 'green',
+    width: wp('100'),
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    height: hp('10'),
+  },
+  modalBackArrow: {
+    // backgroundColor: 'yellow',
+    width: wp('15'),
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  modalButtonView: {
+    // backgroundColor: 'blue',
+    width: wp('20'),
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  modalButtonTouch: {
+    backgroundColor: 'blue',
+    padding: wp('3'),
+    borderRadius: 5,
+  },
+  modalUserName: {
+    color: 'black',
+    // fontWeight: 'bold',
+    fontSize: hp('3'),
+    // marginTop: hp('1'),
+    // justifyContent: 'center',
   },
 });

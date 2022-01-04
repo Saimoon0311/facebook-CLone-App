@@ -2,9 +2,11 @@ import React from 'react';
 import {API_BASED_URL} from './url';
 import {Text} from 'react-native';
 
-export const ApiPost = async (url, body) => {
+export const ApiPost = async (url, body, headerType) => {
   var myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
+  headerType == true
+    ? myHeaders.append('Content-Type', 'multipart/form-data')
+    : myHeaders.append('Content-Type', 'application/json');
   return fetch(url, {
     //   return fetch('http://localhost:5000/api/v1/auth/register', {
     method: 'POST',

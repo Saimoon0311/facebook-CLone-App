@@ -76,7 +76,12 @@ export default function HomeScreen() {
   const [state, setState] = useState(false);
 
   if (state) {
-    return <SharePostMoadl forHideModal={() => setState(false)} />;
+    return (
+      <SharePostMoadl
+        forHideModal={() => setState(false)}
+        onRequestClose={() => setState(false)}
+      />
+    );
   }
   return (
     <ScrollView>

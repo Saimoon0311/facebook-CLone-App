@@ -6,3 +6,5 @@ export const getApi = endpoint => API_BASED_URL + endpoint;
 export const LoginUrl = getApi('auth/login');
 export const SignUpUrl = getApi('auth/register');
 export const TimeLineUrl = getApi('posts/timeline/');
+export const PostUrl = getApi('posts');
+export const ImageUploadUrl = getApi('upload');

@@ -11,6 +11,7 @@ import {
   Pressable,
   TextInput,
   ImageBackground,
+  ToastAndroid,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -23,7 +24,7 @@ import {ApiGet, ApiPost} from '../../config/helpeerFetch';
 import {
   ImageUploadUrl,
   IMAGE_BASED_URL,
-  PostUrl,
+  PostCreateUrl,
   TimeLineUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
@@ -33,7 +34,7 @@ import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 
 export const SharePostMoadl = props => {
   const toast = useToast();
-  const id = 'test-toast';
+  // const toastIdRef = React.useRef();
   const [user, setUser] = useState();
   const [shareText, setShareText] = useState('');
   const [imageFromGalary, setImageFromGalary] = useState([]);
@@ -87,7 +88,6 @@ export const SharePostMoadl = props => {
       },
     );
   };
-
   const sharePost = () => {
     var formdata = new FormData();
     imageFromGalary.map((res, i) => {
@@ -98,153 +98,134 @@ export const SharePostMoadl = props => {
         type: res.type,
       });
     });
-    // var body = JSON.stringify({
-    //   // userId: user._id,
-    //   // description: shareText,
-    //   image: imageFromGalary,
-    // });
-    ApiPost(ImageUploadUrl, formdata, true).then(res => {
-      console.log(90, res);
+    formdata.append('description', shareText);
+    formdata.append('userId', user._id);
+    formdata.append('postName', user.username);
+    formdata.append('profilePicture', user.profilePicture);
+    ApiPost(PostCreateUrl, formdata, true).then(res => {
+      console.log(res);
+      if (res?.success == true) {
+        ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+        props?.forHideModal();
+      } else if (res?.success == false) {
+        ToastAndroid.show(
+          'Some Thing Want Wrong.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+        );
+      } else {
+        ToastAndroid.show(
+          'Some Thing Want Wrong.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+        );
+      }
     });
-    // fetch(ImageUploadUrl, {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     dataa,
-    //   }),
-    // })
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     console.log(108, json);
-    //   });
   };
 
-  // const sharePost = () => {
-  //   console.log(116, imageFromGalary);
-  //   var formdata = new FormData();
-  //   imageFromGalary.map((res, i) => {
-  //     console.log(119, res);
-  //     formdata.append('file', {
-  //       name: res.fileName,
-  //       uri: res.uri,
-  //       type: res.type,
-  //     });
-  //   });
-
-  //   var requestOptions = {
-  //     method: 'POST',
-  //     body: formdata,
-  //     redirect: 'follow',
-  //   };
-
-  //   fetch('http://192.168.20.43:5000/api/v1/upload', requestOptions)
-  //     .then(response => response.text())
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-  // };
-
   return (
-    <Modal
-      animationType="slide"
-      transparent={false}
-      // visible={true}
-      onRequestClose={() => props?.onRequestClose()}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalHeader}>
-          <TouchableOpacity
-            onPress={() => props?.forHideModal()}
-            style={styles.modalBackArrow}>
-            <Ionicons name="arrow-back" size={35} color={'black'} />
-          </TouchableOpacity>
-          <View style={styles.modalText}>
-            <Text style={{fontSize: hp('3'), color: 'black'}}>Create Post</Text>
+    <NativeBaseProvider>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        // visible={true}
+        onRequestClose={() => props?.forHideModal()}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity
+              onPress={() => props?.forHideModal()}
+              style={styles.modalBackArrow}>
+              <Ionicons name="arrow-back" size={35} color={'black'} />
+            </TouchableOpacity>
+            <View style={styles.modalText}>
+              <Text style={{fontSize: hp('3'), color: 'black'}}>
+                Create Post
+              </Text>
+            </View>
+            <View style={styles.modalButtonView}>
+              {shareText !== '' && (
+                <TouchableOpacity
+                  style={styles.modalButtonTouch}
+                  onPress={() => sharePost()}>
+                  <Text style={{color: 'white'}}>Post</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-          <View style={styles.modalButtonView}>
-            {shareText !== '' && (
-              <TouchableOpacity
-                style={styles.modalButtonTouch}
-                onPress={() => sharePost()}>
-                <Text style={{color: 'white'}}>Post</Text>
-              </TouchableOpacity>
-            )}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: hp('8')}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              {user?.profilePicture !== '' ? (
+                <Image
+                  source={{uri: IMAGE_BASED_URL + user?.profilePicture}}
+                  style={styles.imageContainer}
+                />
+              ) : (
+                <Ionicons
+                  name="md-person-circle-outline"
+                  size={60}
+                  style={{marginLeft: wp('2')}}
+                />
+              )}
+              <Text style={styles.modalUserName}>{user?.username}</Text>
+            </View>
+            <TextInput
+              placeholder="What's on your mind ?"
+              placeholderTextColor={'gray'}
+              multiline
+              value={shareText}
+              onChangeText={e => setShareText(e)}
+              // minHeight={hp('60')}
+              maxHeight={hp('60')}
+              style={styles.textInput}
+            />
+            <View style={styles.imageMainView}>
+              {imageFromGalary?.length > 0 &&
+                imageFromGalary.map((res, i, v) => {
+                  return (
+                    <ImageBackground
+                      source={{uri: res?.uri}}
+                      style={styles.selectImageStyle}>
+                      <TouchableOpacity onPress={() => removeImage(i)}>
+                        <Entypo
+                          name="circle-with-cross"
+                          size={20}
+                          color={'white'}
+                          style={styles.crossIcon}
+                        />
+                      </TouchableOpacity>
+                    </ImageBackground>
+                  );
+                })}
+            </View>
+          </ScrollView>
+          <View style={styles.bottomMainView}>
+            <TouchableOpacity
+              onPress={() => pickImagesFromGalary()}
+              style={styles.imagePickview}>
+              <Entypo name="images" size={30} color={'green'} />
+            </TouchableOpacity>
+            <View
+              style={{
+                height: '80%',
+                width: 1,
+                backgroundColor: 'gray',
+                alignSelf: 'center',
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => pickImagefromCamera()}
+              style={styles.imagePickview}>
+              <Entypo name="camera" size={30} color={'green'} />
+            </TouchableOpacity>
           </View>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            {user?.profilePicture !== '' ? (
-              <Image
-                source={{uri: IMAGE_BASED_URL + user?.profilePicture}}
-                style={styles.imageContainer}
-              />
-            ) : (
-              <Ionicons
-                name="md-person-circle-outline"
-                size={60}
-                style={{marginLeft: wp('2')}}
-              />
-            )}
-            <Text style={styles.modalUserName}>{user?.username}</Text>
-          </View>
-          <TextInput
-            placeholder="What's on your mind ?"
-            placeholderTextColor={'gray'}
-            multiline
-            value={shareText}
-            onChangeText={e => setShareText(e)}
-            // minHeight={hp('60')}
-            maxHeight={hp('60')}
-            style={styles.textInput}
-          />
-          <View style={styles.imageMainView}>
-            {imageFromGalary?.length > 0 &&
-              imageFromGalary.map((res, i, v) => {
-                return (
-                  <ImageBackground
-                    source={{uri: res?.uri}}
-                    style={styles.selectImageStyle}>
-                    <TouchableOpacity onPress={() => removeImage(i)}>
-                      <Entypo
-                        name="circle-with-cross"
-                        size={20}
-                        color={'white'}
-                        style={styles.crossIcon}
-                      />
-                    </TouchableOpacity>
-                  </ImageBackground>
-                );
-              })}
-          </View>
-        </ScrollView>
-        <View style={styles.bottomMainView}>
-          <TouchableOpacity
-            onPress={() => pickImagesFromGalary()}
-            style={styles.imagePickview}>
-            <Entypo name="images" size={30} color={'gray'} />
-          </TouchableOpacity>
-          <View
-            style={{
-              height: '80%',
-              width: 1,
-              backgroundColor: 'gray',
-              // backgroundColor: '#909090',
-              // marginRight: wp('2'),
-              alignSelf: 'center',
-            }}
-          />
-          <TouchableOpacity
-            onPress={() => pickImagefromCamera()}
-            style={styles.imagePickview}>
-            <Entypo name="camera" size={30} color={'gray'} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+      </Modal>
+    </NativeBaseProvider>
   );
 };

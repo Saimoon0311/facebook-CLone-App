@@ -18,9 +18,10 @@ export const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    //     backgroundColor: 'yellow',
-    height: hp('10'),
-    marginTop: hp('2'),
+    backgroundColor: 'white',
+    height: hp('12'),
+    paddingTop: hp('2'),
+    paddingBottom: hp('2'),
   },
   imageContainer: {
     // width: wp('20'),
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
   },
   headerComponent: {
     width: wp('75'),
-    //     backgroundColor: 'red',
+    // backgroundColor: 'red',
     marginLeft: wp('3'),
     marginRight: wp('2'),
     height: hp('8'),

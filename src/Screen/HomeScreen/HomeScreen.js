@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  RefreshControl,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -23,49 +24,48 @@ import {getUserData} from '../../utils/utils';
 import ImagePicker from '../../Reuseable Component/ImagePicker/imagePicker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePostModal';
+import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
+import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 export default function HomeScreen() {
+  const toast = useToast();
+
   const [timeLineData, setTimeLineData] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [user, setUser] = useState();
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const onRefresh = useCallback(() => {
+    // setRefreshing(true);
+    setLoading(true);
+    // setAloading(true)
+    wait(2000).then(() => {
+      getTimeLineData(), setLoading(false);
+    });
+  }, []);
   const getTimeLineData = async () => {
-    // const user = await getUserData();
-    // console.log(user);
-    // const userId = user._id;
-    // ApiGet(TimeLineUrl + userId).then(res => {
-    // console.log(res);
-    // if (res?.success == true) {
-    //   console.log(res);
-    // }
-    // });
+    const user = await getUserData();
+    console.log(user);
+    const userId = user._id;
+    ApiGet(TimeLineUrl + userId).then(res => {
+      if (res?.success == true) {
+        setLoading(false);
+        setTimeLineData(res?.data);
+      } else if (res?.success == false) {
+        setLoading(true);
+      }
+    });
   };
   useEffect(() => {
     (async () => {
       const user = await getUserData();
       setUser(user);
-      // console.log(user);
+      getTimeLineData();
     })();
-    // getTimeLineData();
   }, []);
-
-  const pickImages = () => {
-    launchCamera(
-      {
-        selectionLimit: 8,
-        mediaType: 'mixed',
-        quality: 0.3,
-      },
-      res => {
-        if (!res?.didCancel) {
-          console.log(50, res);
-          setTimeLineData(res?.assets);
-          // console.log(174, timeLineData);
-          // this.stateManagement('imagesArray', res);
-          // this.stateManagement('renderImagePreview', true);
-        }
-      },
-    );
-  };
 
   const openModal = () => {
     // return <SharePostMoadl />;
@@ -79,12 +79,16 @@ export default function HomeScreen() {
     return (
       <SharePostMoadl
         forHideModal={() => setState(false)}
-        onRequestClose={() => setState(false)}
+        toastShow={() => useToast()}
       />
     );
   }
   return (
-    <ScrollView>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <View>
         <View style={styles.headerContainer}>
           <TouchableOpacity>
@@ -99,22 +103,9 @@ export default function HomeScreen() {
             <Text style={styles.headerText}>What's on your mind?</Text>
           </TouchableOpacity>
         </View>
-        <Divider
-          style={{borderColor: 'gray', borderWidth: 0.3, marginTop: hp('2')}}
-        />
+        <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />
       </View>
-      <TouchableOpacity onPress={() => pickImages()}>
-        <Text>sdsfdfsdfsdf</Text>
-      </TouchableOpacity>
-      {timeLineData !== null &&
-        timeLineData?.map(res => {
-          return (
-            <Image
-              source={{uri: res?.uri}}
-              style={{width: wp('20'), height: hp('20')}}
-            />
-          );
-        })}
+      <TimeLineData timeLineData={timeLineData} isloading={loading} />
     </ScrollView>
   );
 }

@@ -8,3 +8,4 @@ export const SignUpUrl = getApi('auth/register');
 export const TimeLineUrl = getApi('posts/timeline/');
 export const PostCreateUrl = getApi('posts/createpost');
 export const ImageUploadUrl = getApi('upload');
+export const LikeUrl = getApi('posts/');

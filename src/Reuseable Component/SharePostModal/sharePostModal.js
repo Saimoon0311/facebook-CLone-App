@@ -31,6 +31,7 @@ import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
+import Video from 'react-native-video';
 
 export const SharePostMoadl = props => {
   const toast = useToast();
@@ -128,7 +129,6 @@ export const SharePostMoadl = props => {
       <Modal
         animationType="slide"
         transparent={false}
-        // visible={true}
         onRequestClose={() => props?.forHideModal()}>
         <View style={styles.centeredView}>
           <View style={styles.modalHeader}>
@@ -180,14 +180,18 @@ export const SharePostMoadl = props => {
               multiline
               value={shareText}
               onChangeText={e => setShareText(e)}
-              // minHeight={hp('60')}
               maxHeight={hp('60')}
               style={styles.textInput}
             />
             <View style={styles.imageMainView}>
               {imageFromGalary?.length > 0 &&
                 imageFromGalary.map((res, i, v) => {
-                  return (
+                  return res.type == 'video/mp4' ? (
+                    <Video
+                      source={{uri: res?.fileName}}
+                      style={styles.selectImageStyle}
+                    />
+                  ) : (
                     <ImageBackground
                       source={{uri: res?.uri}}
                       style={styles.selectImageStyle}>

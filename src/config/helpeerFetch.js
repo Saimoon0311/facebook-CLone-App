@@ -33,3 +33,22 @@ export const ApiGet = async url => {
       return err;
     });
 };
+
+export const ApiPut = async (url, body) => {
+  var myHeaders = new Headers();
+
+  myHeaders.append('Content-Type', 'application/json');
+  return fetch(url, {
+    method: 'PUT',
+    body: body,
+    headers: myHeaders,
+    redirect: 'follow',
+  })
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .catch(err => {
+      return err;
+    });
+};

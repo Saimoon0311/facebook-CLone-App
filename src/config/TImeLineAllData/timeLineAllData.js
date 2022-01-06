@@ -11,6 +11,7 @@ import {
   Pressable,
   RefreshControl,
   FlatList,
+  Share,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -19,8 +20,13 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {ActivityIndicator, Divider} from 'react-native-paper';
-import {ApiGet} from '../../config/helpeerFetch';
-import {IMAGE_BASED_URL, TimeLineUrl} from '../../config/url';
+import {ApiGet, ApiPost, ApiPut} from '../../config/helpeerFetch';
+import {
+  API_BASED_URL,
+  IMAGE_BASED_URL,
+  LikeUrl,
+  TimeLineUrl,
+} from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import ImagePicker from '../../Reuseable Component/ImagePicker/imagePicker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -28,157 +34,196 @@ import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePost
 import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import PhotoGrid from 'react-native-thumbnail-grid';
+// import PhotoGrid from 'react-native-thumbnail-grid';
+// import ReactPhotoGrid from 'react-photo-grid';
+// import Photogrid from 'react-facebook-photo-grid';
+import PhotoGrid from 'react-native-photo-grid';
+import GridImageView from 'react-native-grid-image-viewer';
+import ImageView from 'react-native-image-view';
+import {ImageModal} from '../../Reuseable Component/imageModal/imageModal';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {colors} from '../../Reuseable Component/color';
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from 'react-native-indicators';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
   const [dummyImages, setDummyImages] = useState([]);
+  const [modaShow, setModalShow] = useState(false);
+  const [like, setLike] = useState(false);
   var dummy;
-  // setDummyImages(props?.timeLineData?.image);
-  // const v = props?.timeLineData;
-  // console.log(389, v);
-  // for (let index = 0; index < v.length; index++) {
-  //   // const element = item?.image[index];
-  //   const obj = IMAGE_BASED_URL + v[index];
-  //   imageArray.push(obj);
-  // }
 
-  // console.log(45, props?.timeLineData);
-  // props?.timeLineData.map(res => {
-  //   console.log(47, res);
-  //   for (let index = 0; index < res.image.length; index++) {
-  //     // const element = item?.image[index];
-  //     dummy = res?.image;
-  //     const obj = IMAGE_BASED_URL + dummy[index];
-  //     imageArray.push(obj);
-  //     console.log(52, obj);
-  //   }
-  // });
-
-  // console.log(54, imageArray);
-  // console.log(58, imageArray.length);
-  // console.log(images);
-  // console.log(props?.timeLineData?.image);
-  // for (let i = 0; i >= props?.image.length; i++) {
-  //   // const element = array[i];
-  //   console.log(38, i);
-  // }
   return (
     <View>
       {props?.isloading ? (
-        // <SkeletonPlaceholder>
-
-        // </SkeletonPlaceholder>
-        <ActivityIndicator size={'large'} color="red" />
+        <WaveIndicator
+          size={hp('20')}
+          style={{marginTop: hp('20')}}
+          color={'#0f78af'}
+        />
       ) : (
         <FlatList
           data={props?.timeLineData}
           keyExtractor={item => item.key}
-          // horizontal
+          nestedScrollEnabled={true}
+          contentContainerStyle={{paddingBottom: hp('5')}}
           showsVerticalScrollIndicator={false}
-          // showsHorizontalScrollIndicator={false}
           renderItem={({item}) => {
             for (let index = 0; index < item?.image?.length; index++) {
               const obj = IMAGE_BASED_URL + item?.image[index];
               dummy = obj;
-              // console.log(84, dummy);
-              dummyImages?.push(obj);
-              // setDummyImages(obj);
             }
-            // console.log(85, dummy);
-            console.log(88, dummyImages);
             return (
-              <View
-                style={{
-                  width: wp('100'),
-                  // height: hp('50'),
-                  backgroundColor: 'white',
-                  marginTop: hp('2'),
-                  marginBottom: hp('2'),
-                }}>
+              <View style={styles.mainContainer}>
                 <TouchableOpacity>
-                  <View
-                    style={{
-                      // backgroundColor: 'yellow',
-                      flexDirection: 'row',
-                      paddingTop: hp('0.5'),
-                      paddingBottom: hp('0.5'),
-                    }}>
+                  <View style={styles.header}>
                     {item.profilePicture ? (
                       <Image
                         source={{uri: IMAGE_BASED_URL + item.profilePicture}}
-                        style={{
-                          borderRadius: Math.round(
-                            Dimensions.get('window').width +
-                              Dimensions.get('window').height,
-                          ),
-                          // alignSelf: 'center',
-                          width: Dimensions.get('screen').width * 0.13,
-                          height: Dimensions.get('screen').width * 0.13,
-                          backgroundColor: 'white',
-                          // marginTop: hp('2'),
-                          marginLeft: hp('2'),
-                        }}
+                        style={styles.postImage}
                       />
                     ) : (
                       <EvilIcons name={'user'} size={60} />
                     )}
-                    <Text
-                      style={{
-                        // marginTop: hp('1'),
-                        textAlignVertical: 'center',
-                        color: 'black',
-                        fontSize: hp('3'),
-                      }}>
-                      {item?.postName}
-                    </Text>
+                    <Text style={styles.postName}>{item?.postName}</Text>
                   </View>
                 </TouchableOpacity>
-                {item.image.length > 0 && (
-                  <View style={{flexDirection: 'row'}}>
-                    {item.image.map(res => {
-                      return (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            backgroundColor: 'green',
-                            flexWrap: 'wrap',
-                          }}>
-                          {item.image.length == 1 ? (
-                            <>
-                              <Image
-                                source={{uri: IMAGE_BASED_URL + res}}
-                                style={{
-                                  width: wp('100'),
-                                  height: hp('40'),
-                                  backgroundColor: 'red',
-                                }}
-                              />
-                            </>
-                          ) : item.image.length == 2 ? (
-                            <View>
-                              <Image
-                                source={{uri: IMAGE_BASED_URL + res}}
-                                style={{
-                                  width: wp('50'),
-                                  height: hp('40'),
-                                  backgroundColor: 'yellow',
-                                  flexDirection: 'row',
-                                }}
-                              />
-                            </View>
-                          ) : item.image.length == 3 ? (
-                            <Text></Text>
-                          ) : (
-                            <Text></Text>
-                          )}
-                        </View>
-                      );
-                    })}
+                <Text style={styles.description}>
+                  {item?.description}
+                  {/* Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum. */}
+                </Text>
+                <ScrollView
+                  nestedScrollEnabled={true}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{
+                    maxHeight: hp('60'),
+                  }}>
+                  {item.image.length > 0 && (
+                    <ScrollView
+                      nestedScrollEnabled={true}
+                      showsVerticalScrollIndicator={false}
+                      contentContainerStyle={{
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                      }}>
+                      {item.image.map((res, i) => {
+                        return (
+                          <View>
+                            {item.image.length == 1 ? (
+                              <>
+                                <Image
+                                  source={{uri: IMAGE_BASED_URL + res}}
+                                  style={{
+                                    width: wp('100'),
+                                    height: hp('40'),
+                                  }}
+                                />
+                              </>
+                            ) : item.image.length == 2 ? (
+                              <View>
+                                <Image
+                                  source={{uri: IMAGE_BASED_URL + res}}
+                                  style={{
+                                    width: wp('50'),
+                                    height: hp('40'),
+                                    flexDirection: 'row',
+                                  }}
+                                />
+                              </View>
+                            ) : (
+                              <ScrollView
+                                nestedScrollEnabled={true}
+                                contentContainerStyle={{
+                                  height: 'auto',
+                                }}>
+                                {item.image.length >= 3 && (
+                                  <TouchableOpacity>
+                                    <Image
+                                      source={{uri: IMAGE_BASED_URL + res}}
+                                      style={{
+                                        width: wp('50'),
+                                        height: hp('30'),
+                                      }}
+                                    />
+                                  </TouchableOpacity>
+                                )}
+                              </ScrollView>
+                            )}
+                          </View>
+                        );
+                      })}
+                    </ScrollView>
+                  )}
+                </ScrollView>
+                {item?.likes.length > 0 && (
+                  <View style={styles.likeContainer}>
+                    <AntDesign name={'like1'} size={20} color={'#2055FB'} />
+                    <Text style={{fontSize: hp('3.5'), color: '#2055FB'}}>
+                      {item?.likes.length}
+                    </Text>
                   </View>
                 )}
-
-                {/* <PhotoGrid source={dummyImages} /> */}
+                <View style={styles.likeShareContainer}>
+                  <TouchableOpacity
+                    onPress={() => props?.like(item._id)}
+                    style={styles.likeButton}>
+                    <Text
+                      style={{
+                        ...styles.shareText,
+                        color: item.likes.includes(props?.user._id)
+                          ? '#2055FB'
+                          : 'black',
+                      }}>
+                      Like
+                    </Text>
+                    <AntDesign
+                      name={
+                        item.likes.includes(props?.user._id) ? 'like1' : 'like2'
+                      }
+                      size={20}
+                      color={
+                        item.likes.includes(props?.user._id)
+                          ? '#2055FB'
+                          : 'gray'
+                      }
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Share.share({
+                        message:
+                          'React Native | A framework for building native apps using React',
+                        title: 'w',
+                        url: 'https://www.google.com/',
+                      })
+                    }
+                    style={styles.likeButton}>
+                    <Text style={styles.shareText}>Share</Text>
+                    <MaterialCommunityIcons
+                      name="share-all-outline"
+                      size={25}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           }}

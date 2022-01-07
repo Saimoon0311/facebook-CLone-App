@@ -89,6 +89,15 @@ export default function HomeScreen() {
             ToastAndroid.BOTTOM,
           );
         }
+      } else if (res.success == false) {
+        ToastAndroid.show(
+          'Some Thing Is Wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+          // ToastAndroid.
+        );
       }
     });
   };

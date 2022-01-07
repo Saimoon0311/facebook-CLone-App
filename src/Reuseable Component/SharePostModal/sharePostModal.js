@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Ref} from 'react';
 import {
   View,
   Text,
@@ -31,7 +31,9 @@ import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
+import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
+import {colors} from '../color';
 
 export const SharePostMoadl = props => {
   const toast = useToast();
@@ -77,6 +79,7 @@ export const SharePostMoadl = props => {
         selectionLimit: 8,
         mediaType: 'mixed',
         quality: 0.3,
+        videoQuality: 'high',
       },
       res => {
         if (!res?.didCancel) {
@@ -92,9 +95,9 @@ export const SharePostMoadl = props => {
   const sharePost = () => {
     var formdata = new FormData();
     imageFromGalary.map((res, i) => {
-      console.log(119, res);
+      // console.log(119, res);
       formdata.append('file', {
-        name: res.fileName,
+        name: res.fileName.includes('.') ? res.fileName : res.fileName + '.mp4',
         uri: res.uri,
         type: res.type,
       });
@@ -187,10 +190,71 @@ export const SharePostMoadl = props => {
               {imageFromGalary?.length > 0 &&
                 imageFromGalary.map((res, i, v) => {
                   return res.type == 'video/mp4' ? (
-                    <Video
-                      source={{uri: res?.fileName}}
-                      style={styles.selectImageStyle}
-                    />
+                    <View style={styles.selectImageStyle}>
+                      <VideoPlayer
+                        video={{uri: res?.uri}}
+                        resizeMode="contain"
+                        controls={true}
+                        hideControlsOnStart={false}
+                        fullScreenOnLongPress={true}
+                        disableFullscreen={false}
+                        loop={true}
+                        videoWidth={wp('48')}
+                        videoHeight={hp('30')}
+                      />
+                      <TouchableOpacity onPress={() => removeImage(i)}>
+                        <Entypo
+                          name="circle-with-cross"
+                          size={20}
+                          color={'white'}
+                          style={{
+                            ...styles.crossIcon,
+                            marginTop: hp('-29'),
+                            // backgroundColor: 'red',
+                            marginLeft: wp('30'),
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ) : res.type == 'video/mp4' && 'image/jpeg' ? (
+                    <View style={styles.selectImageStyle}>
+                      <VideoPlayer
+                        video={{uri: res?.uri}}
+                        resizeMode="contain"
+                        hideControlsOnStart={false}
+                        fullScreenOnLongPress={true}
+                        disableFullscreen={false}
+                        controls={true}
+                        loop={true}
+                        videoWidth={wp('48')}
+                        videoHeight={hp('30')}
+                      />
+                      <TouchableOpacity onPress={() => removeImage(i)}>
+                        <Entypo
+                          name="circle-with-cross"
+                          size={20}
+                          color={'white'}
+                          style={{
+                            ...styles.crossIcon,
+                            marginTop: hp('-29'),
+                            // backgroundColor: 'red',
+                            marginLeft: wp('30'),
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <ImageBackground
+                        source={{uri: res?.uri}}
+                        style={styles.selectImageStyle}>
+                        <TouchableOpacity onPress={() => removeImage(i)}>
+                          <Entypo
+                            name="circle-with-cross"
+                            size={20}
+                            color={'white'}
+                            style={styles.crossIcon}
+                          />
+                        </TouchableOpacity>
+                      </ImageBackground>
+                    </View>
                   ) : (
                     <ImageBackground
                       source={{uri: res?.uri}}
@@ -212,7 +276,11 @@ export const SharePostMoadl = props => {
             <TouchableOpacity
               onPress={() => pickImagesFromGalary()}
               style={styles.imagePickview}>
-              <Entypo name="images" size={30} color={'green'} />
+              <Entypo
+                name="images"
+                size={30}
+                color={colors.themePrimaryColor}
+              />
             </TouchableOpacity>
             <View
               style={{
@@ -225,7 +293,11 @@ export const SharePostMoadl = props => {
             <TouchableOpacity
               onPress={() => pickImagefromCamera()}
               style={styles.imagePickview}>
-              <Entypo name="camera" size={30} color={'green'} />
+              <Entypo
+                name="camera"
+                size={30}
+                color={colors.themePrimaryColor}
+              />
             </TouchableOpacity>
           </View>
         </View>

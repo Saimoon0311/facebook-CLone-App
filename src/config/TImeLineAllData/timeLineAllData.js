@@ -210,10 +210,12 @@ export const TimeLineData = props => {
                   <TouchableOpacity
                     onPress={() =>
                       Share.share({
-                        message:
-                          'React Native | A framework for building native apps using React',
-                        title: 'w',
-                        url: 'https://www.google.com/',
+                        url: 'https://media.istockphoto.com/photos/thumbnail-book-picture-id1287159334?b=1&k=20&m=1287159334&s=170667a&w=0&h=9kPAkWnDSMIP-6qNuEZrJ4EFw4B1Om-cYVcPLVTt4TM=',
+                        message: 'sd',
+                        // message:
+                        //   'React Native | A framework for building native apps using React',
+                        // title: 'w',
+                        // url: 'https://www.google.com/',
                       })
                     }
                     style={styles.likeButton}>

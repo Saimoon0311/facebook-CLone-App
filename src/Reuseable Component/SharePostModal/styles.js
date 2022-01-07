@@ -146,12 +146,14 @@ export const styles = StyleSheet.create({
     width: wp('48'),
     height: hp('30'),
     marginBottom: hp('2'),
+    backgroundColor: 'black',
   },
   crossIcon: {
     position: 'absolute',
     top: hp('0.5'),
     right: wp('1'),
-    // alignSelf: 'flex-end',
+
+    // alignSelf: 'center',
   },
   bottomMainView: {
     position: 'absolute',

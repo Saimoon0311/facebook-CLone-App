@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, ImageBackground} from 'react-native';
 import {styles} from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {InputField} from '../../Reuseable Component/inputField/inputField';
@@ -98,78 +98,88 @@ export default function SignUpScreen({navigation}) {
   //     .catch(error => console.log('error', error));
   // }
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingBottom: hp('10')}}>
-      <View style={styles.mainContainer}>
-        <MaterialIcons
-          name="facebook"
-          size={100}
-          color={colors.themePrimaryColor}
-        />
-        <LinearTextGradient
-          style={styles.Heading}
-          locations={[0, 1]}
-          colors={['red', 'blue']}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}>
-          <Text>Sign Up With facebook</Text>
-        </LinearTextGradient>
-        <InputField
-          label="username"
-          onChangeText={e => setUsername(e)}
-          value={username}
-          firstIconName="person-outline"
-        />
-        <InputField
-          label="Email"
-          onChangeText={e => setEmail(e)}
-          value={email}
-          autoCapble="none"
-          firstIconName="mail-outline"
-        />
-        <InputField
-          label="Password"
-          onChangeText={e => setPassword(e)}
-          value={password}
-          secureTextEntry={true}
-          firstIconName="key-outline"
-          secureTextEntry={show ? false : true}
-          onPress={handleClick}
-          SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}
-          // keyboardType="visible-password"
-        />
-        <InputField
-          label="Confirm Password"
-          onChangeText={e => setConfirmPassword(e)}
-          value={confirmPassword}
-          firstIconName="key-outline"
-          secureTextEntry={showConfirm ? false : true}
-          onPress={handleClickConfirm}
-          SecondIconName={showConfirm ? 'eye-outline' : 'eye-off-outline'}
-          // keyboardType="visible-password"
-        />
-        <TouchableButton
-          bgColor="red"
-          textColor="white"
-          text="Sign Up"
-          iconName="person-add-outline"
-          iconColor="white"
-          linearColor={['#ad2d65', '#002b5d']}
-          onPress={() => signup()}
-          loading={loading}
-        />
-        <TouchableButton
-          bgColor="red"
-          textColor="white"
-          text="Login"
-          iconName="log-in-outline"
-          iconColor="white"
-          linearColor={['#002b5d', '#ad2d65']}
-          // linearColor={['yellow', 'red']}
-          onPress={() => navigation.navigate('LoginScreen')}
-        />
-      </View>
-    </ScrollView>
+    <ImageBackground
+      style={{width: wp('100'), height: hp('100')}}
+      // locations={[0, 2]}
+      // colors={['#FF9898', '#DDE0F7']}
+      // start={{x: 1, y: 0, z: 0}}
+      // end={{x: 0, y: 1, z: 1}}
+      // resizeMode="cover"
+
+      source={require('../../Images/rm222batch3-mind-03.jpg')}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: hp('10')}}>
+        <View style={styles.mainContainer}>
+          <MaterialIcons
+            name="facebook"
+            size={100}
+            color={colors.themePrimaryColor}
+          />
+          <LinearTextGradient
+            style={styles.Heading}
+            locations={[0, 1]}
+            colors={['red', 'blue']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}>
+            <Text>Sign Up With facebook</Text>
+          </LinearTextGradient>
+          <InputField
+            label="username"
+            onChangeText={e => setUsername(e)}
+            value={username}
+            firstIconName="person-outline"
+          />
+          <InputField
+            label="Email"
+            onChangeText={e => setEmail(e)}
+            value={email}
+            autoCapble="none"
+            firstIconName="mail-outline"
+          />
+          <InputField
+            label="Password"
+            onChangeText={e => setPassword(e)}
+            value={password}
+            secureTextEntry={true}
+            firstIconName="key-outline"
+            secureTextEntry={show ? false : true}
+            onPress={handleClick}
+            SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}
+            // keyboardType="visible-password"
+          />
+          <InputField
+            label="Confirm Password"
+            onChangeText={e => setConfirmPassword(e)}
+            value={confirmPassword}
+            firstIconName="key-outline"
+            secureTextEntry={showConfirm ? false : true}
+            onPress={handleClickConfirm}
+            SecondIconName={showConfirm ? 'eye-outline' : 'eye-off-outline'}
+            // keyboardType="visible-password"
+          />
+          <TouchableButton
+            bgColor="red"
+            textColor="white"
+            text="Sign Up"
+            iconName="person-add-outline"
+            iconColor="white"
+            linearColor={['#ad2d65', '#002b5d']}
+            onPress={() => signup()}
+            loading={loading}
+          />
+          <TouchableButton
+            bgColor="red"
+            textColor="white"
+            text="Login"
+            iconName="log-in-outline"
+            iconColor="white"
+            linearColor={['#002b5d', '#ad2d65']}
+            // linearColor={['yellow', 'red']}
+            onPress={() => navigation.navigate('LoginScreen')}
+          />
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 }

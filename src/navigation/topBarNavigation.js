@@ -43,7 +43,7 @@ export default function TopBarNavigation() {
         name="Home"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home-outline" color={color} size={hp('4')} />
+            <Ionicons name="home" color={color} size={hp('4')} />
           ),
           title: '',
           tabBarLabelStyle: {
@@ -60,7 +60,7 @@ export default function TopBarNavigation() {
         name="MessageScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="chatbubbles-outline" color={color} size={hp('4')} />
+            <Ionicons name="chatbubbles" color={color} size={hp('4')} />
           ),
           title: '',
           tabBarLabelStyle: {
@@ -76,11 +76,7 @@ export default function TopBarNavigation() {
         name="NotificationScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons
-              name="notifications-outline"
-              color={color}
-              size={hp('4')}
-            />
+            <Ionicons name="notifications" color={color} size={hp('4')} />
           ),
           title: '',
           tabBarLabelStyle: {

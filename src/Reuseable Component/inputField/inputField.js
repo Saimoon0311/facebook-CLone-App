@@ -19,7 +19,7 @@ export const InputField = props => {
         flexDirection: 'row',
         // backgroundColor: 'yellow',
         borderRadius: 10,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'gray',
       }}>
       <Ionicons

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -60,7 +61,7 @@ export default function LoginScreen({navigation}) {
             type: 'danger',
             icon: 'danger',
             message: 'user not found!',
-            backgroundColor: colors.themePrimaryColor,
+            backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
           // console.log('res=== 86 ', res);
@@ -69,7 +70,7 @@ export default function LoginScreen({navigation}) {
             type: 'danger',
             icon: 'danger',
             message: 'wrong password!',
-            backgroundColor: colors.themePrimaryColor,
+            backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
           // console.log('res=== 86 ', res);
@@ -88,7 +89,7 @@ export default function LoginScreen({navigation}) {
           type: 'danger',
           icon: 'danger',
           message: error?.data,
-          backgroundColor: '#E9691D',
+          backgroundColor: colors.statusBarColor,
         });
         setLoading(false);
       }
@@ -97,76 +98,83 @@ export default function LoginScreen({navigation}) {
         type: 'danger',
         icon: 'danger',
         message: 'Please complete all fields',
-        backgroundColor: colors.themePrimaryColor,
+        backgroundColor: colors.statusBarColor,
       });
       setLoading(false);
     }
   };
 
   return (
-    <ImageBackground
-      style={{width: wp('100'), height: hp('100')}}
-      // locations={[0, 2]}
-      // colors={['#FF9898', '#DDE0F7']}
-      // start={{x: 1, y: 0, z: 0}}
-      // end={{x: 0, y: 1, z: 1}}
-      // resizeMode="cover"
+    <>
+      <StatusBar
+        backgroundColor={colors.statusBarColor}
+        barStyle="dark-content"
+      />
+      <ImageBackground
+        style={{width: wp('100'), height: hp('100')}}
+        // locations={[0, 2]}
+        // colors={['#FF9898', '#DDE0F7']}
+        // start={{x: 1, y: 0, z: 0}}
+        // end={{x: 0, y: 1, z: 1}}
+        // resizeMode="cover"
 
-      source={require('../../Images/rm222batch3-mind-03.jpg')}>
-      {/* source={require('../../Images/welcome-one.png')}> */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.mainContainer}>
-          <MaterialIcons
-            name="facebook"
-            size={100}
-            color={colors.themePrimaryColor}
-          />
-          {/* <LinearTextGradient
+        source={require('../../Images/rm222batch3-mind-03.jpg')}>
+        {/* source={require('../../Images/welcome-one.png')}> */}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.mainContainer}>
+            <MaterialIcons
+              name="facebook"
+              size={100}
+              // color={'black'}
+              color={colors.themePrimaryColor}
+            />
+            {/* <LinearTextGradient
             style={styles.Heading}
             locations={[0, 1]}
             colors={['red', 'blue']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}> */}
-          <Text style={styles.Heading}>Login With facebook</Text>
-          {/* </LinearTextGradient> */}
-          <InputField
-            label="Email"
-            onChangeText={e => setEmail(e)}
-            value={email}
-            autoCapble="none"
-            firstIconName="mail-outline"
-          />
-          <InputField
-            label="Password"
-            onChangeText={e => setPassword(e)}
-            value={password}
-            // secureTextEntry={true}
-            secureTextEntry={show ? false : true}
-            onPress={handleClick}
-            SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}
-            firstIconName="key-outline"
-          />
-          <TouchableButton
-            bgColor="red"
-            textColor="white"
-            text="Login"
-            iconName="log-in-outline"
-            iconColor="white"
-            linearColor={['#ad2d65', '#002b5d']}
-            onPress={() => login()}
-            loading={loading}
-          />
-          <TouchableButton
-            bgColor="red"
-            textColor="white"
-            text="Sign Up"
-            iconName="person-add-outline"
-            iconColor="white"
-            linearColor={['#002b5d', '#ad2d65']}
-            onPress={() => navigation.navigate('SignUpScreen')}
-          />
-        </View>
-      </ScrollView>
-    </ImageBackground>
+            <Text style={styles.Heading}>Login With facebook</Text>
+            {/* </LinearTextGradient> */}
+            <InputField
+              label="Email"
+              onChangeText={e => setEmail(e)}
+              value={email}
+              autoCapble="none"
+              firstIconName="mail-outline"
+            />
+            <InputField
+              label="Password"
+              onChangeText={e => setPassword(e)}
+              value={password}
+              // secureTextEntry={true}
+              secureTextEntry={show ? false : true}
+              onPress={handleClick}
+              SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}
+              firstIconName="key-outline"
+            />
+            <TouchableButton
+              bgColor="red"
+              textColor="white"
+              text="Login"
+              iconName="log-in-outline"
+              iconColor="white"
+              linearColor={['#ad2d65', '#002b5d']}
+              onPress={() => login()}
+              loading={loading}
+            />
+            <TouchableButton
+              bgColor="red"
+              textColor="white"
+              text="Sign Up"
+              iconName="person-add-outline"
+              iconColor="white"
+              linearColor={['#002b5d', '#ad2d65']}
+              onPress={() => navigation.navigate('SignUpScreen')}
+            />
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    </>
   );
 }

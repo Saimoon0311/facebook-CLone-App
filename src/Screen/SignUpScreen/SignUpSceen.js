@@ -46,7 +46,7 @@ export default function SignUpScreen({navigation}) {
             type: 'success',
             icon: 'success',
             message: 'Your Account Has Been Created.',
-            backgroundColor: colors.themePrimaryColor,
+            backgroundColor: colors.statusBarColor,
           });
           navigation.navigate('LoginScreen');
           setLoading(false);
@@ -55,7 +55,7 @@ export default function SignUpScreen({navigation}) {
             type: 'danger',
             icon: 'danger',
             message: 'Some thing want wrong.',
-            backgroundColor: colors.themePrimaryColor,
+            backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
         } else {
@@ -69,7 +69,7 @@ export default function SignUpScreen({navigation}) {
         type: 'danger',
         icon: 'danger',
         message: 'Please complete all fields',
-        backgroundColor: colors.themePrimaryColor,
+        backgroundColor: colors.statusBarColor,
       });
       setLoading(false);
     }

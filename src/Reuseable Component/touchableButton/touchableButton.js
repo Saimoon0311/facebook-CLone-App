@@ -49,7 +49,6 @@ export const TouchableButton = props => {
       <View
         style={{
           width: wp('50'),
-          backgroundColor: colors.themePrimaryColor,
           justifyContent: 'center',
         }}>
         {/* <Text
@@ -66,7 +65,11 @@ export const TouchableButton = props => {
           <Text style={styles.continueText}>{props?.text}</Text>
         )}
       </View>
-      <View style={{width: wp('10')}}></View>
+      <View
+        style={{
+          width: wp('10'),
+          overflow: 'hidden',
+        }}></View>
     </TouchableOpacity>
 
     // <TouchableOpacity onPress={props?.onPress}>

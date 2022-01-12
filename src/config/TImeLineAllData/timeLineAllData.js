@@ -76,6 +76,7 @@ export const TimeLineData = props => {
           data={props?.timeLineData}
           keyExtractor={item => item.key}
           nestedScrollEnabled={true}
+          scrollEnabled={false}
           contentContainerStyle={{paddingBottom: hp('5')}}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => {
@@ -131,7 +132,10 @@ export const TimeLineData = props => {
                             {item.image.length == 1 ? (
                               <>
                                 <Image
-                                  source={{uri: IMAGE_BASED_URL + res}}
+                                  // source={{uri: IMAGE_BASED_URL + res}}
+                                  source={{
+                                    uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                  }}
                                   style={{
                                     width: wp('100'),
                                     height: hp('40'),
@@ -141,7 +145,10 @@ export const TimeLineData = props => {
                             ) : item.image.length == 2 ? (
                               <View>
                                 <Image
-                                  source={{uri: IMAGE_BASED_URL + res}}
+                                  // source={{uri: IMAGE_BASED_URL + res}}
+                                  source={{
+                                    uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                  }}
                                   style={{
                                     width: wp('50'),
                                     height: hp('40'),
@@ -158,7 +165,10 @@ export const TimeLineData = props => {
                                 {item.image.length >= 3 && (
                                   <TouchableOpacity>
                                     <Image
-                                      source={{uri: IMAGE_BASED_URL + res}}
+                                      // source={{uri: IMAGE_BASED_URL + res}}
+                                      source={{
+                                        uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                      }}
                                       style={{
                                         width: wp('50'),
                                         height: hp('30'),

@@ -17,7 +17,7 @@ import {
 export const styles = StyleSheet.create({
   box: {
     justifyContent: 'center',
-    backgroundColor: '#F3F5F7',
+    backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.4,

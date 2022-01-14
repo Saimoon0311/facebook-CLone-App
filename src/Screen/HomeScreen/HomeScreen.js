@@ -11,6 +11,7 @@ import {
   Pressable,
   RefreshControl,
   ToastAndroid,
+  Animated,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -32,6 +33,7 @@ import {showMessage} from 'react-native-flash-message';
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
+
 export default function HomeScreen() {
   const toast = useToast();
 

@@ -39,16 +39,17 @@ export const TouchableButton = props => {
       }}>
       <View
         style={{
-          width: wp('10'),
+          width: wp('13'),
           justifyContent: 'center',
           alignItems: 'center',
           paddingLeft: hp('2'),
+          // backgroundColor: 'red',
         }}>
         <Ionicons name={props?.iconName} size={25} color={props?.iconColor} />
       </View>
       <View
         style={{
-          width: wp('50'),
+          width: wp('47'),
           justifyContent: 'center',
         }}>
         {/* <Text

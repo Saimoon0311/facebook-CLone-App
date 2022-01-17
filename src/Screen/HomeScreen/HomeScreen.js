@@ -62,13 +62,11 @@ export default function HomeScreen() {
       }
     });
   };
-  const likeAndDislike = id => {
+  const likeAndDislike = (id, val) => {
     var body = JSON.stringify({
       userId: user._id,
     });
     var url = LikeUrl + id + '/like';
-    console.log(61, url);
-    console.log(61, body);
     ApiPut(url, body).then(res => {
       if (res.success == true) {
         if (res?.data == 'The post has been liked!') {

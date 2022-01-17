@@ -178,13 +178,12 @@ export default function groupScreen() {
                 <LinearGradient
                   style={{
                     height: hp('20'),
-                    opacity: 0.6,
+                    opacity: 0.7,
                   }}
-                  colors={['transparent', 'black']}>
-                  <Text numberOfLines={2} style={styles.groupTitle}>
-                    sdjsdssjdhfsjdfjksdhfhdfhsdnfksdfn
-                  </Text>
-                </LinearGradient>
+                  colors={['transparent', 'black']}></LinearGradient>
+                <Text numberOfLines={2} style={styles.groupTitle}>
+                  sdjldhvjklshdvjshdvh
+                </Text>
               </ImageBackground>
             </TouchableOpacity>
           );

@@ -55,12 +55,14 @@ import {
   UIActivityIndicator,
   WaveIndicator,
 } from 'react-native-indicators';
+import * as Animatable from 'react-native-animatable';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
   const [dummyImages, setDummyImages] = useState([]);
   const [modaShow, setModalShow] = useState(false);
   const [like, setLike] = useState(false);
+  const [stateBounce, setStateBounce] = useState('');
   var dummy;
 
   return (
@@ -74,6 +76,7 @@ export const TimeLineData = props => {
       ) : (
         <FlatList
           data={props?.timeLineData}
+          extraData={props?.timeLineData}
           keyExtractor={item => item.key}
           nestedScrollEnabled={true}
           scrollEnabled={false}
@@ -194,28 +197,39 @@ export const TimeLineData = props => {
                 )}
                 <View style={styles.likeShareContainer}>
                   <TouchableOpacity
-                    onPress={() => props?.like(item._id)}
+                    onPress={() => {
+                      props?.like(item._id);
+                      setStateBounce('bounceIn');
+                    }}
                     style={styles.likeButton}>
-                    <Text
-                      style={{
-                        ...styles.shareText,
-                        color: item.likes.includes(props?.user._id)
-                          ? '#2055FB'
-                          : 'black',
-                      }}>
-                      Like
-                    </Text>
-                    <AntDesign
-                      name={
-                        item.likes.includes(props?.user._id) ? 'like1' : 'like2'
-                      }
-                      size={20}
-                      color={
-                        item.likes.includes(props?.user._id)
-                          ? '#2055FB'
-                          : 'gray'
-                      }
-                    />
+                    <Animatable.View
+                      onAnimationEnd={() => setStateBounce('')}
+                      animation={stateBounce}
+                      easing="ease-in-circ"
+                      style={styles.likeButton}>
+                      <Text
+                        style={{
+                          ...styles.shareText,
+                          color: item.likes.includes(props?.user._id)
+                            ? '#2055FB'
+                            : 'black',
+                        }}>
+                        Like
+                      </Text>
+                      <AntDesign
+                        name={
+                          item.likes.includes(props?.user._id)
+                            ? 'like1'
+                            : 'like2'
+                        }
+                        size={20}
+                        color={
+                          item.likes.includes(props?.user._id)
+                            ? '#2055FB'
+                            : 'gray'
+                        }
+                      />
+                    </Animatable.View>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>

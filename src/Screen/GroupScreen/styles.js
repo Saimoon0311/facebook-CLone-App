@@ -108,5 +108,6 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.5'),
     marginLeft: wp('2'),
     marginRight: wp('2'),
+    marginBottom: hp('1'),
   },
 });

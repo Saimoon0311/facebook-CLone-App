@@ -96,32 +96,8 @@ export function TopbartabBarHeader() {
     return (
       <Animatable.View
         animation={isFouced == true ? 'fadeInRightBig' : 'fadeOutRightBig'}
-        // direction="alternate"
-        // animation={'fadeInRightBig'}
-        // iterationCount={'infinite'}
-        // iterationDelay={6000}
-
-        style={{
-          position: 'absolute',
-          zIndex: 1,
-          // backgroundColor: 'green',
-          height: hp('100'),
-          backgroundColor: 'white',
-        }}>
-        <View
-          style={{
-            width: wp('100'),
-            // height: hp('100'),
-            top: 0,
-            justifyContent: 'space-around',
-            // backgroundColor: 'yellow',
-            flexDirection: 'row',
-            // alignItems: 'center',
-            // position: 'absolute',
-            // zIndex: 1,
-            paddingTop: hp('2'),
-            // flex: 1,
-          }}>
+        style={styles.animatedView}>
+        <View style={styles.insideView}>
           <TouchableOpacity
             onPress={() => setIsFouced(false)}
             style={{
@@ -135,77 +111,25 @@ export function TopbartabBarHeader() {
           <TextInput
             placeholder="Enter what you want to seacrh"
             placeholderTextColor={'gray'}
-            style={{
-              width: wp('85'),
-              backgroundColor: '#E7E7E7',
-              borderRadius: 30,
-              height: hp('8'),
-              paddingLeft: wp('5'),
-              marginRight: wp('2'),
-              color: 'black',
-              fontSize: hp('2.5'),
-            }}
+            style={styles.insideTextInput}
           />
         </View>
-        <Divider
-          style={{
-            borderColor: 'gray',
-            borderWidth: 0.3,
-            marginTop: hp('2'),
-            marginBottom: hp('2'),
-          }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: wp('93'),
-            alignSelf: 'center',
-          }}>
-          <Text style={{fontSize: hp('3'), color: 'black', fontWeight: 'bold'}}>
-            Recent searches
-          </Text>
+        <Divider style={styles.divider} />
+        <View style={styles.recentView}>
+          <Text style={styles.recentViewText}>Recent searches</Text>
           <TouchableOpacity>
             <Text style={{color: '#3C7EFA', fontSize: hp('2.5')}}>See all</Text>
           </TouchableOpacity>
         </View>
         {seacrh.map(res => {
           return (
-            <View
-              style={{
-                flexDirection: 'row',
-                // justifyContent: 'space-between',
-                width: wp('93'),
-                alignSelf: 'center',
-                alignItems: 'center',
-                marginTop: hp('2'),
-                // backgroundColor: 'green',
-                height: hp('10'),
-              }}>
+            <View style={styles.recentSearchView}>
               <Image
                 source={require('../Images/mountain.jpeg')}
-                style={{
-                  borderRadius: Math.round(
-                    Dimensions.get('window').width +
-                      Dimensions.get('window').height,
-                  ),
-                  width: Dimensions.get('screen').width * 0.13,
-                  height: Dimensions.get('screen').width * 0.13,
-                  backgroundColor: 'white',
-                  marginRight: wp('2'),
-                }}
+                style={styles.recentSearchImage}
               />
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontSize: hp('2.5'),
-                  color: 'black',
-                  fontWeight: 'bold',
-                  // backgroundColor: 'yellow',
-                  width: wp('65'),
-                }}>
-                hshdlksdn
+              <Text numberOfLines={2} style={styles.recentViewTexts}>
+                hshdlksd
               </Text>
               <TouchableOpacity style={{marginLeft: wp('5')}}>
                 <Entypo name="cross" size={30} color={'gray'} />
@@ -220,21 +144,14 @@ export function TopbartabBarHeader() {
     <>
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
       {showInputField()}
-      <Animatable.View
-        style={styles.maincontainer}
-        // animation={'fadeOutRightBig'}
-      >
+      <Animatable.View style={styles.maincontainer}>
         <View style={{width: wp('70')}}>
           <Animatable.Image
             source={require('../Images/splashImage.png')}
             style={{
-              width: wp('40'),
+              width: wp('50'),
               height: hp('10'),
             }}
-            // blurRadius={}
-            // iterationDelay={1000}
-            // iterationCount="infinite"
-            // animation={fade}
           />
         </View>
         <TouchableOpacity
@@ -341,5 +258,79 @@ const styles = StyleSheet.create({
   },
   itemIcon: {
     marginLeft: 15,
+  },
+  animatedView: {
+    position: 'absolute',
+    zIndex: 1,
+    // backgroundColor: 'green',
+    height: hp('100'),
+    backgroundColor: 'white',
+  },
+  insideView: {
+    width: wp('100'),
+    // height: hp('100'),
+    top: 0,
+    justifyContent: 'space-around',
+    // backgroundColor: 'yellow',
+    flexDirection: 'row',
+    // alignItems: 'center',
+    // position: 'absolute',
+    // zIndex: 1,
+    paddingTop: hp('2'),
+    // flex: 1,
+  },
+  insideTextInput: {
+    width: wp('85'),
+    backgroundColor: '#E7E7E7',
+    borderRadius: 30,
+    height: hp('6'),
+    paddingLeft: wp('5'),
+    marginRight: wp('2'),
+    color: 'black',
+    fontSize: hp('2.5'),
+  },
+  divider: {
+    borderColor: 'gray',
+    borderWidth: 0.3,
+    marginTop: hp('2'),
+    marginBottom: hp('2'),
+  },
+  recentView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: wp('93'),
+    alignSelf: 'center',
+  },
+  recentViewText: {
+    fontSize: hp('3'),
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  recentSearchView: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    width: wp('93'),
+    alignSelf: 'center',
+    alignItems: 'center',
+    marginTop: hp('2'),
+    // backgroundColor: 'green',
+    // height: hp('10'),
+  },
+  recentSearchImage: {
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    width: Dimensions.get('screen').width * 0.13,
+    height: Dimensions.get('screen').width * 0.13,
+    backgroundColor: 'white',
+    marginRight: wp('2'),
+  },
+  recentViewTexts: {
+    fontSize: hp('2.5'),
+    color: 'black',
+    fontWeight: 'bold',
+    // backgroundColor: 'yellow',
+    width: wp('65'),
   },
 });

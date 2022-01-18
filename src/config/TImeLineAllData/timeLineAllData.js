@@ -205,7 +205,7 @@ export const TimeLineData = props => {
                     <Animatable.View
                       onAnimationEnd={() => setStateBounce('')}
                       animation={stateBounce}
-                      easing="ease-in-circ"
+                      // easing="ease-in-circ"
                       style={styles.likeButton}>
                       <Text
                         style={{

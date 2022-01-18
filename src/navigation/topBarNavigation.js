@@ -31,33 +31,25 @@ export default function TopBarNavigation() {
         tabBarActiveTintColor: colors.themePrimaryColor,
         tabBarActiveBackgroundColor: '#E9691D',
         tabBarInactiveTintColor: 'gray',
-        // tabBarInactiveTintColor: '#512500',
         upperCaseLabel: false,
-        // tabBarItemStyle:{
-
-        // },
         tabBarIndicatorStyle: {
           backgroundColor: colors.themePrimaryColor,
         },
       })}>
       <Tab.Screen
-        // name="FriendRequestScreen"
         name="Home"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home-outline" color={color} size={hp('4')} />
+            <Ionicons name="home-outline" color={color} size={wp('7')} />
           ),
           title: '',
           tabBarLabelStyle: {
             fontSize: 0,
             fontWeight: 'bold',
-            // marginBottom: hp(Platform?.OS == 'ios' ? '0' : '0'),
           },
         }}
         component={Screens.HomeScreen}
-        // component={Screens.FriendRequestScreen}
       />
-      {/* <Tab.Screen name="HomeScreen" component={Screens.HomeScreen} /> */}
       <Tab.Screen
         name="groupScreen"
         options={{
@@ -65,15 +57,13 @@ export default function TopBarNavigation() {
             <MaterialCommunityIcons
               name="account-group-outline"
               color={color}
-              size={hp('4.2')}
+              size={wp('7')}
             />
           ),
           title: '',
           tabBarLabelStyle: {
             fontSize: 0,
-            // fontSize: 15,
             fontWeight: 'bold',
-            // marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
         component={Screens.groupScreen}
@@ -82,14 +72,12 @@ export default function TopBarNavigation() {
         name="videoScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <MaterialIcons name="live-tv" color={color} size={hp('4.3')} />
+            <MaterialIcons name="live-tv" color={color} size={wp('7')} />
           ),
           title: '',
           tabBarLabelStyle: {
             fontSize: 0,
-            // fontSize: 15,
             fontWeight: 'bold',
-            // marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
         component={Screens.videoScreen}
@@ -101,15 +89,13 @@ export default function TopBarNavigation() {
             <Ionicons
               name="notifications-outline"
               color={color}
-              size={hp('4')}
+              size={wp('7')}
             />
           ),
           title: '',
           tabBarLabelStyle: {
             fontSize: 0,
-            // fontSize: 15,
             fontWeight: 'bold',
-            // marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
         component={Screens.NotificationScreen}
@@ -118,13 +104,12 @@ export default function TopBarNavigation() {
         name="ProfileScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="list" color={color} size={hp('4')} />
+            <Ionicons name="list" color={color} size={wp('7')} />
           ),
           title: '',
           tabBarLabelStyle: {
             fontSize: 0,
             fontWeight: 'bold',
-            // marginBottom: hp(Platform?.OS == 'ios' ? '0' : '1'),
           },
         }}
         component={Screens.ProfileScreen}

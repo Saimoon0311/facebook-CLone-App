@@ -60,7 +60,7 @@ export const SharePostMoadl = props => {
         if (!res?.didCancel) {
           setImageFromGalary(res?.assets);
           // setImageFromGalary(...imageFromGalary, res?.assets);
-          console.log('Result', res?.assets);
+          // console.log('Result', res?.assets);
 
           // console.log('State', imageFromGalary);
         }
@@ -220,7 +220,7 @@ export const SharePostMoadl = props => {
                     <View style={styles.selectImageStyle}>
                       <VideoPlayer
                         video={{uri: res?.uri}}
-                        resizeMode="contain"
+                        resizeMode="cover"
                         hideControlsOnStart={false}
                         fullScreenOnLongPress={true}
                         disableFullscreen={false}
@@ -258,6 +258,7 @@ export const SharePostMoadl = props => {
                   ) : (
                     <ImageBackground
                       source={{uri: res?.uri}}
+                      resizeMode="cover"
                       style={styles.selectImageStyle}>
                       <TouchableOpacity onPress={() => removeImage(i)}>
                         <Entypo

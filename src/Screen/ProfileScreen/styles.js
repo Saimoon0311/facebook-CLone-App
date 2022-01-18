@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     fontSize: hp('2.5'),
   },
   AccordionHeaderContainer: {
-    height: hp('10'),
+    height: hp('8'),
     marginTop: hp('1'),
     alignItems: 'center',
     flexDirection: 'row',
@@ -60,11 +60,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   AccordionContentContainer: {
-    width: wp('92.5'),
+    width: wp('92'),
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: hp('2'),
-    height: hp('9'),
+    height: hp('8'),
     paddingLeft: wp('3'),
     backgroundColor: 'white',
     shadowColor: '#000',
@@ -73,10 +73,20 @@ export const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 2,
     borderRadius: hp('2'),
+    alignSelf: 'center',
   },
   AccordionContentTitle: {
     fontSize: hp('3'),
     marginLeft: wp('4'),
     color: 'black',
+  },
+  logoutButton: {
+    backgroundColor: '#D6D6D8',
+    width: wp('92.5'),
+    height: hp('7'),
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp('2'),
   },
 });

@@ -146,7 +146,7 @@ export default function ProfileScreen() {
         <View style={{width: wp('12')}}>
           <FontAwesome5 name="question-circle" color={'gray'} size={30} />
         </View>
-        <View style={{width: wp('65')}}>
+        <View style={{width: wp('72')}}>
           <Text style={styles.AccordionHeaderTitle}>Help & Support</Text>
         </View>
         <View style={{width: wp('12')}}>
@@ -170,7 +170,6 @@ export default function ProfileScreen() {
       );
     });
   };
-
   const updateSectionssetting = e => {
     setActiveSessiontSetting(e);
   };
@@ -180,7 +179,7 @@ export default function ProfileScreen() {
         <View style={{width: wp('12')}}>
           <Ionicons name="settings" color={'gray'} size={30} />
         </View>
-        <View style={{width: wp('65')}}>
+        <View style={{width: wp('72')}}>
           <Text style={styles.AccordionHeaderTitle}>Setting & Privacy</Text>
         </View>
         <View style={{width: wp('12')}}>
@@ -209,7 +208,6 @@ export default function ProfileScreen() {
     <ScrollView
       contentContainerStyle={{
         paddingBottom: hp('5'),
-        // backgroundColor: 'yellow',
       }}
       showsVerticalScrollIndicator={false}>
       <View style={styles.mainContainer}>
@@ -252,23 +250,9 @@ export default function ProfileScreen() {
           onPress={() =>
             setTimeout(() => {
               actions.logout();
-              // showMessage({
-              //   type: 'success',
-              //   icon: 'auto',
-              //   message: 'Your are successfully logout!',
-              //   backgroundColor: '#E9691D',
-              // });
             }, 10)
           }
-          style={{
-            backgroundColor: '#D6D6D8',
-            width: wp('92.5'),
-            height: hp('9'),
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: hp('2'),
-          }}>
+          style={styles.logoutButton}>
           <Text style={{color: 'black', fontSize: hp('2.5')}}>Log Out</Text>
         </TouchableOpacity>
       </View>

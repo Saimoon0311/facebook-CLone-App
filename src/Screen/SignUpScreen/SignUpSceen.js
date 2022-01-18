@@ -99,17 +99,15 @@ export default function SignUpScreen({navigation}) {
   // }
   return (
     <ImageBackground
-      style={{width: wp('100'), height: hp('100')}}
-      // locations={[0, 2]}
-      // colors={['#FF9898', '#DDE0F7']}
-      // start={{x: 1, y: 0, z: 0}}
-      // end={{x: 0, y: 1, z: 1}}
-      // resizeMode="cover"
-
+      style={{width: wp('100'), height: hp('100'), flex: 1}}
       source={require('../../Images/rm222batch3-mind-03.jpg')}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: hp('10')}}>
+        // alwaysBounceVertical={true}
+        contentContainerStyle={{
+          paddingBottom: hp('20'),
+          // backgroundColor: 'yellow',
+        }}>
         <View style={styles.mainContainer}>
           <MaterialIcons
             name="facebook"

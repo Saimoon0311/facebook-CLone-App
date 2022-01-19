@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     //     marginRight: wp('1'),
-    marginLeft: wp('3'),
+    marginLeft: wp('16'),
   },
   topActiveTitleConatiner: {
     backgroundColor: '#d6edff',

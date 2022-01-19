@@ -50,11 +50,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
 import {colors} from '../../Reuseable Component/color';
 import LinearGradient from 'react-native-linear-gradient';
+import {ShowInputField} from '../../Reuseable Component/ShowInputField/showInputField';
 
 export default function groupScreen() {
   const [timeLineData, setTimeLineData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
+
   const likeAndDislike = id => {
     var body = JSON.stringify({
       userId: user._id,
@@ -97,6 +99,7 @@ export default function groupScreen() {
     });
   };
   const [like, setLike] = useState(false);
+  const [isFouced, setIsFouced] = useState(false);
   const [group, setGroup] = useState([
     {
       id: 1,
@@ -106,6 +109,9 @@ export default function groupScreen() {
     },
     {
       id: 3,
+    },
+    {
+      id: 4,
     },
   ]);
   const getTimeLineData = async () => {
@@ -130,21 +136,33 @@ export default function groupScreen() {
   }, []);
   return (
     <ScrollView>
+      <ShowInputField
+        onPress={isFouced}
+        hideInputField={() => setIsFouced(false)}
+      />
       <View style={{backgroundColor: 'white'}}>
         <View style={styles.headerContainer}>
           <View style={styles.headerTitleConatiner}>
             <Text style={styles.headerTitle}>Group</Text>
           </View>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              // backgroundColor: 'red',
+              right: wp('-15'),
+            }}>
             <TouchableOpacity style={styles.sideicon}>
               <Ionicons name="add-circle" size={26} color={'#1A1A1A'} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.sideicon}>
               <Ionicons name="settings-sharp" size={26} color={'#1A1A1A'} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.sideicon}>
+            {/* <TouchableOpacity
+              onPress={() => setIsFouced(true)}
+              style={styles.sideicon}>
               <Ionicons name="search" size={26} color={'#1A1A1A'} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.topTitleContainer}>

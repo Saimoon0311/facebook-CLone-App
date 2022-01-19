@@ -45,7 +45,8 @@ export default function SignUpScreen({navigation}) {
           showMessage({
             type: 'success',
             icon: 'success',
-            message: 'Your Account Has Been Created.',
+            message: 'Success',
+            duration: 'Your Account Has Been Created.',
             backgroundColor: colors.statusBarColor,
           });
           navigation.navigate('LoginScreen');
@@ -54,7 +55,8 @@ export default function SignUpScreen({navigation}) {
           showMessage({
             type: 'danger',
             icon: 'danger',
-            message: 'Some thing want wrong.',
+            message: 'Warning',
+            description: 'Some thing want wrong.',
             backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
@@ -68,7 +70,8 @@ export default function SignUpScreen({navigation}) {
       showMessage({
         type: 'danger',
         icon: 'danger',
-        message: 'Please complete all fields',
+        message: 'Warning',
+        description: 'Please complete all fields',
         backgroundColor: colors.statusBarColor,
       });
       setLoading(false);
@@ -117,13 +120,13 @@ export default function SignUpScreen({navigation}) {
           <LinearTextGradient
             style={styles.Heading}
             locations={[0, 1]}
-            colors={['red', 'blue']}
-            start={{x: 0, y: 0}}
+            colors={[colors.statusBarColor, colors.themePrimaryColor]}
+            start={{x: 0, y: 5}}
             end={{x: 1, y: 0}}>
             <Text>Sign Up With facebook</Text>
           </LinearTextGradient>
           <InputField
-            label="username"
+            label="Username"
             onChangeText={e => setUsername(e)}
             value={username}
             firstIconName="person-outline"
@@ -144,7 +147,6 @@ export default function SignUpScreen({navigation}) {
             secureTextEntry={show ? false : true}
             onPress={handleClick}
             SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}
-            // keyboardType="visible-password"
           />
           <InputField
             label="Confirm Password"
@@ -154,7 +156,6 @@ export default function SignUpScreen({navigation}) {
             secureTextEntry={showConfirm ? false : true}
             onPress={handleClickConfirm}
             SecondIconName={showConfirm ? 'eye-outline' : 'eye-off-outline'}
-            // keyboardType="visible-password"
           />
           <TouchableButton
             bgColor="red"
@@ -173,7 +174,6 @@ export default function SignUpScreen({navigation}) {
             iconName="log-in-outline"
             iconColor="white"
             linearColor={['#002b5d', '#ad2d65']}
-            // linearColor={['yellow', 'red']}
             onPress={() => navigation.navigate('LoginScreen')}
           />
         </View>

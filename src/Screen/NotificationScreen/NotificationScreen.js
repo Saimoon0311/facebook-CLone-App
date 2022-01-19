@@ -52,10 +52,12 @@ import {colors} from '../../Reuseable Component/color';
 import LinearGradient from 'react-native-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {
-  MenuProvider,
   MenuContext,
-  MenuTrigger,
+  Menu,
+  MenuOptions,
   MenuOption,
+  MenuTrigger,
+  MenuProvider,
 } from 'react-native-popup-menu';
 
 export default function NotificationScreen() {
@@ -76,89 +78,130 @@ export default function NotificationScreen() {
       id: 5,
     },
   ]);
+  const [notificationColor, setNotificationColor] = useState(true);
   return (
-    <ScrollView
-      contentContainerStyle={{paddingBottom: hp('5')}}
-      showsVerticalScrollIndicator={false}>
-      <View style={{backgroundColor: 'white'}}>
-        <View style={styles.headerContainer}>
-          <View style={styles.headerTitleConatiner}>
-            <Text style={styles.headerTitle}>Notifications</Text>
-          </View>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+    <MenuContext>
+      <ScrollView
+        contentContainerStyle={{paddingBottom: hp('5')}}
+        showsVerticalScrollIndicator={false}>
+        <View style={{backgroundColor: 'white'}}>
+          <View style={styles.headerContainer}>
+            <View style={styles.headerTitleConatiner}>
+              <Text style={styles.headerTitle}>Notifications</Text>
+            </View>
+            {/* <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <TouchableOpacity style={styles.sideicon}>
               <Ionicons name="search" size={26} color={'#1A1A1A'} />
             </TouchableOpacity>
+          </View> */}
           </View>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: hp('3'),
+              marginLeft: wp('2.5'),
+              marginBottom: hp('2'),
+            }}>
+            New
+          </Text>
         </View>
-        <Text
-          style={{color: 'black', fontSize: hp('3'), marginLeft: wp('2.5')}}>
-          New
-        </Text>
-      </View>
-      <View>
-        {notificationNumber.map(res => {
-          return (
-            <TouchableOpacity
-              style={{
-                flexDirection: 'row',
-                paddingTop: hp('3'),
-                backgroundColor: '#e7f3ff',
-              }}>
-              <View
+        <View>
+          {notificationNumber.map(res => {
+            return (
+              <TouchableOpacity
                 style={{
-                  width: wp('30'),
+                  flexDirection: 'row',
+                  paddingTop: hp('3'),
+                  backgroundColor: '#e7f3ff',
                 }}>
-                <Image
-                  source={{
-                    uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-                  }}
+                <View
                   style={{
-                    borderRadius: Math.round(
-                      Dimensions.get('window').width +
-                        Dimensions.get('window').height,
-                    ),
-                    width: Dimensions.get('screen').width * 0.25,
-                    height: Dimensions.get('screen').width * 0.25,
-                    alignSelf: 'center',
-                  }}
-                />
-              </View>
-              <View style={{width: wp('60')}}>
-                <Text
-                  numberOfLines={3}
-                  style={{fontSize: hp('2.5'), color: 'black', lineHeight: 22}}>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </Text>
-                <Text style={{color: 'gray', fontSize: hp('2.2')}}>
-                  3 hours ago
-                </Text>
-              </View>
-              <MenuContext
+                    width: wp('30'),
+                  }}>
+                  <Image
+                    source={{
+                      uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                    }}
+                    style={{
+                      borderRadius: Math.round(
+                        Dimensions.get('window').width +
+                          Dimensions.get('window').height,
+                      ),
+                      width: Dimensions.get('screen').width * 0.24,
+                      height: Dimensions.get('screen').width * 0.24,
+                      alignSelf: 'center',
+                    }}
+                  />
+                </View>
+                <View style={{width: wp('60')}}>
+                  <Text
+                    numberOfLines={3}
+                    style={{
+                      fontSize: hp('2.5'),
+                      color: 'black',
+                      lineHeight: 22,
+                    }}>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  </Text>
+                  <Text style={{color: 'gray', fontSize: hp('2.2')}}>
+                    3 hours ago
+                  </Text>
+                </View>
+                {/* <MenuContext
                 disableTouchable={false}
                 onSelect={() => alert('bdf')}>
-                <TouchableOpacity style={{marginTop: hp('2')}}>
-                  <Entypo
-                    name="dots-three-horizontal"
-                    size={20}
-                    color={'black'}
-                  />
-                </TouchableOpacity>
-              </MenuContext>
-              {/* <MenuTrigger text="asdasdasd" /> */}
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    </ScrollView>
+                <MenuTrigger>
+                  <TouchableOpacity style={{marginTop: hp('2')}}>
+                    <Entypo
+                      name="dots-three-horizontal"
+                      size={20}
+                      color={'black'}
+                    />
+                  </TouchableOpacity>
+                </MenuTrigger>
+              </MenuContext> */}
+                {/* <MenuContext style={{marginTop: hp('2')}}> */}
+                <Menu>
+                  <MenuTrigger>
+                    <Entypo
+                      name="dots-three-horizontal"
+                      size={20}
+                      color={'black'}
+                    />
+                  </MenuTrigger>
+                  <MenuOptions
+                    customStyles={{
+                      optionsContainer: {
+                        marginTop: hp('-15'),
+                      },
+                    }}>
+                    <MenuOption />
+                    <MenuOption onSelect={() => alert(`Delete`)}>
+                      <Text style={{color: 'red'}}>Delete</Text>
+                    </MenuOption>
+                    <MenuOption
+                      onSelect={() => alert(`Not called`)}
+                      disabled={true}
+                      text="Disabled"
+                    />
+                  </MenuOptions>
+                </Menu>
+                {/* </MenuContext> */}
+                {/* <MenuTrigger text="asdasdasd" /> */}
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </MenuContext>
   );
 }

@@ -73,7 +73,6 @@ export default function videoScreen() {
             ToastAndroid.BOTTOM,
             25,
             500,
-            // ToastAndroid.
           );
         } else if (res?.data == 'The post has been disliked!') {
           setLike(false);
@@ -91,7 +90,6 @@ export default function videoScreen() {
           ToastAndroid.BOTTOM,
           25,
           500,
-          // ToastAndroid.
         );
       }
     });
@@ -124,12 +122,12 @@ export default function videoScreen() {
           <View style={styles.headerTitleConatiner}>
             <Text style={styles.headerTitle}>Watch</Text>
           </View>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row'}}>
+            {/* <TouchableOpacity style={styles.sideicon}>
+              <Ionicons name="person-sharp" size={26} color={'#1A1A1A'} />
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.sideicon}>
               <Ionicons name="person-sharp" size={26} color={'#1A1A1A'} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.sideicon}>
-              <Ionicons name="search" size={26} color={'#1A1A1A'} />
             </TouchableOpacity>
           </View>
         </View>

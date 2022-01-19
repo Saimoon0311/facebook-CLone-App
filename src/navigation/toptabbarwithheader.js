@@ -27,6 +27,7 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 import * as Animatable from 'react-native-animatable';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {ShowInputField} from '../Reuseable Component/ShowInputField/showInputField';
 // MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
 
 export function TopbartabBarHeader() {
@@ -92,58 +93,61 @@ export function TopbartabBarHeader() {
       // duration: 2000,
     },
   };
-  const showInputField = () => {
-    return (
-      <Animatable.View
-        animation={isFouced == true ? 'fadeInRightBig' : 'fadeOutRightBig'}
-        style={styles.animatedView}>
-        <View style={styles.insideView}>
-          <TouchableOpacity
-            onPress={() => setIsFouced(false)}
-            style={{
-              ...styles.sideicon,
-              alignSelf: 'auto',
-              marginTop: hp('0.5'),
-              backgroundColor: 'white',
-            }}>
-            <Ionicons name="md-arrow-back-sharp" size={26} color={'#1A1A1A'} />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="Enter what you want to seacrh"
-            placeholderTextColor={'gray'}
-            style={styles.insideTextInput}
-          />
-        </View>
-        <Divider style={styles.divider} />
-        <View style={styles.recentView}>
-          <Text style={styles.recentViewText}>Recent searches</Text>
-          <TouchableOpacity>
-            <Text style={{color: '#3C7EFA', fontSize: hp('2.5')}}>See all</Text>
-          </TouchableOpacity>
-        </View>
-        {seacrh.map(res => {
-          return (
-            <View style={styles.recentSearchView}>
-              <Image
-                source={require('../Images/mountain.jpeg')}
-                style={styles.recentSearchImage}
-              />
-              <Text numberOfLines={2} style={styles.recentViewTexts}>
-                hshdlksd
-              </Text>
-              <TouchableOpacity style={{marginLeft: wp('5')}}>
-                <Entypo name="cross" size={30} color={'gray'} />
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      </Animatable.View>
-    );
-  };
+  // const showInputField = () => {
+  //   return (
+  //     <Animatable.View
+  //       animation={isFouced == true ? 'fadeInRightBig' : 'fadeOutRightBig'}
+  //       style={styles.animatedView}>
+  //       <View style={styles.insideView}>
+  //         <TouchableOpacity
+  //           onPress={() => setIsFouced(false)}
+  //           style={{
+  //             ...styles.sideicon,
+  //             alignSelf: 'auto',
+  //             marginTop: hp('0.5'),
+  //             backgroundColor: 'white',
+  //           }}>
+  //           <Ionicons name="md-arrow-back-sharp" size={26} color={'#1A1A1A'} />
+  //         </TouchableOpacity>
+  //         <TextInput
+  //           placeholder="Enter what you want to seacrh"
+  //           placeholderTextColor={'gray'}
+  //           style={styles.insideTextInput}
+  //         />
+  //       </View>
+  //       <Divider style={styles.divider} />
+  //       <View style={styles.recentView}>
+  //         <Text style={styles.recentViewText}>Recent searches</Text>
+  //         <TouchableOpacity>
+  //           <Text style={{color: '#3C7EFA', fontSize: hp('2.5')}}>See all</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //       {seacrh.map(res => {
+  //         return (
+  //           <View style={styles.recentSearchView}>
+  //             <Image
+  //               source={require('../Images/mountain.jpeg')}
+  //               style={styles.recentSearchImage}
+  //             />
+  //             <Text numberOfLines={2} style={styles.recentViewTexts}>
+  //               hshdlksd
+  //             </Text>
+  //             <TouchableOpacity style={{marginLeft: wp('5')}}>
+  //               <Entypo name="cross" size={30} color={'gray'} />
+  //             </TouchableOpacity>
+  //           </View>
+  //         );
+  //       })}
+  //     </Animatable.View>
+  //   );
+  // };
   return (
     <>
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
-      {showInputField()}
+      <ShowInputField
+        onPress={isFouced}
+        hideInputField={() => setIsFouced(false)}
+      />
       <Animatable.View style={styles.maincontainer}>
         <View style={{width: wp('70')}}>
           <Animatable.Image

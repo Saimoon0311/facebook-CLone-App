@@ -213,9 +213,9 @@ export default function ProfileScreen() {
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
           <Text style={{color: 'black', fontSize: hp('4')}}>Menu</Text>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Ionicons name="search" size={hp('5')} color={'black'} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity style={{flexDirection: 'row', marginBottom: hp('2')}}>
           <Image

@@ -72,6 +72,8 @@ export const styles = StyleSheet.create({
     width: wp('100'),
     marginTop: hp('3'),
     marginBottom: hp('2'),
+    marginRight: wp('1'),
+    // backgroundColor: 'blue',
   },
   headerTitleConatiner: {
     width: wp('55'),

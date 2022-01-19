@@ -31,7 +31,6 @@ export default function LoginScreen({navigation}) {
   const handleClick = () => setShow(!show);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -55,40 +54,33 @@ export default function LoginScreen({navigation}) {
           email,
           password,
         });
-        // console.log('res=== 83', res);
         if (res.data == 'user not found!') {
           showMessage({
             type: 'danger',
             icon: 'danger',
-            message: 'user not found!',
+            message: 'Warning',
+            description: 'user not found!',
             backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
-          // console.log('res=== 86 ', res);
         } else if (res.data == 'wrong password!') {
           showMessage({
             type: 'danger',
             icon: 'danger',
-            message: 'wrong password!',
+            message: 'Warning',
+            description: 'wrong password!',
             backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
-          // console.log('res=== 86 ', res);
         } else {
-          // showMessage({
-          //   type: 'success',
-          //   icon: 'success',
-          //   message: 'User Login Success',
-          // });
-          // console.log(res);
           setLoading(false);
         }
       } catch (error) {
-        // console.log('errot', error);
         showMessage({
           type: 'danger',
           icon: 'danger',
-          message: error?.data,
+          message: 'Warning',
+          description: error?.data,
           backgroundColor: colors.statusBarColor,
         });
         setLoading(false);
@@ -97,7 +89,8 @@ export default function LoginScreen({navigation}) {
       showMessage({
         type: 'danger',
         icon: 'danger',
-        message: 'Please complete all fields',
+        message: 'Warning',
+        description: 'Please complete all fields',
         backgroundColor: colors.statusBarColor,
       });
       setLoading(false);
@@ -112,30 +105,22 @@ export default function LoginScreen({navigation}) {
       />
       <ImageBackground
         style={{width: wp('100'), height: hp('100')}}
-        // locations={[0, 2]}
-        // colors={['#FF9898', '#DDE0F7']}
-        // start={{x: 1, y: 0, z: 0}}
-        // end={{x: 0, y: 1, z: 1}}
-        // resizeMode="cover"
-
         source={require('../../Images/rm222batch3-mind-03.jpg')}>
-        {/* source={require('../../Images/welcome-one.png')}> */}
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.mainContainer}>
             <MaterialIcons
               name="facebook"
               size={100}
-              // color={'black'}
               color={colors.themePrimaryColor}
             />
-            {/* <LinearTextGradient
-            style={styles.Heading}
-            locations={[0, 1]}
-            colors={['red', 'blue']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}> */}
-            <Text style={styles.Heading}>Login With facebook</Text>
-            {/* </LinearTextGradient> */}
+            <LinearTextGradient
+              style={styles.Heading}
+              locations={[0, 1]}
+              colors={[colors.statusBarColor, colors.themePrimaryColor]}
+              start={{x: 0, y: 5}}
+              end={{x: 1, y: 0}}>
+              <Text style={styles.Heading}>Login With facebook</Text>
+            </LinearTextGradient>
             <InputField
               label="Email"
               onChangeText={e => setEmail(e)}
@@ -147,7 +132,6 @@ export default function LoginScreen({navigation}) {
               label="Password"
               onChangeText={e => setPassword(e)}
               value={password}
-              // secureTextEntry={true}
               secureTextEntry={show ? false : true}
               onPress={handleClick}
               SecondIconName={show ? 'eye-outline' : 'eye-off-outline'}

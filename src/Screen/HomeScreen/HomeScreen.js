@@ -78,7 +78,6 @@ export default function HomeScreen() {
             ToastAndroid.BOTTOM,
             25,
             500,
-            // ToastAndroid.
           );
         } else if (res?.data == 'The post has been disliked!') {
           setLike(false);
@@ -96,7 +95,6 @@ export default function HomeScreen() {
           ToastAndroid.BOTTOM,
           25,
           500,
-          // ToastAndroid.
         );
       }
     });
@@ -110,9 +108,7 @@ export default function HomeScreen() {
   }, []);
 
   const openModal = () => {
-    // return <SharePostMoadl />;
     return <Text>sjkfdjkasdfsbdabf</Text>;
-    // setModalVisible(true);
   };
 
   const [state, setState] = useState(false);
@@ -142,7 +138,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={styles.headerComponent}
             onPress={() => setState(true)}>
-            <Text style={styles.headerText}>What's on your mind?</Text>
+            <Text style={styles.headerText}>What's on your mind ?</Text>
           </TouchableOpacity>
         </View>
         <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />

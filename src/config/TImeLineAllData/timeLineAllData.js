@@ -74,6 +74,7 @@ export const TimeLineData = props => {
   const [modaShow, setModalShow] = useState(false);
   const [like, setLike] = useState(false);
   const [stateBounce, setStateBounce] = useState('');
+  let popupRef = React.createRef();
   var dummy;
 
   if (modalVisible) {

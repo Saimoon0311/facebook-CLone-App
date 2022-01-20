@@ -36,27 +36,91 @@ import Video from 'react-native-video';
 import {colors} from '../color';
 
 export const SettingModal = props => {
+  const [modalData, setModalData] = useState([
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+    {
+      id: 4,
+    },
+  ]);
+  const maxHeight = Dimensions.get('window').height;
   return (
     <Modal
       animationType="slide"
+      onRequestClose={() => props?.forHideModal()}
       // onRequestClose={}
-      style={{
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-      }}>
-      <View>
-        <Text>sddsdsd</Text>
+      visible={true}
+      transparent={true}
+      // onLayout=
+      // presentationStyle="overFullScreen"
+    >
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#000000AA',
+        }}>
+        <Pressable
+          style={{flex: 1}}
+          onPress={() => props?.forHideModal()}></Pressable>
+        <View
+          style={{
+            bottom: 0,
+            position: 'absolute',
+            width: wp('100'),
+            backgroundColor: '#DDDDDD',
+            maxHeight: Dimensions.get('screen').height * 0.8,
+            height: 'auto',
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+          }}>
+          <Divider
+            style={{
+              alignSelf: 'center',
+              width: wp('15'),
+              borderWidth: 2,
+              borderRadius: 20,
+              borderColor: '#373333',
+              marginTop: hp('2'),
+              marginBottom: hp('2'),
+            }}
+          />
+          <View
+            style={{
+              width: wp('90'),
+              alignSelf: 'center',
+              // height: hp('80'),
+              backgroundColor: 'white',
+            }}>
+            {modalData.map(res => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    margin: 10,
+                    // backgroundColor: 'red',
+                    alignItems: 'center',
+                  }}>
+                  <Ionicons name="search" size={30} color={'black'} />
+                  <Text
+                    style={{
+                      fontSize: hp('3'),
+                      marginLeft: wp('3'),
+                      color: 'black',
+                    }}>
+                    asdasd
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
       </View>
     </Modal>
   );

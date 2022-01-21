@@ -184,7 +184,7 @@ export default function groupScreen() {
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{marginTop: hp('2')}}>
+        contentContainerStyle={{marginTop: hp('2'), marginBottom: hp('1')}}>
         {group.map(res => {
           return (
             <TouchableOpacity>

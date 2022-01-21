@@ -140,6 +140,7 @@ import store from './src/Redux/store';
 import {getUserData} from './src/utils/utils';
 import {saveUserData} from './src/Redux/action/auth';
 import NetInfo from '@react-native-community/netinfo';
+import {ModalPortal} from 'react-native-modals';
 // import {StripePKey} from './resources/config/url';
 // import {StripeProvider, initStripe} from '@stripe/stripe-react-native';
 
@@ -238,7 +239,7 @@ function App({navigation}) {
         </View>
       </ImageBackground>
     );
-
+    // const id = ModalPortal.show({type: 'bottomModal'});
     return (
       <Provider store={store}>
         {isVisible === true ? (
@@ -251,6 +252,8 @@ function App({navigation}) {
             </NavigationContainer>
           </>
         )}
+        <ModalPortal />
+        {/* {id} */}
         <FlashMessage position="top" />
       </Provider>
     );

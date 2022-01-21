@@ -66,6 +66,7 @@ import {
 } from 'react-native-popup-menu';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {SettingModal} from '../../Reuseable Component/settingModal/settingModal';
+import {ModalPortal} from 'react-native-modals';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
@@ -77,12 +78,23 @@ export const TimeLineData = props => {
   let popupRef = React.createRef();
   var dummy;
 
-  if (modalVisible) {
-    return <SettingModal forHideModal={() => setModalVisible(false)} />;
-  }
+  // if (modalVisible) {
+  //   return (
+  //     <SettingModal
+  //       modalType={modalVisible}
+  //       forHideModal={() => setModalVisible(false)}
+  //     />
+  //   );
+  // }
 
   return (
     <MenuContext>
+      {modalVisible ? (
+        <SettingModal
+          modalType={modalVisible}
+          forHideModal={() => setModalVisible(false)}
+        />
+      ) : null}
       <View>
         {props?.isloading ? (
           <WaveIndicator
@@ -97,7 +109,9 @@ export const TimeLineData = props => {
             keyExtractor={item => item.key}
             nestedScrollEnabled={true}
             scrollEnabled={false}
-            contentContainerStyle={{paddingBottom: hp('5')}}
+            contentContainerStyle={{
+              paddingBottom: hp('1'),
+            }}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => {
               for (let index = 0; index < item?.image?.length; index++) {

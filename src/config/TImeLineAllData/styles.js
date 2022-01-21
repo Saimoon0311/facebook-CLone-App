@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
   mainContainer: {
     width: wp('100'),
     backgroundColor: 'white',
-    marginTop: hp('2'),
-    marginBottom: hp('2'),
+    marginTop: hp('1'),
+    marginBottom: hp('1'),
   },
   header: {
     flexDirection: 'row',
@@ -50,14 +50,14 @@ export const styles = StyleSheet.create({
   description: {
     color: 'black',
     paddingLeft: wp('3'),
-    fontSize: hp('3'),
+    fontSize: hp('2.5'),
     width: wp('95'),
-    paddingBottom: hp('3'),
+    paddingBottom: hp('2'),
   },
   likeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp('2'),
+    marginTop: hp('1'),
     paddingLeft: wp('2'),
   },
   likeShareContainer: {
@@ -77,6 +77,6 @@ export const styles = StyleSheet.create({
   shareText: {
     paddingRight: wp('2'),
     color: 'black',
-    fontSize: hp('3'),
+    fontSize: hp('2.5'),
   },
 });

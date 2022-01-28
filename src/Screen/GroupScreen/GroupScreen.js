@@ -200,7 +200,7 @@ export default function groupScreen() {
                   }}
                   colors={['transparent', 'black']}></LinearGradient>
                 <Text numberOfLines={2} style={styles.groupTitle}>
-                  sdjldhvjklshdvjshdvh
+                  Web and Mobile hybrid application development
                 </Text>
               </ImageBackground>
             </TouchableOpacity>

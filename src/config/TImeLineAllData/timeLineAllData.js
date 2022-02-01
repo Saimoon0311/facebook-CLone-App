@@ -78,15 +78,6 @@ export const TimeLineData = props => {
   let popupRef = React.createRef();
   var dummy;
 
-  // if (modalVisible) {
-  //   return (
-  //     <SettingModal
-  //       modalType={modalVisible}
-  //       forHideModal={() => setModalVisible(false)}
-  //     />
-  //   );
-  // }
-
   return (
     <MenuContext>
       {modalVisible ? (
@@ -144,52 +135,20 @@ export const TimeLineData = props => {
                           color={'black'}
                         />
                       </TouchableOpacity>
-                      {/* <Menu
-                        style={{
-                          marginLeft: 'auto',
-                          justifyContent: 'center',
-                          marginRight: wp('2'),
-                        }}>
-                        <MenuTrigger>
-                          <Entypo
-                            name="dots-three-vertical"
-                            size={20}
-                            color={'black'}
-                          />
-                        </MenuTrigger>
-                        <MenuOptions
-                          customStyles={{
-                            optionsContainer: {
-                              marginTop: hp('-15'),
-                            },
-                          }}>
-                          <MenuOption>
-                            <Text>Update Yuor Post</Text>
-                          </MenuOption>
-                          <MenuOption onSelect={() => alert(`Delete`)}>
-                            <Text style={{color: 'red'}}>Delete</Text>
-                          </MenuOption>
-                          <MenuOption
-                            onSelect={() => alert(`Not called`)}
-                            disabled={true}
-                            text="Disabled"
-                          />
-                        </MenuOptions>
-                      </Menu> */}
                     </View>
                   </TouchableOpacity>
                   <Text style={styles.description}>
                     {item?.description}
                     {/* Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum. */}
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum. */}
                   </Text>
                   <ScrollView
                     nestedScrollEnabled={true}

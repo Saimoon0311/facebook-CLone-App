@@ -209,51 +209,6 @@ export const SettingModal = props => {
       title: 'Add photos/videos to this album',
       iconName: 'images',
     },
-    {
-      id: 6,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 7,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 8,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 9,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 10,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 11,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 12,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 13,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
-    {
-      id: 14,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
   ]);
   const maxHeight = Dimensions.get('window').height;
   return (
@@ -267,7 +222,7 @@ export const SettingModal = props => {
       <View
         style={{
           flex: 1,
-          backgroundColor: '#000000AA',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
         }}>
         <Pressable
           style={{flex: 1}}

@@ -113,7 +113,7 @@ export function clearAsyncStorate(key) {
 export function setUserData(data) {
   // data = JSON.stringify(data);
   data = JSON.stringify(data);
-  console.log(116, data);
+  // console.log(116, data);
   return AsyncStorage.setItem('userData', data);
 }
 

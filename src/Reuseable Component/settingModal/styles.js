@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     width: wp('15'),
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: '#cacbcf',
+    borderColor: '#ABB2B9',
     marginTop: hp('2'),
     marginBottom: hp('2'),
   },

@@ -29,12 +29,16 @@ import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePost
 import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import {showMessage} from 'react-native-flash-message';
+import {useSelector} from 'react-redux';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
 export default function HomeScreen() {
+  const userData = useSelector(state => state.auth.userData);
+  const userDat = useSelector(state => state.auth);
+
   const toast = useToast();
 
   const [timeLineData, setTimeLineData] = useState(null);
@@ -50,9 +54,10 @@ export default function HomeScreen() {
     });
   }, []);
   const getTimeLineData = async () => {
-    const user = await getUserData();
-    console.log(user);
-    const userId = user._id;
+    // const user = userData;
+    const userId = await userData._id;
+    console.log(58, userDat);
+
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
         setLoading(false);

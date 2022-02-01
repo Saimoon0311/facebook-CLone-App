@@ -12,33 +12,16 @@ export const saveUserData = data => {
   });
 };
 
-// export function login (data){
-//     return new Promise((resolve,reject)=>{
-//         return apiPost(LOGIN,data)
-//      .then((res)=>{
-//          setUserData(res[0].message).then(()=>{
-// resolve(res)
-// saveUserData(res)
-//          })
-//      })
-//     })
-// }
-
-// export function signup (data){
-//     return apiPost(SIGNUP,data)
-// }
-
 export function login(data) {
   return new Promise((resolve, reject) => {
     return apiPost(LoginUrl, data)
       .then(res => {
         if (res.success == true) {
           data = res.data;
-          console.log(37, data);
           setUserData(data).then(() => {
             resolve(res);
-            saveUserData(data);
           });
+          saveUserData(data);
           return;
         }
 
@@ -50,21 +33,6 @@ export function login(data) {
   });
 }
 
-// export function login(data) {
-//     return new Promise((resolve, reject) => {
-//         return apiPost(LOGIN, data).then((res) => {
-//                  data = res[0].user
-//                 setUserData(data).then(() => {
-//                     resolve(res)
-//                     saveUserData(data)
-//                 });
-//             resolve(res)
-//         }).catch((error) => {
-//             reject(error)
-//         })
-//     })
-// }
-
 export function signup(data) {
   return apiPost(SignUpUrl, data);
 }
@@ -73,10 +41,3 @@ export function logout() {
   dispatch({type: types.CLEAR_REDUX_STATE});
   clearUserData();
 }
-
-// data =res[0].user
-// setUserData(data).then(() => {
-//     resolve(res)
-//     saveUserData(data)
-// });
-// return

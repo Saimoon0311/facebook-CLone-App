@@ -66,7 +66,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     height: hp('6'),
     marginTop: hp('2'),
-    borderTopWidth: 0.3,
+    borderTopWidth: hp('0.1'),
+    // backgroundColor: 'red',
   },
   likeButton: {
     width: wp('50'),

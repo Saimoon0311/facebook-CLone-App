@@ -25,21 +25,24 @@ import {ApiGet, ApiPost} from '../../config/helpeerFetch';
 import {LoginUrl} from '../../config/url';
 import {showMessage} from 'react-native-flash-message';
 import action from '../../Redux/action';
-import {getUserData} from '../../utils/utils';
+// import {getUserData} from '../../utils/utils';
+import {useDispatch} from 'react-redux';
 
 export default function LoginScreen({navigation}) {
+  const dispatch = useDispatch();
+
   const handleClick = () => setShow(!show);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    (async () => {
-      const user = await getUserData();
-      console.log(32, user);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     // const user = await getUserData();
+  //     // console.log(32, user);
+  //   })();
+  // }, []);
 
   const login = async () => {
     setLoading(true);
@@ -51,8 +54,11 @@ export default function LoginScreen({navigation}) {
     ) {
       try {
         const res = await action.login({
-          email,
-          password,
+          data: {
+            email,
+            password,
+          },
+          dispatch,
         });
         if (res.data == 'user not found!') {
           showMessage({
@@ -76,11 +82,13 @@ export default function LoginScreen({navigation}) {
           setLoading(false);
         }
       } catch (error) {
+        console.log(79, error);
         showMessage({
           type: 'danger',
           icon: 'danger',
           message: 'Warning',
-          description: error?.data,
+          description: 'kajsjkasbjk',
+          // description: error?.data,
           backgroundColor: colors.statusBarColor,
         });
         setLoading(false);

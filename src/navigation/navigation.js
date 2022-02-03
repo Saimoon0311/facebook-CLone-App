@@ -10,7 +10,7 @@ import {TopbartabBarHeader} from './toptabbarwithheader';
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
-  const userData = useSelector(state => state.auth.userData);
+  const {userData} = useSelector(state => state.auth);
   console.log(14, userData);
   return (
     <Stack.Navigator
@@ -62,6 +62,38 @@ export default function Navigation() {
           />
         </>
       )}
+      {/* <Stack.Screen
+        options={{
+          title: 'Sign In',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#FFDDC9',
+          },
+          headerTintColor: '#512500',
+
+          headerTitleStyle: {
+            fontSize: 18,
+          },
+        }}
+        name="LoginScreen"
+        component={Screens.LoginScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: 'Sign In',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#FFDDC9',
+          },
+          headerTintColor: '#512500',
+
+          headerTitleStyle: {
+            fontSize: 18,
+          },
+        }}
+        name="SignUpScreen"
+        component={Screens.SignUpScreen}
+      /> */}
       {/* <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="Cartdetails" component={Cartdetails} />

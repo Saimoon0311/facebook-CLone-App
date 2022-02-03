@@ -136,11 +136,14 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FlashMessage from 'react-native-flash-message';
 import {Provider} from 'react-redux';
-import store from './src/Redux/store';
+// import store from './src/Redux/store';
 import {getUserData} from './src/utils/utils';
 import {saveUserData} from './src/Redux/action/auth';
 import NetInfo from '@react-native-community/netinfo';
 import {ModalPortal} from 'react-native-modals';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from './src/Redux/reducer';
+
 // import {StripePKey} from './resources/config/url';
 // import {StripeProvider, initStripe} from '@stripe/stripe-react-native';
 
@@ -206,19 +209,19 @@ function App({navigation}) {
   //   }, time());
   // }, []);
 
-  useEffect(async () => {
-    (async () => {
-      // initializeStripe();
-      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-      LogBox.ignoreAllLogs(true);
-      const userData = await getUserData();
-      if (!!userData) {
-        saveUserData(userData);
-      }
-    })();
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreAllLogs(true);
+    // const userData = await getUserData();
+    // if (!!userData) {
+    //   saveUserData(userData);
+    // }
     setTimeout(function () {
       Hide_Splash_Screen();
     }, time());
+    // (async () => {
+    //   // initializeStripe();
+    // })();
   }, []);
 
   {
@@ -242,19 +245,21 @@ function App({navigation}) {
     // const id = ModalPortal.show({type: 'bottomModal'});
     return (
       <Provider store={store}>
-        {isVisible === true ? (
-          Platform?.OS == 'android' && Splash_Screen
-        ) : (
-          <>
-            {/* <Text>sdsdsdss</Text> */}
-            <NavigationContainer>
-              <Navigation />
-            </NavigationContainer>
-          </>
-        )}
-        <ModalPortal />
-        {/* {id} */}
-        <FlashMessage position="top" />
+        <PersistGate loading={null} persistor={persistor}>
+          {isVisible === true ? (
+            Platform?.OS == 'android' && Splash_Screen
+          ) : (
+            <>
+              {/* <Text>sdsdsdss</Text> */}
+              <NavigationContainer>
+                <Navigation />
+              </NavigationContainer>
+            </>
+          )}
+          <ModalPortal />
+          {/* {id} */}
+          <FlashMessage position="top" />
+        </PersistGate>
       </Provider>
     );
   }

@@ -75,6 +75,7 @@ export const TimeLineData = props => {
   const [modaShow, setModalShow] = useState(false);
   const [like, setLike] = useState(false);
   const [stateBounce, setStateBounce] = useState('');
+  const [postData, setPostData] = useState([]);
   let popupRef = React.createRef();
   var dummy;
 
@@ -83,7 +84,10 @@ export const TimeLineData = props => {
       {modalVisible ? (
         <SettingModal
           modalType={modalVisible}
-          forHideModal={() => setModalVisible(false)}
+          postData={postData}
+          forHideModal={() => {
+            setModalVisible(false);
+          }}
         />
       ) : null}
       <View>
@@ -123,7 +127,9 @@ export const TimeLineData = props => {
                       )}
                       <Text style={styles.postName}>{item?.postName}</Text>
                       <TouchableOpacity
-                        onPress={() => setModalVisible(true)}
+                        onPress={() => {
+                          setModalVisible(true), setPostData(item);
+                        }}
                         style={{
                           marginLeft: 'auto',
                           justifyContent: 'center',

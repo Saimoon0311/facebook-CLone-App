@@ -34,8 +34,8 @@ export default function LoginScreen({navigation}) {
   const handleClick = () => setShow(!show);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('saimoon@gmail.com');
+  const [password, setPassword] = useState('123456987');
 
   // useEffect(() => {
   //   (async () => {
@@ -52,14 +52,14 @@ export default function LoginScreen({navigation}) {
       password !== null &&
       password !== ''
     ) {
-      try {
-        const res = await action.login({
-          data: {
-            email,
-            password,
-          },
-          dispatch,
-        });
+      const res = await action.login(
+        {
+          email,
+          password,
+        },
+        dispatch,
+      );
+      if (res.success == false) {
         if (res.data == 'user not found!') {
           showMessage({
             type: 'danger',
@@ -68,6 +68,7 @@ export default function LoginScreen({navigation}) {
             description: 'user not found!',
             backgroundColor: colors.statusBarColor,
           });
+          console.log(71, res);
           setLoading(false);
         } else if (res.data == 'wrong password!') {
           showMessage({
@@ -78,17 +79,13 @@ export default function LoginScreen({navigation}) {
             backgroundColor: colors.statusBarColor,
           });
           setLoading(false);
-        } else {
-          setLoading(false);
         }
-      } catch (error) {
-        console.log(79, error);
+      } else {
         showMessage({
           type: 'danger',
           icon: 'danger',
           message: 'Warning',
-          description: 'kajsjkasbjk',
-          // description: error?.data,
+          description: 'Some thing is wrong',
           backgroundColor: colors.statusBarColor,
         });
         setLoading(false);
@@ -103,6 +100,17 @@ export default function LoginScreen({navigation}) {
       });
       setLoading(false);
     }
+
+    // else {
+    //   showMessage({
+    //     type: 'danger',
+    //     icon: 'danger',
+    //     message: 'Warning',
+    //     description: 'Please complete all fields',
+    //     backgroundColor: colors.statusBarColor,
+    //   });
+    //   setLoading(false);
+    // }
   };
 
   return (

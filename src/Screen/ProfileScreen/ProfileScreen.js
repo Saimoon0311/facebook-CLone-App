@@ -47,8 +47,11 @@ import Accordion from 'react-native-collapsible/Accordion';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function ProfileScreen() {
+  const {userData} = useSelector(state => state.auth);
+  const dipatch = useDispatch();
   const [activeSessionHelp, setActiveSessionHelp] = useState([]);
   const [activeSessiontSetting, setActiveSessiontSetting] = useState([]);
   const [helpFunctiontag, setHelpFunctiontag] = useState([
@@ -133,8 +136,7 @@ export default function ProfileScreen() {
   const [user, setUser] = useState();
   useEffect(() => {
     (async () => {
-      const use = await getUserData();
-      setUser(use);
+      setUser(userData);
     })();
   }, []);
   const updateSectionsHelp = e => {
@@ -249,7 +251,7 @@ export default function ProfileScreen() {
         <TouchableOpacity
           onPress={() =>
             setTimeout(() => {
-              actions.logout();
+              actions.logout(dipatch);
             }, 10)
           }
           style={styles.logoutButton}>

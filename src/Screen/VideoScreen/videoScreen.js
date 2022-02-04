@@ -50,6 +50,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
 import {colors} from '../../Reuseable Component/color';
 import LinearGradient from 'react-native-linear-gradient';
+import {useSelector} from 'react-redux';
 
 export default function videoScreen() {
   const [timeLineData, setTimeLineData] = useState(null);
@@ -96,9 +97,9 @@ export default function videoScreen() {
   };
   const [like, setLike] = useState(false);
   const getTimeLineData = async () => {
-    const user = await getUserData();
-    console.log(user);
-    const userId = user._id;
+    const {userData} = useSelector(state => state.auth);
+    console.log(userData);
+    const userId = userData._id;
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
         setLoading(false);
@@ -110,8 +111,8 @@ export default function videoScreen() {
   };
   useEffect(() => {
     (async () => {
-      const user = await getUserData();
-      setUser(user);
+      const {userData} = useSelector(state => state.auth);
+      setUser(userData);
       getTimeLineData();
     })();
   }, []);

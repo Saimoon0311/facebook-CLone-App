@@ -116,7 +116,7 @@ export const ProfileScreenCategoryData = () => {
     return groups;
   };
   const groupedItems = groupData(catergoryData, 5);
-  console.log(79, groupedItems);
+  // console.log(79, groupedItems);
   return (
     <View style={{flexDirection: 'column'}}>
       <FlatList

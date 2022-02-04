@@ -13,22 +13,42 @@ import {ApiPost} from '../../config/helpeerFetch';
 //   });
 // };
 
-export function login({data, dispatch}) {
-  console.log(17, data);
-  ApiPost(LoginUrl, data).then(res => {
+export function login(data, dispatch) {
+  console.log(4563254, data);
+  var datas = JSON.stringify(data);
+  ApiPost(LoginUrl, datas, false).then(res => {
+    console.log(17, res);
     if (res.success == true) {
+      console.log('response', res);
       dispatch({
         type: types.LOGIN,
-        payload: res,
+        payload: res.data,
       });
+      return res;
+    } else if (res.success == false) {
+      return res;
     } else {
-      console.log(24);
+      return res;
     }
   });
+  // console.log(17, data);
+  // ApiPost(LoginUrl, data).then(res => {
+  //   if (res.success == true) {
+  //     dispatch({
+  //       type: types.LOGIN,
+  //       payload: res,
+  //     });
+  //   } else {
+  //     return
+  //   }
+  // });
   // console.log(18, dispatch);
+
   // return new Promise((resolve, reject) => {
-  //   return ApiPost(LoginUrl, data)
+  //   console.log(30, data);
+  //    ApiPost(LoginUrl, data, false)
   //     .then(res => {
+  //       console.log(17, res);
   //       if (res.success == true) {
   //         data = res.data;
   //         // setUserData(data).then(() => {
@@ -53,7 +73,7 @@ export function login({data, dispatch}) {
 //   return apiPost(SignUpUrl, data);
 // }
 
-export function logout() {
+export function logout(dispatch) {
   dispatch({type: types.CLEAR_REDUX_STATE});
   // clearUserData();
 }

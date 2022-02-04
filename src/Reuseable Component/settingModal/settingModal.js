@@ -181,8 +181,14 @@ import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import {colors} from '../color';
+import {useDispatch, useSelector} from 'react-redux';
+import types from '../../Redux/type';
 
 export const SettingModal = props => {
+  const {savePosts} = useSelector(state => state.savePosts);
+  console.log(189, savePosts);
+  const dispatch = useDispatch();
+  console.log(186, props.postData);
   const [modalData, setModalData] = useState([
     {
       id: 1,
@@ -210,6 +216,30 @@ export const SettingModal = props => {
       iconName: 'images',
     },
   ]);
+  const savePostData = button => {
+    if (button.title == 'Save post') {
+      dispatch({
+        type: types.SAVEPOSTS,
+        payload: props?.postData,
+      });
+      ToastAndroid.show(
+        'The post has been Saved!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        500,
+      );
+      props.forHideModal();
+    } else {
+      ToastAndroid.show(
+        'The ancaklsnda!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        500,
+      );
+    }
+  };
   const maxHeight = Dimensions.get('window').height;
   return (
     <Modal
@@ -233,7 +263,9 @@ export const SettingModal = props => {
             <View style={styles.mapView}>
               {modalData.map(res => {
                 return (
-                  <TouchableOpacity style={styles.touchButton}>
+                  <TouchableOpacity
+                    style={styles.touchButton}
+                    onPress={() => savePostData(res)}>
                     <Ionicons name={res?.iconName} size={25} color={'black'} />
                     <Text numberOfLines={2} style={styles.titleStyle}>
                       {res?.title}

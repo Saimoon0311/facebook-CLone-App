@@ -34,8 +34,10 @@ import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import {colors} from '../color';
+import {useSelector} from 'react-redux';
 
 export const SharePostMoadl = props => {
+  const {userData} = useSelector(state => state.auth);
   const toast = useToast();
   // const toastIdRef = React.useRef();
   const [user, setUser] = useState();
@@ -44,8 +46,7 @@ export const SharePostMoadl = props => {
   const [dummy, setDummy] = useState(1);
   useEffect(() => {
     (async () => {
-      const user = await getUserData();
-      setUser(user);
+      setUser(userData);
     })();
   }, []);
 

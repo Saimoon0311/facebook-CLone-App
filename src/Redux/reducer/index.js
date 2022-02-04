@@ -4,15 +4,23 @@ import auth from './auth';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import thunk from 'redux-thunk';
+import savedata from './savedata';
 
-const persistConfig = {
+const persistConfig1 = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: 'userData',
 };
 
+const persistConfig2 = {
+  key: 'saveData',
+  storage: AsyncStorage,
+  whiteList: ['savePosts'],
+};
+
 const rootReducer = combineReducers({
-  auth: persistReducer(persistConfig, auth),
+  auth: persistReducer(persistConfig1, auth),
+  savePosts: persistReducer(persistConfig2, savedata),
 });
 
 // const rootReducer = (state, action) => {

@@ -40,7 +40,7 @@ export default function SignUpScreen({navigation}) {
         email: email,
         password: password,
       });
-      ApiPost(SignUpUrl, body).then(res => {
+      ApiPost(SignUpUrl, body, false).then(res => {
         if (res.success == true) {
           showMessage({
             type: 'success',

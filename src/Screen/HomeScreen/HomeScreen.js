@@ -36,8 +36,8 @@ const wait = timeout => {
 };
 
 export default function HomeScreen() {
-  const userData = useSelector(state => state.auth.userData);
-  const userDat = useSelector(state => state.auth);
+  const {userData} = useSelector(state => state.auth);
+  // const userDat = useSelector(state => state.auth);
 
   const toast = useToast();
 
@@ -56,7 +56,7 @@ export default function HomeScreen() {
   const getTimeLineData = async () => {
     // const user = userData;
     const userId = await userData._id;
-    console.log(58, userDat);
+    // console.log(58, userData);
 
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
@@ -106,8 +106,9 @@ export default function HomeScreen() {
   };
   useEffect(() => {
     (async () => {
-      const user = await getUserData();
-      setUser(user);
+      // const {userData} = await useSelector(state => state.auth);
+      // console.log(112, userData);
+      setUser(userData);
       getTimeLineData();
     })();
   }, []);

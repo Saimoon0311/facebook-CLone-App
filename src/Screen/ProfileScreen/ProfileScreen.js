@@ -12,6 +12,7 @@ import {
   RefreshControl,
   ToastAndroid,
   FlatList,
+  Switch,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -32,6 +33,7 @@ import {
   Center,
   NativeBaseProvider,
   Actionsheet,
+  Radio,
 } from 'native-base';
 import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import {showMessage} from 'react-native-flash-message';
@@ -54,6 +56,11 @@ export default function ProfileScreen() {
   const dipatch = useDispatch();
   const [activeSessionHelp, setActiveSessionHelp] = useState([]);
   const [activeSessiontSetting, setActiveSessiontSetting] = useState([]);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [themeType, setThemeType] = useState(null);
+
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [helpFunctiontag, setHelpFunctiontag] = useState([
     {
       id: 1,
@@ -194,10 +201,64 @@ export default function ProfileScreen() {
       </View>
     );
   };
+  const darkModeSwitch = data => {
+    console.log(201, data);
+    if (data.title == 'Dark mode') {
+      setModalVisible(true);
+    } else {
+      setModalVisible(false);
+    }
+  };
+  const showThemeModal = () => {
+    return (
+      <View style={styles.centeredView}>
+        <NativeBaseProvider>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Dark Mode</Text>
+                <Radio.Group
+                  value={themeType}
+                  onChange={nextValue => {
+                    setThemeType(nextValue);
+                  }}
+                  style={{marginLeft: wp('3'), marginBottom: hp('3')}}>
+                  <View>
+                    <Radio value="Off" my={1}>
+                      <Text style={styles.radioText}>Off</Text>
+                    </Radio>
+                  </View>
+                  <View
+                    style={{
+                      ...styles.devider,
+                      width: wp('100'),
+                      alignSelf: 'center',
+                      backgroundColor: 'black',
+                    }}
+                  />
+                  <Radio value="On" my={1}>
+                    <Text style={styles.radioText}>On</Text>
+                  </Radio>
+                </Radio.Group>
+              </View>
+            </View>
+          </Modal>
+        </NativeBaseProvider>
+      </View>
+    );
+  };
   const renderContentSetting = item => {
     return settingFunctiontag.map(res => {
       return (
-        <TouchableOpacity style={styles.AccordionContentContainer}>
+        <TouchableOpacity
+          onPress={() => darkModeSwitch(res)}
+          style={styles.AccordionContentContainer}>
           <Ionicons name={res?.iconName} size={26} />
           {/* <MaterialIcons name={res?.iconName} size={26} /> */}
           <Text style={styles.AccordionContentTitle}>{res?.title}</Text>
@@ -205,7 +266,6 @@ export default function ProfileScreen() {
       );
     });
   };
-
   return (
     <ScrollView
       contentContainerStyle={{
@@ -258,6 +318,7 @@ export default function ProfileScreen() {
           <Text style={{color: 'black', fontSize: hp('2.5')}}>Log Out</Text>
         </TouchableOpacity>
       </View>
+      {showThemeModal()}
     </ScrollView>
   );
 }

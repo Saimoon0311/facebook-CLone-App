@@ -151,6 +151,7 @@ export default function HomeScreen() {
       </View>
       <TimeLineData
         timeLineData={timeLineData}
+        // isloading={true}
         isloading={loading}
         user={user}
         like={likeAndDislike}

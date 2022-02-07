@@ -12,12 +12,11 @@ export default function saveData(state = initialState, action) {
     case types.DELETEPOSTS:
       return {
         ...state,
-        savePosts: {
-          ...state.savePosts.filter(
-            savePosts => savePosts.id !== action.payload.id,
-          ),
-        },
+        savePosts: state.savePosts.filter(
+          savePosts => savePosts._id !== action.payload._id,
+        ),
       };
+      break;
     default:
       return state;
       break;

@@ -92,11 +92,156 @@ export const TimeLineData = props => {
       ) : null}
       <View>
         {props?.isloading ? (
-          <WaveIndicator
-            size={hp('20')}
-            style={{marginTop: hp('20')}}
-            color={'#0f78af'}
-          />
+          // <WaveIndicator
+          //   size={hp('20')}
+          //   style={{marginTop: hp('20')}}
+          //   color={'#0f78af'}
+          // />
+          <SkeletonPlaceholder>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View
+                style={{
+                  ...styles.mainContainer,
+                  backgroundColor: 'transparent',
+                }}>
+                <View
+                  style={{...styles.header, backgroundColor: 'transparent'}}>
+                  <View style={{...styles.postImage}} />
+                  <View
+                    style={{
+                      ...styles.postName,
+                      width: wp('40'),
+                      height: hp('4'),
+                      borderRadius: wp('15'),
+                      marginTop: hp('2'),
+                      marginLeft: wp('2'),
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    ...styles.description,
+                    marginTop: hp('1'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('90'),
+                  }}
+                />
+                <View
+                  style={{
+                    ...styles.description,
+                    marginBottom: hp('2'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('80'),
+                    marginTop: hp('1'),
+                  }}
+                />
+                <View
+                  style={{
+                    width: wp('100'),
+                    height: hp('40'),
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  ...styles.mainContainer,
+                  backgroundColor: 'transparent',
+                }}>
+                <View
+                  style={{...styles.header, backgroundColor: 'transparent'}}>
+                  <View style={{...styles.postImage}} />
+                  <View
+                    style={{
+                      ...styles.postName,
+                      width: wp('40'),
+                      height: hp('4'),
+                      borderRadius: wp('15'),
+                      marginTop: hp('2'),
+                      marginLeft: wp('2'),
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    ...styles.description,
+                    marginTop: hp('1'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('90'),
+                  }}
+                />
+                <View
+                  style={{
+                    ...styles.description,
+                    marginBottom: hp('2'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('80'),
+                    marginTop: hp('1'),
+                  }}
+                />
+                <View
+                  style={{
+                    width: wp('100'),
+                    height: hp('40'),
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  ...styles.mainContainer,
+                  backgroundColor: 'transparent',
+                }}>
+                <View
+                  style={{...styles.header, backgroundColor: 'transparent'}}>
+                  <View style={{...styles.postImage}} />
+                  <View
+                    style={{
+                      ...styles.postName,
+                      width: wp('40'),
+                      height: hp('4'),
+                      borderRadius: wp('15'),
+                      marginTop: hp('2'),
+                      marginLeft: wp('2'),
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    ...styles.description,
+                    marginTop: hp('1'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('90'),
+                  }}
+                />
+                <View
+                  style={{
+                    ...styles.description,
+                    marginBottom: hp('2'),
+                    marginLeft: hp('2'),
+                    height: hp('2'),
+                    borderRadius: wp('15'),
+                    width: wp('80'),
+                    marginTop: hp('1'),
+                  }}
+                />
+                <View
+                  style={{
+                    width: wp('100'),
+                    height: hp('40'),
+                  }}
+                />
+              </View>
+            </ScrollView>
+          </SkeletonPlaceholder>
         ) : (
           <FlatList
             data={props?.timeLineData}

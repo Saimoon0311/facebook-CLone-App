@@ -185,14 +185,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import types from '../../Redux/type';
 
 export const SettingModal = props => {
+  const [isSaved, setIsSaved] = useState(false);
   const {savePosts} = useSelector(state => state.savePosts);
-  console.log(189, savePosts);
   const dispatch = useDispatch();
-  console.log(186, props.postData);
   const [modalData, setModalData] = useState([
     {
       id: 1,
-      title: 'Save post',
+      title: 'Save Post',
       iconName: 'ios-save-outline',
     },
     {
@@ -216,8 +215,25 @@ export const SettingModal = props => {
       iconName: 'images',
     },
   ]);
+  const checkIsSaved = () => {
+    const selectedData = props.postData;
+    const savedPosts = savePosts;
+    savedPosts.length > 0 &&
+      savePosts.map(res => {
+        if (res._id == selectedData._id) {
+          modalData[0].title = 'Unsave Post';
+          setIsSaved(true);
+        } else {
+          setIsSaved(false);
+          modalData[0].title = 'Save Post';
+        }
+      });
+  };
+  useEffect(() => {
+    checkIsSaved();
+  }, []);
   const savePostData = button => {
-    if (button.title == 'Save post') {
+    if (button.title == 'Save Post') {
       dispatch({
         type: types.SAVEPOSTS,
         payload: props?.postData,
@@ -230,9 +246,22 @@ export const SettingModal = props => {
         500,
       );
       props.forHideModal();
+    } else if (button.title == 'Unsave Post') {
+      dispatch({
+        type: types.DELETEPOSTS,
+        payload: props?.postData,
+      });
+      ToastAndroid.show(
+        'Save Post has been delete!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        500,
+      );
+      props.forHideModal();
     } else {
       ToastAndroid.show(
-        'The ancaklsnda!',
+        'Ss.engajksdkte!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
         25,
@@ -248,7 +277,8 @@ export const SettingModal = props => {
       visible={true}
       transparent={true}
       swipeDirection={['down', 'up']}
-      presentationStyle="fullScreen">
+      // presentationStyle="fullScreen"
+    >
       <View
         style={{
           flex: 1,
@@ -269,6 +299,7 @@ export const SettingModal = props => {
                     <Ionicons name={res?.iconName} size={25} color={'black'} />
                     <Text numberOfLines={2} style={styles.titleStyle}>
                       {res?.title}
+                      {/* {isSaved == false  res?.title : 'unsave post'} */}
                     </Text>
                   </TouchableOpacity>
                 );

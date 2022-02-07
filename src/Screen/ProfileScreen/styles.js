@@ -89,4 +89,55 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: hp('2'),
   },
+  centeredView: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // marginTop: 22,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalView: {
+    margin: wp('4'),
+    // marginRight: wp('3'),
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    // textAlign: 'center',
+    fontSize: hp('3'),
+    marginLeft: wp('3'),
+    marginTop: hp('2'),
+  },
+  devider: {
+    flex: 1,
+    height: 2,
+    backgroundColor: 'black',
+    // marginTop: hp('1'),
+    // marginBottom: hp('1'),
+  },
+  radioText: {
+    // marginTop: hp('0.9'),
+    color: 'black',
+    marginLeft: wp('3'),
+    width: wp('70'),
+    width: wp('70'),
+    // marginBottom: hp('2'),
+  },
 });

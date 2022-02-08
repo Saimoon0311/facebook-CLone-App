@@ -6,6 +6,7 @@ export default {
   DELETEPOSTS: 'DELETEPOSTS',
   ThemeColorLight: 'ThemeColorLight',
   ThemeColorDark: 'ThemeColorDark',
+  CheckThemeColor: 'CheckThemeColor',
   //   NO_INTERNET: 'NO_INTERNET',
   // GETPRODUCT:"GETPRODUCT"
 };

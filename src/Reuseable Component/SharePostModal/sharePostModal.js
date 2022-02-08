@@ -139,10 +139,14 @@ export const SharePostMoadl = props => {
             <TouchableOpacity
               onPress={() => props?.forHideModal()}
               style={styles.modalBackArrow}>
-              <Ionicons name="arrow-back" size={35} color={'black'} />
+              <Ionicons
+                name="arrow-back"
+                size={35}
+                color={colors.defaultTextColor}
+              />
             </TouchableOpacity>
             <View style={styles.modalText}>
-              <Text style={{fontSize: hp('3'), color: 'black'}}>
+              <Text style={{fontSize: hp('3'), color: colors.defaultTextColor}}>
                 Create Post
               </Text>
             </View>
@@ -281,7 +285,7 @@ export const SharePostMoadl = props => {
               <Entypo
                 name="images"
                 size={30}
-                color={colors.themePrimaryColor}
+                color={colors.sharePostModalIcon}
               />
             </TouchableOpacity>
             <View
@@ -298,7 +302,7 @@ export const SharePostMoadl = props => {
               <Entypo
                 name="camera"
                 size={30}
-                color={colors.themePrimaryColor}
+                color={colors.sharePostModalIcon}
               />
             </TouchableOpacity>
           </View>

@@ -296,7 +296,11 @@ export const SettingModal = props => {
                   <TouchableOpacity
                     style={styles.touchButton}
                     onPress={() => savePostData(res)}>
-                    <Ionicons name={res?.iconName} size={25} color={'black'} />
+                    <Ionicons
+                      name={res?.iconName}
+                      size={25}
+                      color={colors.defaultTextColor}
+                    />
                     <Text numberOfLines={2} style={styles.titleStyle}>
                       {res?.title}
                       {/* {isSaved == false  res?.title : 'unsave post'} */}

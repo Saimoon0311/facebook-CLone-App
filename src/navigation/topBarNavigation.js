@@ -32,6 +32,12 @@ export default function TopBarNavigation() {
         tabBarActiveBackgroundColor: '#E9691D',
         tabBarInactiveTintColor: 'gray',
         upperCaseLabel: false,
+        // style: {
+        //   backgroundColor: 'red', //color you want to change
+        // },
+        tabBarStyle: {
+          backgroundColor: colors.defaultBgColor,
+        },
         tabBarIndicatorStyle: {
           backgroundColor: colors.themePrimaryColor,
         },
@@ -40,7 +46,14 @@ export default function TopBarNavigation() {
         name="Home"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="home-outline" color={color} size={wp('7')} />
+            <Ionicons
+              name={`home${
+                colors.defaultBgColor == '#242527' ? '' : '-outline'
+              }`}
+              // name={'home'}
+              color={color}
+              size={wp('7')}
+            />
           ),
           title: '',
           tabBarLabelStyle: {
@@ -55,7 +68,9 @@ export default function TopBarNavigation() {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <MaterialCommunityIcons
-              name="account-group-outline"
+              name={`account-group${
+                colors.defaultBgColor == '#242527' ? '' : '-outline'
+              }`}
               color={color}
               size={wp('7')}
             />
@@ -87,7 +102,9 @@ export default function TopBarNavigation() {
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <Ionicons
-              name="notifications-outline"
+              name={`notifications${
+                colors.defaultBgColor == '#242527' ? '' : '-outline'
+              }`}
               color={color}
               size={wp('7')}
             />

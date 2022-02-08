@@ -32,6 +32,7 @@ import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import {showMessage} from 'react-native-flash-message';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {colors} from '../../Reuseable Component/color';
 
 export const ProfileScreenCategoryData = () => {
   const [catergoryData, setCatergoryData] = useState([
@@ -223,7 +224,7 @@ export const ProfileScreenCategoryData = () => {
                           ),
                           width: Dimensions.get('window').width * 0.1,
                           height: Dimensions.get('window').width * 0.1,
-                          backgroundColor: 'white',
+                          backgroundColor: colors.defaultBgColor,
                           justifyContent: 'center',
                           alignItems: 'center',
                           left: wp('4'),

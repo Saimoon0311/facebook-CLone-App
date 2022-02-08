@@ -121,6 +121,7 @@ export default function LoginScreen({navigation}) {
       />
       <ImageBackground
         style={{width: wp('100'), height: hp('100')}}
+        // tintColor="transparent"
         source={require('../../Images/rm222batch3-mind-03.jpg')}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.mainContainer}>

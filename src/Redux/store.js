@@ -10,6 +10,6 @@ export const store = configureStore({
   reducer: {
     auth: auth,
     savedata: savedata,
-    themeChange,
+    themeChange: themeChange,
   },
 });

@@ -144,7 +144,6 @@ import NetInfo from '@react-native-community/netinfo';
 import {ModalPortal} from 'react-native-modals';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/Redux/reducer';
-import AppTwo from './AppTwo';
 
 const styles = StyleSheet.create({
   MainContainer: {
@@ -169,14 +168,77 @@ const styles = StyleSheet.create({
   },
 });
 
-function App({navigation}) {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppTwo />
-      </PersistGate>
-    </Provider>
-  );
+export const {themeType} = store.getState().themeChange;
+
+function AppTwo({navigation}) {
+  const [isVisible, setIsVisible] = useState(true);
+  const dispatch = useDispatch();
+  Hide_Splash_Screen = () => {
+    setIsVisible(false);
+  };
+  const time = () => {
+    if (Platform?.OS == 'android') {
+      return 5000;
+    } else {
+      return 0;
+    }
+  };
+
+  const initializeStripe = () => {
+    initStripe({
+      publishableKey: StripePKey,
+    });
+  };
+
+  useEffect(() => {
+    // const dispatch = useDispatch();
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreAllLogs(true);
+    var theme = Appearance.getColorScheme();
+    console.log(196, theme);
+    dispatch({
+      type: 'CheckThemeColor',
+      payload: theme,
+    });
+    setTimeout(function () {
+      Hide_Splash_Screen();
+    }, time());
+  }, [dispatch]);
+
+  {
+    let Splash_Screen = (
+      <ImageBackground
+        source={require('./src/Images/bg1.png')}
+        style={styles.SplashScreen_RootView}>
+        <View style={styles.SplashScreen_ChildView}>
+          <Image
+            source={require('./src/Images/splashImage.png')}
+            style={{
+              width: 150,
+              height: '100%',
+              resizeMode: 'contain',
+              marginTop: 20,
+            }}
+          />
+        </View>
+      </ImageBackground>
+    );
+    return (
+      <>
+        {isVisible === true ? (
+          Platform?.OS == 'android' && Splash_Screen
+        ) : (
+          <>
+            <NavigationContainer>
+              <Navigation />
+            </NavigationContainer>
+          </>
+        )}
+        <ModalPortal />
+        <FlashMessage position="top" />
+      </>
+    );
+  }
 }
 
-export default App;
+export default AppTwo;

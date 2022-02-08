@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {colors} from '../color';
 
 export const styles = StyleSheet.create({
   headerContainer: {
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
     // alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.13,
     height: Dimensions.get('screen').width * 0.13,
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     // marginTop: hp('2'),
     marginLeft: hp('2'),
   },
@@ -53,6 +54,7 @@ export const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
+    backgroundColor: colors.defaultBgColor,
     // justifyContent: 'center',
     // alignItems: 'center',
     // width: wp('100'),
@@ -87,7 +89,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: 'white',
+    color: colors.defaultPostTextColor,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -103,6 +105,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     height: hp('10'),
+    borderColor: colors.defaultTextColor,
   },
   modalBackArrow: {
     // backgroundColor: 'yellow',
@@ -122,7 +125,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   modalUserName: {
-    color: 'black',
+    color: colors.defaultTextColor,
     // fontWeight: 'bold',
     fontSize: hp('3'),
     // marginTop: hp('1'),
@@ -134,7 +137,7 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('3'),
     paddingRight: wp('3'),
     fontSize: hp('3'),
-    color: 'black',
+    color: colors.defaultTextColor,
   },
   imageMainView: {
     // backgroundColor: 'red',
@@ -163,9 +166,10 @@ export const styles = StyleSheet.create({
     width: wp('100'),
     height: hp('8'),
     borderTopWidth: 0.5,
+    borderColor: colors.defaultTextColor,
   },
   imagePickview: {
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     width: wp('50'),
     justifyContent: 'center',
     alignItems: 'center',

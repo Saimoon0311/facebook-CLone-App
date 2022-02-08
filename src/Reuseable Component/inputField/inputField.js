@@ -28,6 +28,7 @@ export const InputField = props => {
           alignSelf: 'center',
           marginLeft: wp('3'),
           marginRight: wp('3'),
+          color: 'gray',
         }}
       />
       <View
@@ -44,6 +45,7 @@ export const InputField = props => {
         style={{
           backgroundColor: 'transparent',
           width: wp('60'),
+          color: 'black',
         }}
         value={props?.value}
         autoCapitalize={props?.autoCapble}
@@ -62,6 +64,7 @@ export const InputField = props => {
           alignSelf: 'center',
           marginLeft: wp('3'),
           marginRight: wp('3'),
+          color: 'gray',
         }}
       />
     </View>

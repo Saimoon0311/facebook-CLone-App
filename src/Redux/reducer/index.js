@@ -19,16 +19,16 @@ const persistConfig2 = {
   whiteList: ['savePosts'],
 };
 
-const persistConfig3 = {
-  key: 'themeChange',
-  storage: AsyncStorage,
-  whiteList: 'themeType',
-};
+// const persistConfig3 = {
+//   key: 'themeChange',
+//   storage: AsyncStorage,
+//   blacklist: 'themeType',
+// };
 
 const rootReducer = combineReducers({
   auth: persistReducer(persistConfig1, auth),
   savePosts: persistReducer(persistConfig2, savedata),
-  themeChange: persistReducer(persistConfig3, themeChange),
+  themeChange,
 });
 
 // const rootReducer = (state, action) => {

@@ -13,13 +13,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {colors} from '../color';
 
 export const styles = StyleSheet.create({
   mainContainer: {
     bottom: 0,
     position: 'absolute',
     width: wp('100'),
-    backgroundColor: '#f1f2f7',
+    backgroundColor: colors.modalMainContainer,
     maxHeight: Dimensions.get('screen').height * 0.8,
     height: 'auto',
     borderTopLeftRadius: 15,
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
   mapView: {
     width: wp('90'),
     alignSelf: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.modalInsideColor,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -49,7 +50,7 @@ export const styles = StyleSheet.create({
   titleStyle: {
     fontSize: hp('2.8'),
     marginLeft: wp('3'),
-    color: 'black',
+    color: colors.defaultTextColor,
     width: wp('74'),
   },
 });

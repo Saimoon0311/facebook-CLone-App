@@ -67,6 +67,7 @@ import {
 import Entypo from 'react-native-vector-icons/Entypo';
 import {SettingModal} from '../../Reuseable Component/settingModal/settingModal';
 import {ModalPortal} from 'react-native-modals';
+import darkColors from 'react-native-elements/dist/config/colorsDark';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
@@ -268,7 +269,11 @@ export const TimeLineData = props => {
                           style={styles.postImage}
                         />
                       ) : (
-                        <EvilIcons name={'user'} size={60} />
+                        <EvilIcons
+                          name={'user'}
+                          size={60}
+                          color={colors.defaultTextColor}
+                        />
                       )}
                       <Text style={styles.postName}>{item?.postName}</Text>
                       <TouchableOpacity
@@ -283,7 +288,7 @@ export const TimeLineData = props => {
                         <Entypo
                           name="dots-three-vertical"
                           size={20}
-                          color={'black'}
+                          color={colors.defaultTextColor}
                         />
                       </TouchableOpacity>
                     </View>
@@ -376,7 +381,14 @@ export const TimeLineData = props => {
                   {item?.likes.length > 0 && (
                     <View style={styles.likeContainer}>
                       <AntDesign name={'like1'} size={20} color={'#2055FB'} />
-                      <Text style={{fontSize: hp('3.5'), color: '#2055FB'}}>
+                      <Text
+                        style={{
+                          fontSize: hp('3'),
+                          color:
+                            colors.defaultTextColor == '#f1f2f6'
+                              ? colors.defaultTextColor
+                              : '#2055FB',
+                        }}>
                         {item?.likes.length}
                       </Text>
                     </View>
@@ -398,7 +410,7 @@ export const TimeLineData = props => {
                             ...styles.shareText,
                             color: item.likes.includes(props?.user._id)
                               ? '#2055FB'
-                              : 'black',
+                              : colors.defaultTextColor,
                           }}>
                           Like
                         </Text>
@@ -412,7 +424,7 @@ export const TimeLineData = props => {
                           color={
                             item.likes.includes(props?.user._id)
                               ? '#2055FB'
-                              : 'gray'
+                              : colors.defaultTextColor
                           }
                         />
                       </Animatable.View>

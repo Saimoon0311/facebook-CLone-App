@@ -13,12 +13,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {colors} from '../../Reuseable Component/color';
 
 export const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     height: hp('12'),
     paddingTop: hp('2'),
     paddingBottom: hp('2'),
@@ -46,11 +47,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: wp('5'),
     borderWidth: 0.5,
+    borderColor: colors.defaultTextColor,
   },
   headerText: {
     fontSize: hp('2.2'),
     fontWeight: 'bold',
-    color: 'gray',
+    color: colors.defaultTextColor == '#f1f2f6' ? '#f1f2f6' : 'gray',
   },
   centeredView: {
     flex: 1,

@@ -12,6 +12,7 @@ import {
   RefreshControl,
   ToastAndroid,
   Animated,
+  Appearance,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -30,6 +31,7 @@ import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
+import {colors} from '../../Reuseable Component/color';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -37,6 +39,8 @@ const wait = timeout => {
 
 export default function HomeScreen() {
   const {userData} = useSelector(state => state.auth);
+  // const {themeType} = useSelector(state => state.themeChange);
+  // console.log(41, themeType);
   // const userDat = useSelector(state => state.auth);
 
   const toast = useToast();
@@ -130,6 +134,7 @@ export default function HomeScreen() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{backgroundColor: colors.postDivider}}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>

@@ -24,6 +24,7 @@ import {ScrollView} from 'native-base';
 import {Divider} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {colors} from '../color';
 
 export const ShowInputField = props => {
   const [seacrh, setSeacrh] = useState([
@@ -48,13 +49,17 @@ export const ShowInputField = props => {
             ...styles.sideicon,
             alignSelf: 'auto',
             marginTop: hp('0.5'),
-            backgroundColor: 'white',
+            backgroundColor: colors.defaultBgColor,
           }}>
-          <Ionicons name="md-arrow-back-sharp" size={26} color={'#1A1A1A'} />
+          <Ionicons
+            name="md-arrow-back-sharp"
+            size={26}
+            color={colors.defaultTextColor}
+          />
         </TouchableOpacity>
         <TextInput
           placeholder="Enter what you want to seacrh"
-          placeholderTextColor={'gray'}
+          placeholderTextColor={colors.seacrhBarPlaceholder}
           style={styles.insideTextInput}
         />
       </View>
@@ -180,7 +185,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 10,
     height: hp('100'),
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     top: 0,
   },
   insideView: {
@@ -198,12 +203,13 @@ const styles = StyleSheet.create({
   },
   insideTextInput: {
     width: wp('85'),
-    backgroundColor: '#E7E7E7',
+    backgroundColor: colors.seacrhBar,
     borderRadius: 30,
     height: hp('6'),
     paddingLeft: wp('5'),
     marginRight: wp('2'),
-    color: 'black',
+    // color: 'red',
+    color: colors.defaultTextColor,
     fontSize: hp('2.5'),
   },
   divider: {
@@ -221,7 +227,7 @@ const styles = StyleSheet.create({
   },
   recentViewText: {
     fontSize: hp('3'),
-    color: 'black',
+    color: colors.defaultTextColor,
     fontWeight: 'bold',
   },
   recentSearchView: {
@@ -245,7 +251,7 @@ const styles = StyleSheet.create({
   },
   recentViewTexts: {
     fontSize: hp('2.5'),
-    color: 'black',
+    color: colors.defaultTextColor,
     fontWeight: 'bold',
     // backgroundColor: 'yellow',
     width: wp('65'),

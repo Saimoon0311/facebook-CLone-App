@@ -22,9 +22,9 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     width: wp('100'),
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     marginTop: hp('1'),
-    marginBottom: hp('1'),
+    marginBottom: hp('0.5'),
   },
   header: {
     flexDirection: 'row',
@@ -38,17 +38,17 @@ export const styles = StyleSheet.create({
     // alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.13,
     height: Dimensions.get('screen').width * 0.13,
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     // marginTop: hp('2'),
     marginLeft: hp('2'),
   },
   postName: {
     textAlignVertical: 'center',
-    color: 'black',
+    color: colors.defaultTextColor,
     fontSize: hp('3'),
   },
   description: {
-    color: 'black',
+    color: colors.defaultTextColor,
     paddingLeft: wp('3'),
     fontSize: hp('2.5'),
     width: wp('95'),
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   },
   shareText: {
     paddingRight: wp('2'),
-    color: 'black',
+    color: colors.defaultTextColor,
     fontSize: hp('2.5'),
   },
 });

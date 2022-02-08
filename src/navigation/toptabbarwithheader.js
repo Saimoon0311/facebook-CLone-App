@@ -28,6 +28,8 @@ const height = Dimensions.get('window').height;
 import * as Animatable from 'react-native-animatable';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ShowInputField} from '../Reuseable Component/ShowInputField/showInputField';
+import {colors} from '../Reuseable Component/color';
+import {color} from 'native-base/lib/typescript/theme/styled-system';
 // MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
 
 export function TopbartabBarHeader() {
@@ -143,7 +145,12 @@ export function TopbartabBarHeader() {
   // };
   return (
     <>
-      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={colors.defaultBgColor}
+        barStyle={
+          colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
+        }
+      />
       <ShowInputField
         onPress={isFouced}
         hideInputField={() => setIsFouced(false)}
@@ -152,6 +159,7 @@ export function TopbartabBarHeader() {
         <View style={{width: wp('70')}}>
           <Animatable.Image
             source={require('../Images/splashImage.png')}
+            tintColor={colors.headerFacebookIcon}
             style={{
               width: wp('50'),
               height: hp('10'),
@@ -161,10 +169,14 @@ export function TopbartabBarHeader() {
         <TouchableOpacity
           onPress={() => setIsFouced(true)}
           style={styles.sideicon}>
-          <Ionicons name="search" size={26} color={'#1A1A1A'} />
+          <Ionicons name="search" size={26} color={colors.roundIconsColor} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.sideicon}>
-          <Ionicons name="md-chatbubble-ellipses" size={26} color={'#1A1A1A'} />
+          <Ionicons
+            name="md-chatbubble-ellipses"
+            size={26}
+            color={colors.roundIconsColor}
+          />
         </TouchableOpacity>
       </Animatable.View>
       <TopBarNavigation />
@@ -180,7 +192,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.11,
     height: Dimensions.get('screen').width * 0.11,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: colors.roundIconsBgColor,
     justifyContent: 'center',
     alignItems: 'center',
     //     marginRight: wp('1'),
@@ -188,7 +200,7 @@ const styles = StyleSheet.create({
   },
   maincontainer: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     width: wp('100'),
   },
   inputBox: {
@@ -229,7 +241,7 @@ const styles = StyleSheet.create({
   },
   contentSafeArea: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
   },
   contentInner: {
     flex: 1,
@@ -327,7 +339,7 @@ const styles = StyleSheet.create({
     ),
     width: Dimensions.get('screen').width * 0.13,
     height: Dimensions.get('screen').width * 0.13,
-    backgroundColor: 'white',
+    backgroundColor: colors.defaultBgColor,
     marginRight: wp('2'),
   },
   recentViewTexts: {

@@ -47,6 +47,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
+import {colors} from '../../Reuseable Component/color';
 
 export const styles = StyleSheet.create({
   headerContainer: {
@@ -61,7 +62,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: 'yellow',
   },
-  headerTitle: {fontSize: hp('5'), color: 'black', fontWeight: 'bold'},
+  headerTitle: {
+    fontSize: hp('5'),
+    color: colors.defaultTextColor,
+    fontWeight: 'bold',
+  },
   topTitleContainer: {
     height: hp('6'),
     marginBottom: hp('2'),

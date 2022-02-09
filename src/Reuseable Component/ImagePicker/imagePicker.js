@@ -75,7 +75,7 @@ const ImagePicker = () => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
-        console.log('Response = ', response);
+        // console.log('Response = ', response);
 
         if (response.didCancel) {
           alert('User cancelled camera picker');

@@ -36,6 +36,25 @@ import Video from 'react-native-video';
 import {colors} from '../color';
 import {useSelector} from 'react-redux';
 
+// const uploaders = files.map(file => {
+//   // Initial FormData
+//   const formData = new FormData();
+//   formData.append("file", file);
+//   formData.append("tags", `codeinfuse, medium, gist`);
+//   formData.append("upload_preset", "pvhilzh7"); // Replace the preset name with your own
+//   formData.append("api_key", "1234567"); // Replace API key with your own Cloudinary key
+//   formData.append("timestamp", (Date.now() / 1000) | 0);
+
+//   // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+//   return axios.post("https://api.cloudinary.com/v1_1/codeinfuse/image/upload", formData, {
+//     headers: { "X-Requested-With": "XMLHttpRequest" },
+//   }).then(response => {
+//     const data = response.data;
+//     const fileURL = data.secure_url // You should store this URL for future references in your app
+//     console.log(data);
+//   })
+// });
+
 export const SharePostMoadl = props => {
   const {userData} = useSelector(state => state.auth);
   const toast = useToast();
@@ -44,6 +63,8 @@ export const SharePostMoadl = props => {
   const [shareText, setShareText] = useState('');
   const [imageFromGalary, setImageFromGalary] = useState([]);
   const [dummy, setDummy] = useState(1);
+  const [dummytwo, setDummytwo] = useState([]);
+  const [array, setArray] = useState({});
   useEffect(() => {
     (async () => {
       setUser(userData);
@@ -93,39 +114,171 @@ export const SharePostMoadl = props => {
       },
     );
   };
-  const sharePost = () => {
-    var formdata = new FormData();
-    imageFromGalary.map((res, i) => {
-      // console.log(119, res);
+
+  // const sharePost = async () => {
+  //   var myHeaders = new Headers();
+  //   // myHeaders.append('Content-Type', 'multipart/form-data');
+  //   var formdata = new FormData();
+  //   formdata.append('file', {
+  //     name: imageFromGalary[0]?.fileName,
+  //     uri: imageFromGalary[0]?.uri,
+  //     type: imageFromGalary[0]?.type,
+  //   });
+  //   formdata.append('upload_preset', 'upload');
+  //   var requestOptions = {
+  //     method: 'POST',
+  //     body: formdata,
+  //     redirect: 'follow',
+  //   };
+  //   try {
+  //     const uploadRes = await fetch(
+  //       'https://api.cloudinary.com/v1_1/dd6tdswt5/upload',
+  //       requestOptions,
+  //     );
+
+  //     const {url} = uploadRes.data;
+  //     console.log(110, uploadRes);
+
+  //     const body = {
+  //       description: shareText,
+  //       userId: user?._id,
+  //       postName: user?.username,
+  //       image: url,
+  //       profilePicture: user?.profilePicture,
+  //     };
+
+  //     ApiPost(PostCreateUrl, body, false).then(res => {
+  //       // console.log(res);
+  //       if (res?.success == true) {
+  //         ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+  //         props?.forHideModal();
+  //       } else if (res?.success == false) {
+  //         ToastAndroid.show(
+  //           'Some Thing Want Wrong.',
+  //           ToastAndroid.LONG,
+  //           ToastAndroid.TOP,
+  //         );
+  //       } else {
+  //         ToastAndroid.show(
+  //           'Some Thing Want Wrong.',
+  //           ToastAndroid.LONG,
+  //           ToastAndroid.TOP,
+  //         );
+  //       }
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // const sharePost = () => {
+  //   var formdata = new FormData();
+  //   // imageFromGalary.map((res, i) => {
+  //   //   // console.log(119, res);
+  //   //   formdata.append('file', {
+  //   //     name: res.fileName.includes('.') ? res.fileName : res.fileName + '.mp4',
+  //   //     uri: res.uri,
+  //   //     type: res.type,
+  //   //   });
+  //   // });
+  //   formdata.append('upload_preset', 'upload');
+  //   formdata.append('file', {
+  //     name: imageFromGalary[0]?.fileName,
+  //     uri: imageFromGalary[0]?.uri,
+  //     type: imageFromGalary[0]?.type,
+  //   });
+  //   formdata.append('description', shareText);
+  //   formdata.append('userId', user._id);
+  //   formdata.append('postName', user.username);
+  //   formdata.append('profilePicture', user.profilePicture);
+  //   ApiPost(PostCreateUrl, formdata, true).then(res => {
+  //     // console.log(res);
+  //     if (res?.success == true) {
+  //       ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+  //       props?.forHideModal();
+  //     } else if (res?.success == false) {
+  //       ToastAndroid.show(
+  //         'Some Thing Want Wrong.',
+  //         ToastAndroid.LONG,
+  //         ToastAndroid.TOP,
+  //       );
+  //     } else {
+  //       ToastAndroid.show(
+  //         'Some Thing Want Wrong.',
+  //         ToastAndroid.LONG,
+  //         ToastAndroid.TOP,
+  //       );
+  //     }
+  //   });
+  // };
+
+  const sharePostImages = async () => {
+    imageFromGalary.map(res => {
+      var formdata = new FormData();
+      // formdata.append('file', imageFromGalary[0]?.uri);
+      formdata.append('upload_preset', 'upload');
       formdata.append('file', {
-        name: res.fileName.includes('.') ? res.fileName : res.fileName + '.mp4',
+        name: res.fileName,
         uri: res.uri,
         type: res.type,
       });
+
+      var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow',
+      };
+
+      fetch('https://api.cloudinary.com/v1_1/dd6tdswt5/upload', requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          const {url} = result;
+          array.push(result);
+          for (let index = 0; index < array?.length; index++) {
+            // array[index] = array[index]?.url;
+            console.log(238, index);
+          }
+          // setTimeout(() => {
+          //   console.log(236, array);
+          // }, 1500);
+        })
+        .catch(error => console.log('error', error));
     });
-    formdata.append('description', shareText);
-    formdata.append('userId', user._id);
-    formdata.append('postName', user.username);
-    formdata.append('profilePicture', user.profilePicture);
-    ApiPost(PostCreateUrl, formdata, true).then(res => {
-      console.log(res);
-      if (res?.success == true) {
-        ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
-        props?.forHideModal();
-      } else if (res?.success == false) {
-        ToastAndroid.show(
-          'Some Thing Want Wrong.',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
-      } else {
-        ToastAndroid.show(
-          'Some Thing Want Wrong.',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
-      }
+  };
+
+  const sharePost = async () => {
+    await sharePostImages();
+    const body = JSON.stringify({
+      description: shareText,
+      userId: user._id,
+      postName: user.username,
+      image: array,
+      profilePicture: user?.profilePicture,
     });
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    console.log(253, body);
+    console.log(256, array);
+    await fetch(PostCreateUrl, {body: body, method: 'POST', headers: myHeaders})
+      .then(result => result.json())
+      .then(res => {
+        if (res?.success == true) {
+          ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+          props?.forHideModal();
+        } else if (res?.success == false) {
+          console.log(259, res);
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        } else {
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        }
+      });
   };
 
   return (

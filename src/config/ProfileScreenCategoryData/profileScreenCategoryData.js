@@ -98,11 +98,6 @@ export const ProfileScreenCategoryData = () => {
       topIcon: 'account-group-outline',
       title: 'Groups',
     },
-    {
-      id: 11,
-      topIcon: 'gamepad-variant-outline',
-      title: 'Gaming',
-    },
   ]);
   // const column1Data = catergoryData.filter((item, i) => i % 2 === 0);
   // const column2Data = catergoryData.filter((item, i) => i % 2 === 1);
@@ -161,14 +156,14 @@ export const ProfileScreenCategoryData = () => {
                         name={res.topIcon}
                         style={{marginTop: hp('3'), marginLeft: wp('2.5')}}
                         size={25}
-                        color={'blue'}
+                        color={colors.profileScreenCatergoryIcon}
                       />
                     ) : null}
                     <Text
                       style={{
                         marginLeft: wp('3'),
-                        fontSize: hp('2.5'),
-                        color: 'black',
+                        fontSize: hp('2'),
+                        color: colors.defaultTextColor,
                         fontWeight: 'bold',
                         marginTop: hp('1.5'),
                         marginBottom: hp('1.5'),
@@ -203,10 +198,10 @@ export const ProfileScreenCategoryData = () => {
                     ) : null}
                     {res.bottomText ? (
                       <Text
-                        numberOfLines={1}
+                        numberOfLines={2}
                         style={{
                           marginLeft: wp('3'),
-                          color: 'black',
+                          color: colors.defaultTextColor,
                           fontSize: hp('2.5'),
                           marginBottom: hp('1.5'),
                           marginTop: hp('-2'),
@@ -240,7 +235,7 @@ export const ProfileScreenCategoryData = () => {
                         <MaterialIcons
                           name={res.ImageIcon}
                           size={20}
-                          color={'#760C72'}
+                          color={colors.profileScreenCatergoryFixedIcon}
                         />
                       </TouchableOpacity>
                     ) : null}
@@ -260,7 +255,11 @@ export const ProfileScreenCategoryData = () => {
                         />
                         <Text
                           numberOfLines={1}
-                          style={{color: 'gray', fontSize: hp('2.3')}}>
+                          style={{
+                            color: 'gray',
+                            fontSize: hp('2.3'),
+                            marginLeft: wp('0.5'),
+                          }}>
                           {res.faceIconText}
                         </Text>
                       </View>

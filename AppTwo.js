@@ -168,14 +168,24 @@ const styles = StyleSheet.create({
   },
 });
 
-export const {themeType} = store.getState().themeChange;
+// export const pp = theme => {
+//   return theme;
+// };
 
 function AppTwo({navigation}) {
   const [isVisible, setIsVisible] = useState(true);
+  const [colorTheme, setColorTheme] = useState(Appearance.getColorScheme);
+  const [dummy, setDummy] = useState(1);
   const dispatch = useDispatch();
   Hide_Splash_Screen = () => {
     setIsVisible(false);
   };
+  // const changeTheme = () => {
+  //   Appearance.addChangeListener(scheme => {
+  //     setColorTheme(scheme.colorScheme);
+  //   });
+  //   pp(colorTheme);
+  // };
   const time = () => {
     if (Platform?.OS == 'android') {
       return 5000;
@@ -194,16 +204,19 @@ function AppTwo({navigation}) {
     // const dispatch = useDispatch();
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     LogBox.ignoreAllLogs(true);
-    var theme = Appearance.getColorScheme();
-    console.log(196, theme);
-    dispatch({
-      type: 'CheckThemeColor',
-      payload: theme,
+    Appearance.addChangeListener(scheme => {
+      // console.log(2020020200202, scheme.colorScheme);
+      dispatch({
+        type: 'CheckThemeColor',
+        payload: scheme.colorScheme,
+      });
+      // changeTheme();
+      setDummy(dummy + 1);
     });
     setTimeout(function () {
       Hide_Splash_Screen();
     }, time());
-  }, [dispatch]);
+  }, []);
 
   {
     let Splash_Screen = (

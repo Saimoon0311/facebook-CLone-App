@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {colors} from '../../Reuseable Component/color';
 
 export const styles = StyleSheet.create({
   mainContainer: {
@@ -39,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   userName: {
     fontSize: hp('3'),
-    color: 'black',
+    color: colors.defaultTextColor,
     fontWeight: 'bold',
   },
   extraText: {
@@ -55,8 +56,8 @@ export const styles = StyleSheet.create({
     marginBottom: hp('1'),
   },
   AccordionHeaderTitle: {
-    fontSize: hp('3.2'),
-    color: 'black',
+    fontSize: hp('2.5'),
+    color: colors.defaultTextColor,
     fontWeight: 'normal',
   },
   AccordionContentContainer: {
@@ -66,7 +67,7 @@ export const styles = StyleSheet.create({
     marginBottom: hp('2'),
     height: hp('8'),
     paddingLeft: wp('3'),
-    backgroundColor: 'white',
+    backgroundColor: colors.profileScreenCatergoryBg,
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.4,
@@ -76,12 +77,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   AccordionContentTitle: {
-    fontSize: hp('3'),
+    fontSize: hp('2.5'),
     marginLeft: wp('4'),
-    color: 'black',
+    color: colors.defaultTextColor,
   },
   logoutButton: {
-    backgroundColor: '#D6D6D8',
+    backgroundColor: colors.logoutButtonBg,
     width: wp('92.5'),
     height: hp('7'),
     borderRadius: 10,

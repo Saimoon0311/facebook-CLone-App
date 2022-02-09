@@ -53,6 +53,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
 
 export default function videoScreen() {
+  const {userData} = useSelector(state => state.auth);
+
   const [timeLineData, setTimeLineData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
@@ -61,8 +63,8 @@ export default function videoScreen() {
       userId: user._id,
     });
     var url = LikeUrl + id + '/like';
-    console.log(61, url);
-    console.log(61, body);
+    // console.log(61, url);
+    // console.log(61, body);
     ApiPut(url, body).then(res => {
       if (res.success == true) {
         if (res?.data == 'The post has been liked!') {
@@ -97,8 +99,8 @@ export default function videoScreen() {
   };
   const [like, setLike] = useState(false);
   const getTimeLineData = async () => {
-    const {userData} = useSelector(state => state.auth);
-    console.log(userData);
+    // const {userData} = useSelector(state => state.auth);
+    // console.log(userData);
     const userId = userData._id;
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
@@ -111,14 +113,15 @@ export default function videoScreen() {
   };
   useEffect(() => {
     (async () => {
-      const {userData} = useSelector(state => state.auth);
       setUser(userData);
       getTimeLineData();
     })();
   }, []);
   return (
-    <ScrollView nestedScrollEnabled={true}>
-      <View style={{backgroundColor: 'white'}}>
+    <ScrollView
+      nestedScrollEnabled={true}
+      contentContainerStyle={{backgroundColor: colors.postDivider}}>
+      <View style={{backgroundColor: colors.defaultBgColor}}>
         <View style={styles.headerContainer}>
           <View style={styles.headerTitleConatiner}>
             <Text style={styles.headerTitle}>Watch</Text>
@@ -128,7 +131,11 @@ export default function videoScreen() {
               <Ionicons name="person-sharp" size={26} color={'#1A1A1A'} />
             </TouchableOpacity> */}
             <TouchableOpacity style={styles.sideicon}>
-              <Ionicons name="person-sharp" size={26} color={'#1A1A1A'} />
+              <Ionicons
+                name="person-sharp"
+                size={26}
+                color={colors.roundIconsColor}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -139,23 +146,33 @@ export default function videoScreen() {
               <Text style={styles.topActiveTitle}>For You</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={{color: 'black', marginLeft: wp('4')}}>Live</Text>
+              <Text
+                style={{color: colors.defaultTextColor, marginLeft: wp('4')}}>
+                Live
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={{color: 'black', marginLeft: wp('4')}}>Gaming</Text>
+              <Text
+                style={{color: colors.defaultTextColor, marginLeft: wp('4')}}>
+                Gaming
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={{color: 'black', marginLeft: wp('4')}}>
+              <Text
+                style={{color: colors.defaultTextColor, marginLeft: wp('4')}}>
                 Following
               </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={{color: 'black', marginLeft: wp('4')}}>Saving</Text>
+              <Text
+                style={{color: colors.defaultTextColor, marginLeft: wp('4')}}>
+                Saving
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
               <Text
                 style={{
-                  color: 'black',
+                  color: colors.defaultTextColor,
                   marginLeft: wp('4'),
                   marginRight: wp('3'),
                 }}>
@@ -164,7 +181,7 @@ export default function videoScreen() {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <Divider style={{backgroundColor: 'black'}} />
+        <Divider style={{backgroundColor: colors.defaultTextColor}} />
       </View>
       <TimeLineData
         timeLineData={timeLineData}

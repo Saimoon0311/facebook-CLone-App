@@ -54,6 +54,8 @@ import {ShowInputField} from '../../Reuseable Component/ShowInputField/showInput
 import {useSelector} from 'react-redux';
 
 export default function groupScreen() {
+  const {userData} = useSelector(state => state.auth);
+
   const [timeLineData, setTimeLineData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
@@ -63,8 +65,8 @@ export default function groupScreen() {
       userId: user._id,
     });
     var url = LikeUrl + id + '/like';
-    console.log(61, url);
-    console.log(61, body);
+    // console.log(61, url);
+    // console.log(61, body);
     ApiPut(url, body).then(res => {
       if (res.success == true) {
         if (res?.data == 'The post has been liked!') {
@@ -116,9 +118,9 @@ export default function groupScreen() {
     },
   ]);
   const getTimeLineData = async () => {
-    const {userData} = useSelector(state => state.auth);
-    console.log(userData);
-    const userId = userData._id;
+    // const {userData} = useSelector(state => state.auth);
+    // console.log(userData);
+    const userId = user._id;
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
         setLoading(false);
@@ -130,18 +132,17 @@ export default function groupScreen() {
   };
   useEffect(() => {
     (async () => {
-      const {userData} = useSelector(state => state.auth);
-      setUser(userData);
+      await setUser(userData);
       getTimeLineData();
     })();
   }, []);
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{backgroundColor: colors.postDivider}}>
       <ShowInputField
         onPress={isFouced}
         hideInputField={() => setIsFouced(false)}
       />
-      <View style={{backgroundColor: 'white'}}>
+      <View style={{backgroundColor: colors.defaultBgColor}}>
         <View style={styles.headerContainer}>
           <View style={styles.headerTitleConatiner}>
             <Text style={styles.headerTitle}>Group</Text>
@@ -154,10 +155,18 @@ export default function groupScreen() {
               right: wp('-15'),
             }}>
             <TouchableOpacity style={styles.sideicon}>
-              <Ionicons name="add-circle" size={26} color={'#1A1A1A'} />
+              <Ionicons
+                name="add-circle"
+                size={26}
+                color={colors.roundIconsColor}
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.sideicon}>
-              <Ionicons name="settings-sharp" size={26} color={'#1A1A1A'} />
+              <Ionicons
+                name="settings-sharp"
+                size={26}
+                color={colors.roundIconsColor}
+              />
             </TouchableOpacity>
             {/* <TouchableOpacity
               onPress={() => setIsFouced(true)}
@@ -171,21 +180,25 @@ export default function groupScreen() {
             <Text style={styles.topActiveTitle}>For You</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={{color: 'black'}}>Your Groups</Text>
+            <Text style={{color: colors.defaultTextColor}}>Your Groups</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={{color: 'black'}}>Discover</Text>
+            <Text style={{color: colors.defaultTextColor}}>Discover</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={{color: 'black'}}>Manage</Text>
+            <Text style={{color: colors.defaultTextColor}}>Manage</Text>
           </TouchableOpacity>
         </View>
-        <Divider style={{backgroundColor: 'black'}} />
+        <Divider style={{backgroundColor: colors.defaultTextColor}} />
       </View>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{marginTop: hp('2'), marginBottom: hp('1')}}>
+        contentContainerStyle={{
+          paddingTop: hp('2'),
+          paddingBottom: hp('1'),
+          backgroundColor: colors.defaultBgColor,
+        }}>
         {group.map(res => {
           return (
             <TouchableOpacity>

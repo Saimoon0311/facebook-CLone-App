@@ -14,12 +14,12 @@ import {ApiPost} from '../../config/helpeerFetch';
 // };
 
 export function login(data, dispatch) {
-  console.log(4563254, data);
+  // console.log(4563254, data);
   var datas = JSON.stringify(data);
   ApiPost(LoginUrl, datas, false).then(res => {
-    console.log(17, res);
+    // console.log(17, res);
     if (res.success == true) {
-      console.log('response', res);
+      // console.log('response', res);
       dispatch({
         type: types.LOGIN,
         payload: res.data,

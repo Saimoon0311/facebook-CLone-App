@@ -50,6 +50,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
 import {useDispatch, useSelector} from 'react-redux';
+import {colors} from '../../Reuseable Component/color';
 
 export default function ProfileScreen() {
   const {userData} = useSelector(state => state.auth);
@@ -162,7 +163,7 @@ export default function ProfileScreen() {
           <MaterialIcons
             name={'keyboard-arrow-down'}
             size={30}
-            color={'black'}
+            color={colors.defaultTextColor}
           />
         </View>
       </View>
@@ -195,14 +196,14 @@ export default function ProfileScreen() {
           <MaterialIcons
             name={'keyboard-arrow-down'}
             size={30}
-            color={'black'}
+            color={colors.defaultTextColor}
           />
         </View>
       </View>
     );
   };
   const darkModeSwitch = data => {
-    console.log(201, data);
+    // console.log(201, data);
     if (data.title == 'Dark mode') {
       setModalVisible(true);
     } else {
@@ -270,11 +271,17 @@ export default function ProfileScreen() {
     <ScrollView
       contentContainerStyle={{
         paddingBottom: hp('5'),
+        backgroundColor:
+          colors.defaultBgColor == '#242527'
+            ? colors.defaultBgColor
+            : 'transparent',
       }}
       showsVerticalScrollIndicator={false}>
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
-          <Text style={{color: 'black', fontSize: hp('4')}}>Menu</Text>
+          <Text style={{color: colors.defaultTextColor, fontSize: hp('4')}}>
+            Menu
+          </Text>
           {/* <TouchableOpacity>
             <Ionicons name="search" size={hp('5')} color={'black'} />
           </TouchableOpacity> */}
@@ -315,7 +322,9 @@ export default function ProfileScreen() {
             }, 10)
           }
           style={styles.logoutButton}>
-          <Text style={{color: 'black', fontSize: hp('2.5')}}>Log Out</Text>
+          <Text style={{color: colors.defaultTextColor, fontSize: hp('2.5')}}>
+            Log Out
+          </Text>
         </TouchableOpacity>
       </View>
       {showThemeModal()}

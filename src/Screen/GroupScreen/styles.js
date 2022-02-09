@@ -47,6 +47,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
+import {colors} from '../../Reuseable Component/color';
 
 export const styles = StyleSheet.create({
   sideicon: {
@@ -56,7 +57,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.11,
     height: Dimensions.get('screen').width * 0.11,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: colors.roundIconsBgColor,
     justifyContent: 'center',
     alignItems: 'center',
     //     marginRight: wp('1'),
@@ -80,7 +81,11 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('2'),
     justifyContent: 'center',
   },
-  headerTitle: {fontSize: hp('5'), color: 'black', fontWeight: 'bold'},
+  headerTitle: {
+    fontSize: hp('5'),
+    color: colors.defaultTextColor,
+    fontWeight: 'bold',
+  },
   topTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -89,14 +94,14 @@ export const styles = StyleSheet.create({
     marginBottom: hp('2'),
   },
   topActiveTitleConatiner: {
-    backgroundColor: '#d6edff',
+    backgroundColor: colors.shortTagsBgColor,
     width: wp('20'),
     justifyContent: 'center',
     alignItems: 'center',
     height: hp('5'),
     borderRadius: 20,
   },
-  topActiveTitle: {color: 'blue', fontSize: hp('2.4')},
+  topActiveTitle: {color: colors.shortTagsTextColor, fontSize: hp('2.4')},
   groupContainer: {
     width: wp('35'),
     height: hp('20'),

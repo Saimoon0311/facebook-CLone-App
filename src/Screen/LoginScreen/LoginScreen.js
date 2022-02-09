@@ -68,7 +68,7 @@ export default function LoginScreen({navigation}) {
             description: 'user not found!',
             backgroundColor: colors.statusBarColor,
           });
-          console.log(71, res);
+          // console.log(71, res);
           setLoading(false);
         } else if (res.data == 'wrong password!') {
           showMessage({

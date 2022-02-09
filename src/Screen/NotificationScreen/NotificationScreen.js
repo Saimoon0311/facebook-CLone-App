@@ -82,9 +82,12 @@ export default function NotificationScreen() {
   return (
     <MenuContext>
       <ScrollView
-        contentContainerStyle={{paddingBottom: hp('5')}}
+        contentContainerStyle={{
+          paddingBottom: hp('5'),
+          backgroundColor: colors.postDivider,
+        }}
         showsVerticalScrollIndicator={false}>
-        <View style={{backgroundColor: 'white'}}>
+        <View style={{backgroundColor: colors.defaultBgColor}}>
           <View style={styles.headerContainer}>
             <View style={styles.headerTitleConatiner}>
               <Text style={styles.headerTitle}>Notifications</Text>
@@ -97,7 +100,7 @@ export default function NotificationScreen() {
           </View>
           <Text
             style={{
-              color: 'black',
+              color: colors.defaultTextColor,
               fontSize: hp('3'),
               marginLeft: wp('2.5'),
               marginBottom: hp('2'),
@@ -112,7 +115,7 @@ export default function NotificationScreen() {
                 style={{
                   flexDirection: 'row',
                   paddingTop: hp('3'),
-                  backgroundColor: '#e7f3ff',
+                  backgroundColor: colors.activeNotificationBgcolor,
                 }}>
                 <View
                   style={{
@@ -138,7 +141,7 @@ export default function NotificationScreen() {
                     numberOfLines={3}
                     style={{
                       fontSize: hp('2.5'),
-                      color: 'black',
+                      color: colors.defaultTextColor,
                       lineHeight: 22,
                     }}>
                     Lorem Ipsum is simply dummy text of the printing and
@@ -156,26 +159,12 @@ export default function NotificationScreen() {
                     3 hours ago
                   </Text>
                 </View>
-                {/* <MenuContext
-                disableTouchable={false}
-                onSelect={() => alert('bdf')}>
-                <MenuTrigger>
-                  <TouchableOpacity style={{marginTop: hp('2')}}>
-                    <Entypo
-                      name="dots-three-horizontal"
-                      size={20}
-                      color={'black'}
-                    />
-                  </TouchableOpacity>
-                </MenuTrigger>
-              </MenuContext> */}
-                {/* <MenuContext style={{marginTop: hp('2')}}> */}
                 <Menu>
                   <MenuTrigger>
                     <Entypo
                       name="dots-three-horizontal"
                       size={20}
-                      color={'black'}
+                      color={colors.defaultTextColor}
                     />
                   </MenuTrigger>
                   <MenuOptions
@@ -195,8 +184,6 @@ export default function NotificationScreen() {
                     />
                   </MenuOptions>
                 </Menu>
-                {/* </MenuContext> */}
-                {/* <MenuTrigger text="asdasdasd" /> */}
               </TouchableOpacity>
             );
           })}

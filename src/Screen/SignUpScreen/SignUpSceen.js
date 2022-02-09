@@ -49,6 +49,7 @@ export default function SignUpScreen({navigation}) {
             duration: 'Your Account Has Been Created.',
             backgroundColor: colors.statusBarColor,
           });
+
           navigation.navigate('LoginScreen');
           setLoading(false);
         } else if (res.success == false) {
@@ -61,7 +62,7 @@ export default function SignUpScreen({navigation}) {
           });
           setLoading(false);
         } else {
-          console.log(39, res);
+          // console.log(39, res);
           setLoading(false);
         }
       });

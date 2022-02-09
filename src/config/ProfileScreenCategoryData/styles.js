@@ -13,11 +13,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {colors} from '../../Reuseable Component/color';
 
 export const styles = StyleSheet.create({
   box: {
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.profileScreenCatergoryBg,
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.4,

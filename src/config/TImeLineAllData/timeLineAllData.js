@@ -306,7 +306,19 @@ export const TimeLineData = props => {
                     passages, and more recently with desktop publishing software
                     like Aldus PageMaker including versions of Lorem Ipsum. */}
                   </Text>
-                  <ScrollView
+                  {item.image ? (
+                    <Image
+                      source={{uri: IMAGE_BASED_URL + item?.image}}
+                      // source={{
+                      //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                      // }}
+                      style={{
+                        width: wp('100'),
+                        height: hp('40'),
+                      }}
+                    />
+                  ) : null}
+                  {/* <ScrollView
                     nestedScrollEnabled={true}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
@@ -377,7 +389,7 @@ export const TimeLineData = props => {
                         })}
                       </ScrollView>
                     )}
-                  </ScrollView>
+                  </ScrollView> */}
                   {item?.likes.length > 0 && (
                     <View style={styles.likeContainer}>
                       <AntDesign name={'like1'} size={20} color={'#2055FB'} />

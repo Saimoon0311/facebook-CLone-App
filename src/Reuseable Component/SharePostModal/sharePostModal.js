@@ -12,6 +12,7 @@ import {
   TextInput,
   ImageBackground,
   ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -56,7 +57,9 @@ import {useSelector} from 'react-redux';
 // });
 
 export const SharePostMoadl = props => {
+  var images = [];
   const {userData} = useSelector(state => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   // const toastIdRef = React.useRef();
   const [user, setUser] = useState();
@@ -64,7 +67,7 @@ export const SharePostMoadl = props => {
   const [imageFromGalary, setImageFromGalary] = useState([]);
   const [dummy, setDummy] = useState(1);
   const [dummytwo, setDummytwo] = useState([]);
-  const [array, setArray] = useState({});
+  const [imagesArray, setImagesArray] = useState([]);
   useEffect(() => {
     (async () => {
       setUser(userData);
@@ -74,8 +77,8 @@ export const SharePostMoadl = props => {
   const pickImagesFromGalary = () => {
     launchImageLibrary(
       {
-        selectionLimit: 8,
-        mediaType: 'mixed',
+        selectionLimit: 1,
+        mediaType: 'photo',
         quality: 0.3,
       },
       res => {
@@ -91,17 +94,17 @@ export const SharePostMoadl = props => {
   };
 
   const removeImage = i => {
-    imageFromGalary.splice(i, 1);
-    setDummy(dummy + 1);
+    // imageFromGalary.splice(i, 1);
+    // setDummy(dummy + 1);
+    setImageFromGalary([]);
   };
 
   const pickImagefromCamera = () => {
     launchCamera(
       {
-        selectionLimit: 8,
-        mediaType: 'mixed',
+        selectionLimit: 1,
+        mediaType: 'photo',
         quality: 0.3,
-        videoQuality: 'high',
       },
       res => {
         if (!res?.didCancel) {
@@ -170,56 +173,98 @@ export const SharePostMoadl = props => {
   //     console.log(err);
   //   }
   // };
-  // const sharePost = () => {
+  // const sharePostImages = () => {
+  //   console.log(174, imageFromGalary);
   //   var formdata = new FormData();
-  //   // imageFromGalary.map((res, i) => {
-  //   //   // console.log(119, res);
-  //   //   formdata.append('file', {
-  //   //     name: res.fileName.includes('.') ? res.fileName : res.fileName + '.mp4',
-  //   //     uri: res.uri,
-  //   //     type: res.type,
-  //   //   });
+  //   imageFromGalary.map((res, i) => {
+  //     // console.log(119, res);
+  //     formdata.append('file', {
+  //       filename: imageFromGalary[0]?.fileName,
+  //       size: imageFromGalary[0]?.fileSize,
+  //       content_type: imageFromGalary[0]?.type,
+  //       uri: imageFromGalary[0]?.uri,
+  //     });
+  //   });
+  //   formdata.append('UPLOADCARE_PUB_KEY', '029098b37867edbbaad4');
+  //   formdata.append('UPLOADCARE_STORE', 'auto');
+  //   // formdata.append('file', {
+  //   //   filename: imageFromGalary[0]?.fileName,
+  //   //   size: imageFromGalary[0]?.fileSize,
+  //   //   content_type: imageFromGalary[0]?.type,
   //   // });
-  //   formdata.append('upload_preset', 'upload');
-  //   formdata.append('file', {
-  //     name: imageFromGalary[0]?.fileName,
-  //     uri: imageFromGalary[0]?.uri,
-  //     type: imageFromGalary[0]?.type,
+  //   var requestOptions = {
+  //     method: 'POST',
+  //     body: formdata,
+  //     redirect: 'follow',
+  //   };
+
+  //   fetch('https://upload.uploadcare.com/multipart/start/', requestOptions)
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       console.log(199, json);
+  //     })
+  //     .catch(err => {
+  //       console.log('error', err);
+  //     });
+  // };
+
+  // const sharePostImages = async () => {
+  //   imageFromGalary.map(res => {
+  //     var formdata = new FormData();
+  //     // formdata.append('file', imageFromGalary[0]?.uri);
+  //     formdata.append('upload_preset', 'upload');
+  //     formdata.append('file', {
+  //       name: res.fileName,
+  //       uri: res.uri,
+  //       type: res.type,
+  //     });
+
+  //     var requestOptions = {
+  //       method: 'POST',
+  //       body: formdata,
+  //       redirect: 'follow',
+  //     };
+
+  //     fetch('https://api.cloudinary.com/v1_1/dd6tdswt5/upload', requestOptions)
+  //       .then(response => response.json())
+  //       .then(result => {
+  //         const {public_id} = result;
+  //         console.log('url', result.public_id);
+  //         // var ui = url;
+  //         // console.log('ui', result.ui);
+  //         images.concat(public_id);
+  //         // array.concat(url);
+  //         // console.log('')
+  //         // const ty = [];
+  //         // ty.push(url);
+  //         // console.log(237, ty);
+  //         // Array.prototype.push.apply(array, url);
+  //         // array.push(ty);
+  //         // const data = result;
+  //         // for (let index = 0; index < data?.length; index++) {
+  //         //   array[index] = data[index]?.url;
+  //         //   console.log(238, index);
+  //         // }
+  //         // setTimeout(() => {
+  //         //   console.log(236, array);
+  //         // }, 1500);
+  //       })
+  //       .catch(error => console.log('error', error));
   //   });
-  //   formdata.append('description', shareText);
-  //   formdata.append('userId', user._id);
-  //   formdata.append('postName', user.username);
-  //   formdata.append('profilePicture', user.profilePicture);
-  //   ApiPost(PostCreateUrl, formdata, true).then(res => {
-  //     // console.log(res);
-  //     if (res?.success == true) {
-  //       ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
-  //       props?.forHideModal();
-  //     } else if (res?.success == false) {
-  //       ToastAndroid.show(
-  //         'Some Thing Want Wrong.',
-  //         ToastAndroid.LONG,
-  //         ToastAndroid.TOP,
-  //       );
-  //     } else {
-  //       ToastAndroid.show(
-  //         'Some Thing Want Wrong.',
-  //         ToastAndroid.LONG,
-  //         ToastAndroid.TOP,
-  //       );
-  //     }
-  //   });
+  //   // var oo = jj();
+  //   // array.push(oo);
+  //   // console.log(256, oo);
   // };
 
   const sharePostImages = async () => {
-    imageFromGalary.map(res => {
+    setIsLoading(true);
+    if (imageFromGalary.length > 0) {
       var formdata = new FormData();
-      // formdata.append('file', imageFromGalary[0]?.uri);
       formdata.append('upload_preset', 'upload');
       formdata.append('file', {
-        name: res.fileName,
-        uri: res.uri,
-        type: res.type,
+        name: imageFromGalary[0]?.fileName,
+        uri: imageFromGalary[0]?.uri,
+        type: imageFromGalary[0]?.type,
       });
 
       var requestOptions = {
@@ -231,54 +276,58 @@ export const SharePostMoadl = props => {
       fetch('https://api.cloudinary.com/v1_1/dd6tdswt5/upload', requestOptions)
         .then(response => response.json())
         .then(result => {
-          const {url} = result;
-          array.push(result);
-          for (let index = 0; index < array?.length; index++) {
-            // array[index] = array[index]?.url;
-            console.log(238, index);
-          }
-          // setTimeout(() => {
-          //   console.log(236, array);
-          // }, 1500);
+          const {public_id} = result;
+          console.log('url', result.public_id);
+          setImagesArray(public_id);
+          sharePost(public_id);
         })
-        .catch(error => console.log('error', error));
-    });
+        .catch(error => {
+          setIsLoading(false), console.log('error', error);
+        });
+    } else {
+      sharePost();
+    }
   };
 
-  const sharePost = async () => {
-    await sharePostImages();
+  const sharePost = async data => {
+    // await sharePostImages();
+    // array > 0 &&
+    //   array.map(res => {
+    //     console.log(2666, res);
+    //   });
+    // images = data;
     const body = JSON.stringify({
       description: shareText,
       userId: user._id,
       postName: user.username,
-      image: array,
+      image: data,
       profilePicture: user?.profilePicture,
     });
-    var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    // var myHeaders = new Headers();
+    // myHeaders.append('Content-Type', 'application/json');
     console.log(253, body);
-    console.log(256, array);
-    await fetch(PostCreateUrl, {body: body, method: 'POST', headers: myHeaders})
-      .then(result => result.json())
-      .then(res => {
-        if (res?.success == true) {
-          ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
-          props?.forHideModal();
-        } else if (res?.success == false) {
-          console.log(259, res);
-          ToastAndroid.show(
-            'Some Thing Want Wrong.',
-            ToastAndroid.LONG,
-            ToastAndroid.TOP,
-          );
-        } else {
-          ToastAndroid.show(
-            'Some Thing Want Wrong.',
-            ToastAndroid.LONG,
-            ToastAndroid.TOP,
-          );
-        }
-      });
+    console.log(256, images);
+    ApiPost(PostCreateUrl, body, false).then(res => {
+      if (res?.success == true) {
+        ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+        props?.forHideModal();
+      } else if (res?.success == false) {
+        console.log(259, res);
+        ToastAndroid.show(
+          'Some Thing Want Wrong.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+        );
+      } else {
+        console.log(312, res);
+        setIsLoading(false);
+        ToastAndroid.show(
+          'Some Thing Want Wrong.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+        );
+      }
+    });
   };
 
   return (
@@ -307,8 +356,16 @@ export const SharePostMoadl = props => {
               {shareText !== '' && (
                 <TouchableOpacity
                   style={styles.modalButtonTouch}
-                  onPress={() => sharePost()}>
-                  <Text style={{color: 'white'}}>Post</Text>
+                  onPress={() => sharePostImages()}>
+                  {isLoading ? (
+                    <ActivityIndicator
+                      size={'small'}
+                      color={'white'}
+                      style={{alignSelf: 'center'}}
+                    />
+                  ) : (
+                    <Text style={{color: 'white'}}>Post</Text>
+                  )}
                 </TouchableOpacity>
               )}
             </View>
@@ -345,7 +402,22 @@ export const SharePostMoadl = props => {
               style={styles.textInput}
             />
             <View style={styles.imageMainView}>
-              {imageFromGalary?.length > 0 &&
+              {imageFromGalary?.length > 0 && (
+                <ImageBackground
+                  source={{uri: imageFromGalary[0]?.uri}}
+                  resizeMode="cover"
+                  style={styles.selectImageStyle}>
+                  <TouchableOpacity onPress={() => removeImage()}>
+                    <Entypo
+                      name="circle-with-cross"
+                      size={20}
+                      color={'white'}
+                      style={styles.crossIcon}
+                    />
+                  </TouchableOpacity>
+                </ImageBackground>
+              )}
+              {/* {imageFromGalary?.length > 0 &&
                 imageFromGalary.map((res, i, v) => {
                   return res.type == 'video/mp4' ? (
                     <View style={styles.selectImageStyle}>
@@ -428,7 +500,7 @@ export const SharePostMoadl = props => {
                       </TouchableOpacity>
                     </ImageBackground>
                   );
-                })}
+                })} */}
             </View>
           </ScrollView>
           <View style={styles.bottomMainView}>

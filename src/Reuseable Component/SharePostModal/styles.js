@@ -146,8 +146,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   selectImageStyle: {
-    width: wp('48'),
-    height: hp('30'),
+    width: wp('100'),
+    height: hp('40'),
     marginBottom: hp('2'),
     backgroundColor: 'black',
   },

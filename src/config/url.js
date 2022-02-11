@@ -1,7 +1,7 @@
-// export const API_BASED_URL =
-//   'https://facebook-clone-saimoon.herokuapp.com/api/v1/';
+export const API_BASED_URL =
+  'https://facebook-clone-saimoon.herokuapp.com/api/v1/';
 // export const API_BASED_URL = 'https://hip-brindle-save.glitch.me/api/v1/';
-export const API_BASED_URL = 'http://192.168.20.43:5000/api/v1/';
+// export const API_BASED_URL = 'http://192.168.20.43:5000/api/v1/';
 export const IMAGE_BASED_URL =
   'https://res.cloudinary.com/dd6tdswt5/image/upload/v1644503344/';
 export const POST_IMAGE_URL =

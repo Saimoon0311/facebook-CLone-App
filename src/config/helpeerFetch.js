@@ -52,3 +52,17 @@ export const ApiPut = async (url, body) => {
       return err;
     });
 };
+
+export const ApiDelete = async url => {
+  return fetch(url, {
+    method: 'DELETE',
+    redirect: 'follow',
+  })
+    .then(res => res.json())
+    .then(json => {
+      return json;
+    })
+    .catch(error => {
+      return TypeError;
+    });
+};

@@ -79,7 +79,22 @@ export const TimeLineData = props => {
   const [postData, setPostData] = useState([]);
   let popupRef = React.createRef();
   var dummy;
-
+  var data = props?.timeLineData;
+  // const whenPostDeleted=(confirm)=>{
+  //   if(confirm == true){
+  // //  setLoading(true)
+  // //  getTimeLineData()
+  //   } else if(confirm == false){
+  //  showMessage({
+  //    type:"warning",
+  //    icon:"warning",
+  //    message:"Warning",
+  //    description:"Some thing is wrong",
+  //    backgroundColor:colors.statusBarColor
+  //  })
+  //   }
+  //    }
+  // console.log(82, props?.timeLineData);
   return (
     <MenuContext>
       {modalVisible ? (
@@ -89,6 +104,7 @@ export const TimeLineData = props => {
           forHideModal={() => {
             setModalVisible(false);
           }}
+          whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
         />
       ) : null}
       <View>
@@ -243,6 +259,35 @@ export const TimeLineData = props => {
               </View>
             </ScrollView>
           </SkeletonPlaceholder>
+        ) : data?.length == 0 ? (
+          <View
+            style={{
+              backgroundColor: colors.postDivider,
+              height: hp('80'),
+              // justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: hp('10'),
+            }}>
+            <View
+              style={{
+                alignItems: 'center',
+                width: wp('80'),
+                backgroundColor: colors.defaultBgColor,
+                height: hp('30'),
+                justifyContent: 'center',
+                borderRadius: 20,
+              }}>
+              <AntDesign color={'gray'} size={wp('18')} name="warning" />
+              <Text
+                style={{
+                  fontSize: hp('2.3'),
+                  color: 'gray',
+                  marginTop: hp('2'),
+                }}>
+                You nothing to have currently to view
+              </Text>
+            </View>
+          </View>
         ) : (
           <FlatList
             data={props?.timeLineData}
@@ -250,6 +295,7 @@ export const TimeLineData = props => {
             keyExtractor={item => item.key}
             nestedScrollEnabled={true}
             scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               paddingBottom: hp('1'),
             }}

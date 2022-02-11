@@ -56,7 +56,7 @@ import {useSelector} from 'react-redux';
 export default function groupScreen() {
   const {userData} = useSelector(state => state.auth);
 
-  const [timeLineData, setTimeLineData] = useState(null);
+  const [timeLineData, setTimeLineData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
 
@@ -137,7 +137,9 @@ export default function groupScreen() {
     })();
   }, []);
   return (
-    <ScrollView contentContainerStyle={{backgroundColor: colors.postDivider}}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{backgroundColor: colors.postDivider}}>
       <ShowInputField
         onPress={isFouced}
         hideInputField={() => setIsFouced(false)}

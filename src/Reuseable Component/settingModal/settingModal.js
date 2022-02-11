@@ -167,8 +167,11 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {Divider} from 'react-native-paper';
-import {ApiGet, ApiPost} from '../../config/helpeerFetch';
+import {ApiDelete, ApiGet, ApiPost} from '../../config/helpeerFetch';
 import {
+  API_BASED_URL,
+  DeletePostUrl,
+  getApi,
   ImageUploadUrl,
   IMAGE_BASED_URL,
   PostCreateUrl,
@@ -183,11 +186,84 @@ import Video from 'react-native-video';
 import {colors} from '../color';
 import {useDispatch, useSelector} from 'react-redux';
 import types from '../../Redux/type';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export const SettingModal = props => {
   const [isSaved, setIsSaved] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const {savePosts} = useSelector(state => state.savePosts);
+  const {userData} = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  var deleteButton;
+
+  if (props.postData.userId == userData._id) {
+    deleteButton = {
+      id: 5,
+      title: 'Delete Your Post',
+      iconName: 'ios-trash-outline',
+    };
+  } else {
+    deleteButton = {
+      id: 5,
+      title: 'Why am I seeing this post?',
+      iconName: 'information-circle-outline',
+    };
+  }
+
+  // var isLogin = deleteButton
+  const awesomeAlert = () => {
+    return (
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        title="Delete a Post!"
+        message="Are you sure you want to remove this post."
+        contentContainerStyle={{width: wp('80%')}}
+        overlayStyle={{backgroundColor: colors.alertBgColor}}
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        showConfirmButton={true}
+        confirmText="Yes"
+        cancelText="No"
+        // confirmButtonStyle={styles.buttonstyle}
+        // cancelButtonStyle={styles.buttonstyle}
+        cancelButtonTextStyle={{fontSize: hp('2.2%')}}
+        confirmButtonTextStyle={{fontSize: hp('2.2%')}}
+        // confirmButtonColor={color.textColorRedCart}
+        // cancelButtonColor={color.textColorRedCart}
+        onConfirmPressed={() => {
+          deletePost();
+          setShowAlert(false);
+        }}
+        onCancelPressed={() => {
+          setShowAlert(false);
+        }}
+      />
+    );
+  };
+  const deletePost = () => {
+    console.log(426, userData._id);
+    const url = DeletePostUrl + props.postData._id;
+    // var body = JSON.stringify({userId: userData._id});
+    // console.log(426, body);
+    ApiDelete(url).then(res => {
+      if (res.success == true) {
+        // console.log('kabsdkb');
+        console.log(251, res);
+        props?.whenPostDeleted(true);
+        props.forHideModal();
+      } else if (res.success == false) {
+        props?.whenPostDeleted(false);
+        // console.log('false');
+        props.forHideModal();
+        console.log(251, res);
+      } else {
+        console.log(252, res);
+        // alert('asdihasihd');
+      }
+    });
+  };
   const [modalData, setModalData] = useState([
     {
       id: 1,
@@ -201,19 +277,15 @@ export const SettingModal = props => {
     },
     {
       id: 3,
-      title: 'Why am I seeing this post?',
-      iconName: 'information-circle-outline',
-    },
-    {
-      id: 4,
       title: 'Report photo',
       iconName: 'information-circle',
     },
     {
-      id: 5,
+      id: 4,
       title: 'Add photos/videos to this album',
       iconName: 'images',
     },
+    deleteButton,
   ]);
   const checkIsSaved = () => {
     const selectedData = props.postData;
@@ -232,7 +304,7 @@ export const SettingModal = props => {
   useEffect(() => {
     checkIsSaved();
   }, []);
-  const savePostData = button => {
+  const buttonActions = button => {
     if (button.title == 'Save Post') {
       dispatch({
         type: types.SAVEPOSTS,
@@ -248,7 +320,7 @@ export const SettingModal = props => {
       props.forHideModal();
     } else if (button.title == 'Unsave Post') {
       dispatch({
-        type: types.DELETEPOSTS,
+        type: types.UNSAVEPOSTS,
         payload: props?.postData,
       });
       ToastAndroid.show(
@@ -259,6 +331,18 @@ export const SettingModal = props => {
         500,
       );
       props.forHideModal();
+    } else if (button.title == 'Delete Your Post') {
+      setShowAlert(true);
+      // if (props.postData.userId == userData._id) {
+      //  const url = getApi + userData._id
+      //   ApiDelete(url)
+      //   .then(res =>{
+      //     if(res.success == true){
+      //     }
+      //   })
+      // } else {
+      //   console.log('270');
+      // }
     } else {
       ToastAndroid.show(
         'Ss.engajksdkte!',
@@ -295,14 +379,14 @@ export const SettingModal = props => {
                 return (
                   <TouchableOpacity
                     style={styles.touchButton}
-                    onPress={() => savePostData(res)}>
+                    onPress={() => buttonActions(res)}>
                     <Ionicons
-                      name={res?.iconName}
+                      name={res.iconName}
                       size={25}
                       color={colors.defaultTextColor}
                     />
                     <Text numberOfLines={2} style={styles.titleStyle}>
-                      {res?.title}
+                      {res.title}
                       {/* {isSaved == false  res?.title : 'unsave post'} */}
                     </Text>
                   </TouchableOpacity>
@@ -312,6 +396,7 @@ export const SettingModal = props => {
           </ScrollView>
         </View>
       </View>
+      {awesomeAlert()}
     </Modal>
   );
 };

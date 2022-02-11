@@ -3,7 +3,7 @@ export default {
   SIGNUP: 'SIGNUP',
   CLEAR_REDUX_STATE: 'CLEAR_REDUX_STATE',
   SAVEPOSTS: 'SAVEPOSTS',
-  DELETEPOSTS: 'DELETEPOSTS',
+  UNSAVEPOSTS: 'UNSAVEPOSTS',
   ThemeColorLight: 'ThemeColorLight',
   ThemeColorDark: 'ThemeColorDark',
   CheckThemeColor: 'CheckThemeColor',

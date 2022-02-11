@@ -38,6 +38,7 @@ export const colors = {
   profileScreenCatergoryIcon: themeType == 'light' ? 'blue' : '#38b1ce',
   logoutButtonBg: themeType == 'light' ? '#D6D6D8' : '#2f3130',
   profileScreenCatergoryFixedIcon: themeType == 'light' ? '#760C72' : '#3ab7f7',
+  alertBgColor: 'rgba(14,33,55,0.5)',
   // themePrimaryColor: '#0A5EA4',
   // themePrimaryColor: '#002b5d',
 };

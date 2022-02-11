@@ -55,7 +55,7 @@ import {useSelector} from 'react-redux';
 export default function videoScreen() {
   const {userData} = useSelector(state => state.auth);
 
-  const [timeLineData, setTimeLineData] = useState(null);
+  const [timeLineData, setTimeLineData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const likeAndDislike = id => {
@@ -119,6 +119,7 @@ export default function videoScreen() {
   }, []);
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       nestedScrollEnabled={true}
       contentContainerStyle={{backgroundColor: colors.postDivider}}>
       <View style={{backgroundColor: colors.defaultBgColor}}>

@@ -388,6 +388,7 @@ export const SharePostMoadl = props => {
                   name="md-person-circle-outline"
                   size={60}
                   style={{marginLeft: wp('2')}}
+                  color={'gray'}
                 />
               )}
               <Text style={styles.modalUserName}>{user?.username}</Text>

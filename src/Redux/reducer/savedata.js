@@ -9,7 +9,7 @@ export default function saveData(state = initialState, action) {
     case types.SAVEPOSTS:
       return {...state, savePosts: [...state.savePosts, action.payload]};
       break;
-    case types.DELETEPOSTS:
+    case types.UNSAVEPOSTS:
       return {
         ...state,
         savePosts: state.savePosts.filter(

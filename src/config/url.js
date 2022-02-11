@@ -15,4 +15,5 @@ export const TimeLineUrl = getApi('posts/timeline/');
 export const PostCreateUrl = getApi('posts/createpost');
 export const ImageUploadUrl = getApi('upload');
 export const LikeUrl = getApi('posts/');
-export const UpdatePostUrl = getApi('post/');
+export const UpdatePostUrl = getApi('posts/');
+export const DeletePostUrl = getApi('posts/');

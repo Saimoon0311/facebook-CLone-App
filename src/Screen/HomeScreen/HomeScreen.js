@@ -45,7 +45,7 @@ export default function HomeScreen() {
 
   const toast = useToast();
 
-  const [timeLineData, setTimeLineData] = useState(null);
+  const [timeLineData, setTimeLineData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [like, setLike] = useState(false);
   const [user, setUser] = useState();
@@ -57,15 +57,28 @@ export default function HomeScreen() {
       getTimeLineData(), setLoading(false);
     });
   }, []);
-  const getTimeLineData = async () => {
-    // const user = userData;
-    const userId = await userData._id;
-    // console.log(58, userData);
+  const whenPostDeleted = confirm => {
+    if (confirm == true) {
+      setLoading(true);
+      getTimeLineData();
+    } else if (confirm == false) {
+      showMessage({
+        type: 'warning',
+        icon: 'warning',
+        message: 'Warning',
+        description: 'Some thing is wrong',
+        backgroundColor: colors.statusBarColor,
+      });
+    }
+  };
 
+  const getTimeLineData = async () => {
+    const userId = await userData._id;
     ApiGet(TimeLineUrl + userId).then(res => {
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
+        // console.log(69, timeLineData);
       } else if (res?.success == false) {
         setLoading(true);
       }
@@ -122,11 +135,15 @@ export default function HomeScreen() {
   };
 
   const [state, setState] = useState(false);
-
+  const forHideModal = async () => {
+    await setState(false);
+    await setLoading(true);
+    getTimeLineData();
+  };
   if (state) {
     return (
       <SharePostMoadl
-        forHideModal={() => setState(false)}
+        forHideModal={() => forHideModal()}
         toastShow={() => useToast()}
       />
     );
@@ -156,11 +173,11 @@ export default function HomeScreen() {
       </View>
       <TimeLineData
         timeLineData={timeLineData}
-        // isloading={true}
         isloading={loading}
         user={user}
         like={likeAndDislike}
         Islike={like}
+        whenPostDeleted={confirm => whenPostDeleted(confirm)}
       />
     </ScrollView>
   );

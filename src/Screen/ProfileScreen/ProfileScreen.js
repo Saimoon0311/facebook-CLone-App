@@ -51,6 +51,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import actions from '../../Redux/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {colors} from '../../Reuseable Component/color';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function ProfileScreen() {
   const {userData} = useSelector(state => state.auth);
@@ -74,7 +75,7 @@ export default function ProfileScreen() {
       iconName: 'inbox',
     },
     {
-      iconName: 'report-problem',
+      iconName: 'warning',
       id: 3,
       title: 'Report a Problem',
     },
@@ -173,7 +174,11 @@ export default function ProfileScreen() {
     return helpFunctiontag.map(res => {
       return (
         <TouchableOpacity style={styles.AccordionContentContainer}>
-          <FontAwesome5 name={res?.iconName} size={26} />
+          {res.iconName == 'warning' ? (
+            <AntDesign name={res?.iconName} size={26} color={'gray'} />
+          ) : (
+            <FontAwesome5 name={res?.iconName} size={26} color={'gray'} />
+          )}
           {/* <MaterialIcons name={res?.iconName} size={26} /> */}
           <Text style={styles.AccordionContentTitle}>{res?.title}</Text>
         </TouchableOpacity>
@@ -260,7 +265,7 @@ export default function ProfileScreen() {
         <TouchableOpacity
           onPress={() => darkModeSwitch(res)}
           style={styles.AccordionContentContainer}>
-          <Ionicons name={res?.iconName} size={26} />
+          <Ionicons color={'gray'} name={res?.iconName} size={26} />
           {/* <MaterialIcons name={res?.iconName} size={26} /> */}
           <Text style={styles.AccordionContentTitle}>{res?.title}</Text>
         </TouchableOpacity>

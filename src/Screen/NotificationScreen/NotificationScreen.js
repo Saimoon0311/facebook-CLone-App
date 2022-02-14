@@ -22,7 +22,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {Divider} from 'react-native-paper';
 import {ApiGet, ApiPut} from '../../config/helpeerFetch';
-import {IMAGE_BASED_URL, LikeUrl, TimeLineUrl} from '../../config/url';
+import {IMAGE_BASED_URL, LikeUrl, GetAllPostUrl} from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import ImagePicker from '../../Reuseable Component/ImagePicker/imagePicker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';

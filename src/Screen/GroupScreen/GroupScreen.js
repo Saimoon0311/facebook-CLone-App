@@ -121,7 +121,7 @@ export default function groupScreen() {
     // const {userData} = useSelector(state => state.auth);
     // console.log(userData);
     const userId = user._id;
-    ApiGet(TimeLineUrl + userId).then(res => {
+    ApiGet(GetAllPostUrl).then(res => {
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);

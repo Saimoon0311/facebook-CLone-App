@@ -167,7 +167,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {Divider} from 'react-native-paper';
-import {ApiDelete, ApiGet, ApiPost} from '../../config/helpeerFetch';
+import {ApiDelete, ApiGet, ApiPost, ApiPut} from '../../config/helpeerFetch';
 import {
   API_BASED_URL,
   DeletePostUrl,
@@ -175,7 +175,8 @@ import {
   ImageUploadUrl,
   IMAGE_BASED_URL,
   PostCreateUrl,
-  TimeLineUrl,
+  GetAllPostUrl,
+  HidePostUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -190,6 +191,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 export const SettingModal = props => {
   const [isSaved, setIsSaved] = useState(false);
+  const [dummy, setDummy] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const {savePosts} = useSelector(state => state.savePosts);
   const {userData} = useSelector(state => state.auth);
@@ -198,19 +200,17 @@ export const SettingModal = props => {
 
   if (props.postData.userId == userData._id) {
     deleteButton = {
-      id: 5,
+      id: 2,
       title: 'Delete Your Post',
       iconName: 'ios-trash-outline',
     };
   } else {
     deleteButton = {
-      id: 5,
-      title: 'Why am I seeing this post?',
-      iconName: 'information-circle-outline',
+      id: 2,
+      title: 'Hide post',
+      iconName: 'warning-outline',
     };
   }
-
-  // var isLogin = deleteButton
   const awesomeAlert = () => {
     return (
       <AwesomeAlert
@@ -218,20 +218,25 @@ export const SettingModal = props => {
         showProgress={false}
         title="Delete a Post!"
         message="Are you sure you want to remove this post."
-        contentContainerStyle={{width: wp('80%')}}
+        contentContainerStyle={{
+          width: wp('80%'),
+          backgroundColor: colors.postDivider,
+        }}
         overlayStyle={{backgroundColor: colors.alertBgColor}}
-        closeOnTouchOutside={false}
-        closeOnHardwareBackPress={false}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
         showCancelButton={true}
         showConfirmButton={true}
         confirmText="Yes"
         cancelText="No"
-        // confirmButtonStyle={styles.buttonstyle}
-        // cancelButtonStyle={styles.buttonstyle}
+        confirmButtonStyle={styles.buttonstyle}
+        cancelButtonStyle={styles.buttonstyle}
         cancelButtonTextStyle={{fontSize: hp('2.2%')}}
         confirmButtonTextStyle={{fontSize: hp('2.2%')}}
-        // confirmButtonColor={color.textColorRedCart}
-        // cancelButtonColor={color.textColorRedCart}
+        confirmButtonTextStyle={{textAlign: 'center'}}
+        cancelButtonTextStyle={{textAlign: 'center'}}
+        titleStyle={{color: colors.defaultTextColor}}
+        messageStyle={{color: 'gray', textAlign: 'center'}}
         onConfirmPressed={() => {
           deletePost();
           setShowAlert(false);
@@ -245,22 +250,17 @@ export const SettingModal = props => {
   const deletePost = () => {
     console.log(426, userData._id);
     const url = DeletePostUrl + props.postData._id;
-    // var body = JSON.stringify({userId: userData._id});
-    // console.log(426, body);
     ApiDelete(url).then(res => {
       if (res.success == true) {
-        // console.log('kabsdkb');
         console.log(251, res);
         props?.whenPostDeleted(true);
         props.forHideModal();
       } else if (res.success == false) {
         props?.whenPostDeleted(false);
-        // console.log('false');
-        props.forHideModal();
-        console.log(251, res);
+        // props.forHideModal();
       } else {
-        console.log(252, res);
-        // alert('asdihasihd');
+        props?.whenPostDeleted(true);
+        // console.log(252, res);
       }
     });
   };
@@ -270,26 +270,26 @@ export const SettingModal = props => {
       title: 'Save Post',
       iconName: 'ios-save-outline',
     },
-    {
-      id: 2,
-      title: 'Hide post',
-      iconName: 'warning-outline',
-    },
-    {
-      id: 3,
-      title: 'Report photo',
-      iconName: 'information-circle',
-    },
-    {
-      id: 4,
-      title: 'Add photos/videos to this album',
-      iconName: 'images',
-    },
     deleteButton,
   ]);
   const checkIsSaved = () => {
     const selectedData = props.postData;
     const savedPosts = savePosts;
+    console.log(289, userData._id);
+
+    selectedData.hidePost.map(res => {
+      console.log(288, res);
+      console.log(289, userData._id);
+      if (res == userData._id) {
+        deleteButton.title = 'Unhide post';
+        setDummy(dummy + 1);
+        console.log(292, deleteButton);
+      } else {
+        console.log(294, deleteButton);
+        deleteButton.title = 'Hide post';
+        setDummy(dummy + 1);
+      }
+    });
     savedPosts.length > 0 &&
       savePosts.map(res => {
         if (res._id == selectedData._id) {
@@ -300,6 +300,46 @@ export const SettingModal = props => {
           modalData[0].title = 'Save Post';
         }
       });
+  };
+  const forHidePost = () => {
+    var body = JSON.stringify({
+      userId: userData._id,
+    });
+    var id = props.postData._id;
+    var url = HidePostUrl + id + '/hide';
+    ApiPut(url, body).then(res => {
+      if (res.success == true) {
+        props?.forHideModal();
+        props?.hideAndUnhide(true);
+        if (res?.data == 'The post has been hide!') {
+          ToastAndroid.show(
+            'The post has been hide!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else if (res?.data == 'The post has been unhide!') {
+          props?.forHideModal();
+          props?.hideAndUnhide(true);
+          ToastAndroid.show(
+            'The post has been unhide!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
+        }
+      } else if (res.success == false) {
+        // props?.forHideModal();
+        props?.hideAndUnhide(false);
+        ToastAndroid.show(
+          'Some Thing Is Wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      }
+    });
   };
   useEffect(() => {
     checkIsSaved();
@@ -333,16 +373,8 @@ export const SettingModal = props => {
       props.forHideModal();
     } else if (button.title == 'Delete Your Post') {
       setShowAlert(true);
-      // if (props.postData.userId == userData._id) {
-      //  const url = getApi + userData._id
-      //   ApiDelete(url)
-      //   .then(res =>{
-      //     if(res.success == true){
-      //     }
-      //   })
-      // } else {
-      //   console.log('270');
-      // }
+    } else if (button.title == 'Hide post' || 'Unhide post') {
+      forHidePost();
     } else {
       ToastAndroid.show(
         'Ss.engajksdkte!',

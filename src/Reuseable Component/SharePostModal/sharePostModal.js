@@ -26,7 +26,7 @@ import {
   ImageUploadUrl,
   IMAGE_BASED_URL,
   PostCreateUrl,
-  TimeLineUrl,
+  GetAllPostUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';

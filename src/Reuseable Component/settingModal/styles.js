@@ -53,4 +53,8 @@ export const styles = StyleSheet.create({
     color: colors.defaultTextColor,
     width: wp('74'),
   },
+  buttonstyle: {
+    backgroundColor: colors.themePrimaryColor,
+    width: wp('15'),
+  },
 });

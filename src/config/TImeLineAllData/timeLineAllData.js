@@ -25,7 +25,7 @@ import {
   API_BASED_URL,
   IMAGE_BASED_URL,
   LikeUrl,
-  TimeLineUrl,
+  GetAllPostUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import ImagePicker from '../../Reuseable Component/ImagePicker/imagePicker';
@@ -68,6 +68,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {SettingModal} from '../../Reuseable Component/settingModal/settingModal';
 import {ModalPortal} from 'react-native-modals';
 import darkColors from 'react-native-elements/dist/config/colorsDark';
+import {useSelector} from 'react-redux';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
@@ -80,21 +81,301 @@ export const TimeLineData = props => {
   let popupRef = React.createRef();
   var dummy;
   var data = props?.timeLineData;
-  // const whenPostDeleted=(confirm)=>{
-  //   if(confirm == true){
-  // //  setLoading(true)
-  // //  getTimeLineData()
-  //   } else if(confirm == false){
-  //  showMessage({
-  //    type:"warning",
-  //    icon:"warning",
-  //    message:"Warning",
-  //    description:"Some thing is wrong",
-  //    backgroundColor:colors.statusBarColor
-  //  })
-  //   }
-  //    }
-  // console.log(82, props?.timeLineData);
+  const {userData} = useSelector(state => state.auth);
+
+  // const forHidePost = (item) => {
+  //   var body = JSON.stringify({
+  //     userId: userData._id,
+  //   });
+  //   var id = props.postData._id;
+  //   var url = HidePostUrl + id + '/hide';
+  //   ApiPut(url, body).then(res => {
+  //     if (res.success == true) {
+  //       props?.forHideModal();
+  //       if (res?.data == 'The post has been hide!') {
+  //         ToastAndroid.show(
+  //           'The post has been hide!',
+  //           ToastAndroid.LONG,
+  //           ToastAndroid.BOTTOM,
+  //           25,
+  //           500,
+  //         );
+  //       } else if (res?.data == 'The post has been unhide!') {
+  //         ToastAndroid.show(
+  //           'The post has been unhide!',
+  //           ToastAndroid.LONG,
+  //           ToastAndroid.BOTTOM,
+  //         );
+  //       }
+  //     } else if (res.success == false) {
+  //       ToastAndroid.show(
+  //         'Some Thing Is Wrong!',
+  //         ToastAndroid.LONG,
+  //         ToastAndroid.BOTTOM,
+  //         25,
+  //         500,
+  //       );
+  //     }
+  //   });
+  // };
+
+  const hidePostContainer = item => {
+    return (
+      <View style={styles.mainContainer}>
+        <View style={styles.header}>
+          {item.profilePicture ? (
+            <Image
+              source={{uri: IMAGE_BASED_URL + item.profilePicture}}
+              style={styles.postImage}
+            />
+          ) : (
+            <EvilIcons
+              name={'user'}
+              size={60}
+              color={colors.defaultTextColor}
+            />
+          )}
+          <View style={{flexDirection: 'column'}}>
+            <Text style={{...styles.postName, textAlignVertical: 'top'}}>
+              {item?.postName}
+            </Text>
+            <Text>(This post was hiden)</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true), setPostData(item);
+            }}
+            style={{
+              marginLeft: 'auto',
+              justifyContent: 'center',
+              marginRight: wp('2'),
+              backgroundColor: colors.themePrimaryColor,
+              width: wp('15'),
+              height: hp('6'),
+              alignItems: 'center',
+              alignSelf: 'center',
+              borderRadius: 5,
+            }}>
+            <Text style={{color: 'white'}}>Undo</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  const flatListData = item => {
+    return (
+      <View style={styles.mainContainer}>
+        <TouchableOpacity>
+          <View style={styles.header}>
+            {item.profilePicture ? (
+              <Image
+                source={{
+                  uri: IMAGE_BASED_URL + item.profilePicture,
+                }}
+                style={styles.postImage}
+              />
+            ) : (
+              <EvilIcons
+                name={'user'}
+                size={60}
+                color={colors.defaultTextColor}
+              />
+            )}
+            <Text style={styles.postName}>{item?.postName}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true), setPostData(item);
+              }}
+              style={{
+                marginLeft: 'auto',
+                justifyContent: 'center',
+                marginRight: wp('2'),
+              }}>
+              <Entypo
+                name="dots-three-vertical"
+                size={20}
+                color={colors.defaultTextColor}
+              />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.description}>
+          {item?.description}
+          {/* Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum. */}
+        </Text>
+        {item.image ? (
+          <Image
+            source={{uri: IMAGE_BASED_URL + item?.image}}
+            // source={{
+            //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+            // }}
+            resizeMode="cover"
+            style={{
+              width: wp('100'),
+              height: hp('40'),
+            }}
+          />
+        ) : null}
+        {/* <ScrollView
+                    nestedScrollEnabled={true}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                      maxHeight: hp('60'),
+                    }}>
+                    {item.image.length > 0 && (
+                      <ScrollView
+                        nestedScrollEnabled={true}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                          flexDirection: 'row',
+                          flexWrap: 'wrap',
+                        }}>
+                        {item.image.map((res, i) => {
+                          return (
+                            <View>
+                              {item.image.length == 1 ? (
+                                <>
+                                  <Image
+                                    source={{uri: IMAGE_BASED_URL + res}}
+                                    // source={{
+                                    //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                    // }}
+                                    style={{
+                                      width: wp('100'),
+                                      height: hp('40'),
+                                    }}
+                                  />
+                                </>
+                              ) : item.image.length == 2 ? (
+                                <View>
+                                  <Image
+                                    source={{uri: IMAGE_BASED_URL + res}}
+                                    // source={{
+                                    //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                    // }}
+                                    style={{
+                                      width: wp('50'),
+                                      height: hp('40'),
+                                      flexDirection: 'row',
+                                    }}
+                                  />
+                                </View>
+                              ) : (
+                                <ScrollView
+                                  nestedScrollEnabled={true}
+                                  contentContainerStyle={{
+                                    height: 'auto',
+                                  }}>
+                                  {item.image.length >= 3 && (
+                                    <TouchableOpacity>
+                                      <Image
+                                        source={{uri: IMAGE_BASED_URL + res}}
+                                        // source={{
+                                        //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+                                        // }}
+                                        style={{
+                                          width: wp('50'),
+                                          height: hp('30'),
+                                        }}
+                                      />
+                                    </TouchableOpacity>
+                                  )}
+                                </ScrollView>
+                              )}
+                            </View>
+                          );
+                        })}
+                      </ScrollView>
+                    )}
+                  </ScrollView> */}
+        {item?.likes.length > 0 && (
+          <View style={styles.likeContainer}>
+            <AntDesign name={'like1'} size={20} color={'#2055FB'} />
+            <Text
+              style={{
+                fontSize: hp('3'),
+                color:
+                  colors.defaultTextColor == '#f1f2f6'
+                    ? colors.defaultTextColor
+                    : '#2055FB',
+              }}>
+              {item?.likes.length}
+            </Text>
+          </View>
+        )}
+        <View style={styles.likeShareContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              props?.like(item._id);
+              setStateBounce('bounceIn');
+            }}
+            style={styles.likeButton}>
+            <Animatable.View
+              onAnimationEnd={() => setStateBounce('')}
+              animation={stateBounce}
+              // easing="ease-in-circ"
+              style={styles.likeButton}>
+              <Text
+                style={{
+                  ...styles.shareText,
+                  color: item.likes.includes(props?.user._id)
+                    ? '#2055FB'
+                    : colors.defaultTextColor,
+                }}>
+                Like
+              </Text>
+              <AntDesign
+                name={item.likes.includes(props?.user._id) ? 'like1' : 'like2'}
+                size={20}
+                color={
+                  item.likes.includes(props?.user._id)
+                    ? '#2055FB'
+                    : colors.defaultTextColor
+                }
+              />
+            </Animatable.View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              Share.share({
+                url: 'https://media.istockphoto.com/photos/thumbnail-book-picture-id1287159334?b=1&k=20&m=1287159334&s=170667a&w=0&h=9kPAkWnDSMIP-6qNuEZrJ4EFw4B1Om-cYVcPLVTt4TM=',
+                message: 'sd',
+                // message:
+                //   'React Native | A framework for building native apps using React',
+                // title: 'w',
+                // url: 'https://www.google.com/',
+              })
+            }
+            style={styles.likeButton}>
+            <Text style={styles.shareText}>Share</Text>
+            <MaterialCommunityIcons name="share-all-outline" size={25} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+  const allData = item => {
+    return item.hidePost.length >= 0
+      ? item.hidePost.map(res => {
+          if (res == userData._id) {
+            return hidePostContainer(item);
+          } else if (res !== userData._id) {
+            return flatListData(item);
+          }
+          // res == userData._id ? hidePostContainer(item) : flatListData(item);
+        })
+      : flatListData(item);
+  };
   return (
     <MenuContext>
       {modalVisible ? (
@@ -105,15 +386,11 @@ export const TimeLineData = props => {
             setModalVisible(false);
           }}
           whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
+          hideAndUnhide={confirm => props?.hideAndUnhide(confirm)}
         />
       ) : null}
       <View>
         {props?.isloading ? (
-          // <WaveIndicator
-          //   size={hp('20')}
-          //   style={{marginTop: hp('20')}}
-          //   color={'#0f78af'}
-          // />
           <SkeletonPlaceholder>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View
@@ -264,7 +541,6 @@ export const TimeLineData = props => {
             style={{
               backgroundColor: colors.postDivider,
               height: hp('80'),
-              // justifyContent: 'center',
               alignItems: 'center',
               paddingTop: hp('10'),
             }}>
@@ -292,222 +568,43 @@ export const TimeLineData = props => {
           <FlatList
             data={props?.timeLineData}
             extraData={props?.timeLineData}
-            keyExtractor={item => item.key}
+            keyExtractor={item => item._id}
             nestedScrollEnabled={true}
             scrollEnabled={false}
+            inverted={true}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               paddingBottom: hp('1'),
             }}
-            showsVerticalScrollIndicator={false}
             renderItem={({item}) => {
               for (let index = 0; index < item?.image?.length; index++) {
                 const obj = IMAGE_BASED_URL + item?.image[index];
                 dummy = obj;
               }
-              return (
-                <View style={styles.mainContainer}>
-                  <TouchableOpacity>
-                    <View style={styles.header}>
-                      {item.profilePicture ? (
-                        <Image
-                          source={{uri: IMAGE_BASED_URL + item.profilePicture}}
-                          style={styles.postImage}
-                        />
-                      ) : (
-                        <EvilIcons
-                          name={'user'}
-                          size={60}
-                          color={colors.defaultTextColor}
-                        />
-                      )}
-                      <Text style={styles.postName}>{item?.postName}</Text>
-                      <TouchableOpacity
-                        onPress={() => {
-                          setModalVisible(true), setPostData(item);
-                        }}
-                        style={{
-                          marginLeft: 'auto',
-                          justifyContent: 'center',
-                          marginRight: wp('2'),
-                        }}>
-                        <Entypo
-                          name="dots-three-vertical"
-                          size={20}
-                          color={colors.defaultTextColor}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </TouchableOpacity>
-                  <Text style={styles.description}>
-                    {item?.description}
-                    {/* Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum. */}
-                  </Text>
-                  {item.image ? (
-                    <Image
-                      source={{uri: IMAGE_BASED_URL + item?.image}}
-                      // source={{
-                      //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-                      // }}
-                      style={{
-                        width: wp('100'),
-                        height: hp('40'),
-                      }}
-                    />
-                  ) : null}
-                  {/* <ScrollView
-                    nestedScrollEnabled={true}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{
-                      maxHeight: hp('60'),
-                    }}>
-                    {item.image.length > 0 && (
-                      <ScrollView
-                        nestedScrollEnabled={true}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                          flexDirection: 'row',
-                          flexWrap: 'wrap',
-                        }}>
-                        {item.image.map((res, i) => {
-                          return (
-                            <View>
-                              {item.image.length == 1 ? (
-                                <>
-                                  <Image
-                                    source={{uri: IMAGE_BASED_URL + res}}
-                                    // source={{
-                                    //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-                                    // }}
-                                    style={{
-                                      width: wp('100'),
-                                      height: hp('40'),
-                                    }}
-                                  />
-                                </>
-                              ) : item.image.length == 2 ? (
-                                <View>
-                                  <Image
-                                    source={{uri: IMAGE_BASED_URL + res}}
-                                    // source={{
-                                    //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-                                    // }}
-                                    style={{
-                                      width: wp('50'),
-                                      height: hp('40'),
-                                      flexDirection: 'row',
-                                    }}
-                                  />
-                                </View>
-                              ) : (
-                                <ScrollView
-                                  nestedScrollEnabled={true}
-                                  contentContainerStyle={{
-                                    height: 'auto',
-                                  }}>
-                                  {item.image.length >= 3 && (
-                                    <TouchableOpacity>
-                                      <Image
-                                        source={{uri: IMAGE_BASED_URL + res}}
-                                        // source={{
-                                        //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-                                        // }}
-                                        style={{
-                                          width: wp('50'),
-                                          height: hp('30'),
-                                        }}
-                                      />
-                                    </TouchableOpacity>
-                                  )}
-                                </ScrollView>
-                              )}
-                            </View>
-                          );
-                        })}
-                      </ScrollView>
-                    )}
-                  </ScrollView> */}
-                  {item?.likes.length > 0 && (
-                    <View style={styles.likeContainer}>
-                      <AntDesign name={'like1'} size={20} color={'#2055FB'} />
-                      <Text
-                        style={{
-                          fontSize: hp('3'),
-                          color:
-                            colors.defaultTextColor == '#f1f2f6'
-                              ? colors.defaultTextColor
-                              : '#2055FB',
-                        }}>
-                        {item?.likes.length}
-                      </Text>
-                    </View>
-                  )}
-                  <View style={styles.likeShareContainer}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        props?.like(item._id);
-                        setStateBounce('bounceIn');
-                      }}
-                      style={styles.likeButton}>
-                      <Animatable.View
-                        onAnimationEnd={() => setStateBounce('')}
-                        animation={stateBounce}
-                        // easing="ease-in-circ"
-                        style={styles.likeButton}>
-                        <Text
-                          style={{
-                            ...styles.shareText,
-                            color: item.likes.includes(props?.user._id)
-                              ? '#2055FB'
-                              : colors.defaultTextColor,
-                          }}>
-                          Like
-                        </Text>
-                        <AntDesign
-                          name={
-                            item.likes.includes(props?.user._id)
-                              ? 'like1'
-                              : 'like2'
-                          }
-                          size={20}
-                          color={
-                            item.likes.includes(props?.user._id)
-                              ? '#2055FB'
-                              : colors.defaultTextColor
-                          }
-                        />
-                      </Animatable.View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Share.share({
-                          url: 'https://media.istockphoto.com/photos/thumbnail-book-picture-id1287159334?b=1&k=20&m=1287159334&s=170667a&w=0&h=9kPAkWnDSMIP-6qNuEZrJ4EFw4B1Om-cYVcPLVTt4TM=',
-                          message: 'sd',
-                          // message:
-                          //   'React Native | A framework for building native apps using React',
-                          // title: 'w',
-                          // url: 'https://www.google.com/',
-                        })
-                      }
-                      style={styles.likeButton}>
-                      <Text style={styles.shareText}>Share</Text>
-                      <MaterialCommunityIcons
-                        name="share-all-outline"
-                        size={25}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
+              // console.log(578, allData(item));
+              return item.hidePost
+                ? item.hidePost.map(res => {
+                    if (res == userData._id) {
+                      console.log(588);
+                      return hidePostContainer(item);
+                    } else if (res !== userData._id) {
+                      console.log(5900);
+
+                      return flatListData(item);
+                    }
+                    // res == userData._id ? hidePostContainer(item) : flatListData(item);
+                  })
+                : flatListData(item);
+              // return (
+              //   item?.hidePost.length >= 0 &&
+              //   item?.hidePost?.map(res => {
+              //     if (res == userData._id) {
+              //       return hidePostContainer(item);
+              //     } else if (res !== userData._id) {
+              //       return flatListData(item);
+              //     }
+              //   })
+              // );
             }}
           />
         )}

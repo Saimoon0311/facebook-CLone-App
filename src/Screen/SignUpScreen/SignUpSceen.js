@@ -46,7 +46,7 @@ export default function SignUpScreen({navigation}) {
             type: 'success',
             icon: 'success',
             message: 'Success',
-            duration: 'Your Account Has Been Created.',
+            description: 'Your Account Has Been Created.',
             backgroundColor: colors.statusBarColor,
           });
 

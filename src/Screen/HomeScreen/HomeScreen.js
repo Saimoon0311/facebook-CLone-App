@@ -22,7 +22,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {Divider} from 'react-native-paper';
 import {ApiGet, ApiPut} from '../../config/helpeerFetch';
-import {IMAGE_BASED_URL, LikeUrl, TimeLineUrl} from '../../config/url';
+import {
+  IMAGE_BASED_URL,
+  LikeUrl,
+  GetAllPostUrl,
+  HidePostUrl,
+} from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import ImagePicker from '../../Reuseable Component/ImagePicker/imagePicker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -74,7 +79,7 @@ export default function HomeScreen() {
 
   const getTimeLineData = async () => {
     const userId = await userData._id;
-    ApiGet(TimeLineUrl + userId).then(res => {
+    ApiGet(GetAllPostUrl).then(res => {
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
@@ -120,6 +125,21 @@ export default function HomeScreen() {
         );
       }
     });
+  };
+
+  const hideAndUnhide = confirm => {
+    if (confirm == true) {
+      setLoading(true);
+      getTimeLineData();
+    } else if (confirm == false) {
+      showMessage({
+        type: 'warning',
+        icon: 'warning',
+        message: 'Warning',
+        description: 'Some thing is wrong',
+        backgroundColor: colors.statusBarColor,
+      });
+    }
   };
   useEffect(() => {
     (async () => {
@@ -177,6 +197,7 @@ export default function HomeScreen() {
         user={user}
         like={likeAndDislike}
         Islike={like}
+        hideAndUnhide={confirm => hideAndUnhide(confirm)}
         whenPostDeleted={confirm => whenPostDeleted(confirm)}
       />
     </ScrollView>

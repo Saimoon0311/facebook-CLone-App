@@ -129,7 +129,7 @@ export default function HomeScreen() {
 
   const hideAndUnhide = confirm => {
     if (confirm == true) {
-      setLoading(true);
+      // setLoading(true);
       getTimeLineData();
     } else if (confirm == false) {
       showMessage({

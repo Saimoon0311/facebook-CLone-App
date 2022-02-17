@@ -68,9 +68,17 @@ export const SharePostMoadl = props => {
   const [dummy, setDummy] = useState(1);
   const [dummytwo, setDummytwo] = useState([]);
   const [imagesArray, setImagesArray] = useState([]);
+  const porpsData = () => {
+    if (props.postData) {
+      setShareText(props.postData.description);
+      setImageFromGalary(props.postData.image);
+    } else {
+    }
+  };
   useEffect(() => {
     (async () => {
       setUser(userData);
+      porpsData();
     })();
   }, []);
 

@@ -139,23 +139,13 @@ export const TimeLineData = props => {
             <Text style={{...styles.postName, textAlignVertical: 'top'}}>
               {item?.postName}
             </Text>
-            <Text>(This post was hiden)</Text>
+            <Text>(This post was hidden)</Text>
           </View>
           <TouchableOpacity
             onPress={() => {
               setModalVisible(true), setPostData(item);
             }}
-            style={{
-              marginLeft: 'auto',
-              justifyContent: 'center',
-              marginRight: wp('2'),
-              backgroundColor: colors.themePrimaryColor,
-              width: wp('15'),
-              height: hp('6'),
-              alignItems: 'center',
-              alignSelf: 'center',
-              borderRadius: 5,
-            }}>
+            style={styles.hidePostUndoButton}>
             <Text style={{color: 'white'}}>Undo</Text>
           </TouchableOpacity>
         </View>
@@ -299,7 +289,7 @@ export const TimeLineData = props => {
                     )}
                   </ScrollView> */}
         {item?.likes.length > 0 && (
-          <View style={styles.likeContainer}>
+          <TouchableOpacity style={styles.likeContainer}>
             <AntDesign name={'like1'} size={20} color={'#2055FB'} />
             <Text
               style={{
@@ -311,7 +301,7 @@ export const TimeLineData = props => {
               }}>
               {item?.likes.length}
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
         <View style={styles.likeShareContainer}>
           <TouchableOpacity
@@ -364,18 +354,7 @@ export const TimeLineData = props => {
       </View>
     );
   };
-  const allData = item => {
-    return item.hidePost.length >= 0
-      ? item.hidePost.map(res => {
-          if (res == userData._id) {
-            return hidePostContainer(item);
-          } else if (res !== userData._id) {
-            return flatListData(item);
-          }
-          // res == userData._id ? hidePostContainer(item) : flatListData(item);
-        })
-      : flatListData(item);
-  };
+
   return (
     <MenuContext>
       {modalVisible ? (
@@ -581,30 +560,9 @@ export const TimeLineData = props => {
                 const obj = IMAGE_BASED_URL + item?.image[index];
                 dummy = obj;
               }
-              // console.log(578, allData(item));
-              return item.hidePost
-                ? item.hidePost.map(res => {
-                    if (res == userData._id) {
-                      console.log(588);
-                      return hidePostContainer(item);
-                    } else if (res !== userData._id) {
-                      console.log(5900);
-
-                      return flatListData(item);
-                    }
-                    // res == userData._id ? hidePostContainer(item) : flatListData(item);
-                  })
+              return item.hidePost && item.hidePost.includes(userData._id)
+                ? hidePostContainer(item)
                 : flatListData(item);
-              // return (
-              //   item?.hidePost.length >= 0 &&
-              //   item?.hidePost?.map(res => {
-              //     if (res == userData._id) {
-              //       return hidePostContainer(item);
-              //     } else if (res !== userData._id) {
-              //       return flatListData(item);
-              //     }
-              //   })
-              // );
             }}
           />
         )}

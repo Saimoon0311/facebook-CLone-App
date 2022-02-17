@@ -80,4 +80,15 @@ export const styles = StyleSheet.create({
     color: colors.defaultTextColor,
     fontSize: hp('2.5'),
   },
+  hidePostUndoButton: {
+    marginLeft: 'auto',
+    justifyContent: 'center',
+    marginRight: wp('2'),
+    backgroundColor: colors.themePrimaryColor,
+    width: wp('15'),
+    height: hp('6'),
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 5,
+  },
 });

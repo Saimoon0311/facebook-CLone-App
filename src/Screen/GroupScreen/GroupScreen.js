@@ -120,7 +120,7 @@ export default function groupScreen() {
   const getTimeLineData = async () => {
     // const {userData} = useSelector(state => state.auth);
     // console.log(userData);
-    const userId = user._id;
+    const userId = userData._id;
     ApiGet(GetAllPostUrl).then(res => {
       if (res?.success == true) {
         setLoading(false);
@@ -131,8 +131,7 @@ export default function groupScreen() {
     });
   };
   useEffect(() => {
-    (async () => {
-      await setUser(userData);
+    (() => {
       getTimeLineData();
     })();
   }, []);

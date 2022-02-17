@@ -188,27 +188,39 @@ import {colors} from '../color';
 import {useDispatch, useSelector} from 'react-redux';
 import types from '../../Redux/type';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import {SharePostMoadl} from '../SharePostModal/sharePostModal';
 
 export const SettingModal = props => {
   const [isSaved, setIsSaved] = useState(false);
   const [dummy, setDummy] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const {savePosts} = useSelector(state => state.savePosts);
   const {userData} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   var deleteButton;
-
+  var updateButton;
   if (props.postData.userId == userData._id) {
     deleteButton = {
       id: 2,
       title: 'Delete Your Post',
       iconName: 'ios-trash-outline',
     };
+    updateButton = {
+      id: 3,
+      title: 'Update Your Post.',
+      iconName: 'create-outline',
+    };
   } else {
     deleteButton = {
       id: 2,
       title: 'Hide post',
       iconName: 'warning-outline',
+    };
+    updateButton = {
+      id: 3,
+      title: 'Post',
+      iconName: 'create-outline',
     };
   }
   const awesomeAlert = () => {
@@ -248,11 +260,11 @@ export const SettingModal = props => {
     );
   };
   const deletePost = () => {
-    console.log(426, userData._id);
+    // console.log(426, userData._id);
     const url = DeletePostUrl + props.postData._id;
     ApiDelete(url).then(res => {
       if (res.success == true) {
-        console.log(251, res);
+        // console.log(251, res);
         props?.whenPostDeleted(true);
         props.forHideModal();
       } else if (res.success == false) {
@@ -271,21 +283,22 @@ export const SettingModal = props => {
       iconName: 'ios-save-outline',
     },
     deleteButton,
+    updateButton,
   ]);
   const checkIsSaved = () => {
     const selectedData = props.postData;
     const savedPosts = savePosts;
-    console.log(289, userData._id);
+    // console.log(289, userData._id);
 
     selectedData.hidePost.map(res => {
-      console.log(288, res);
-      console.log(289, userData._id);
+      // console.log(288, res);
+      // console.log(289, userData._id);
       if (res == userData._id) {
         deleteButton.title = 'Unhide post';
         setDummy(dummy + 1);
-        console.log(292, deleteButton);
+        // console.log(292, deleteButton);
       } else {
-        console.log(294, deleteButton);
+        // console.log(294, deleteButton);
         deleteButton.title = 'Hide post';
         setDummy(dummy + 1);
       }
@@ -345,6 +358,8 @@ export const SettingModal = props => {
     checkIsSaved();
   }, []);
   const buttonActions = button => {
+    console.log(361, button);
+    console.log(362, updateButton);
     if (button.title == 'Save Post') {
       dispatch({
         type: types.SAVEPOSTS,
@@ -375,6 +390,9 @@ export const SettingModal = props => {
       setShowAlert(true);
     } else if (button.title == 'Hide post' || 'Unhide post') {
       forHidePost();
+    } else if (button.title == 'Update Your Post.') {
+      // setModalVisible(true);
+      console.log(389);
     } else {
       ToastAndroid.show(
         'Ss.engajksdkte!',
@@ -385,50 +403,59 @@ export const SettingModal = props => {
       );
     }
   };
-  const maxHeight = Dimensions.get('window').height;
   return (
-    <Modal
-      animationType="slide"
-      onRequestClose={() => props?.forHideModal()}
-      visible={true}
-      transparent={true}
-      swipeDirection={['down', 'up']}
-      // presentationStyle="fullScreen"
-    >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        }}>
-        <Pressable
-          style={{flex: 1}}
-          onPress={() => props?.forHideModal()}></Pressable>
-        <View style={styles.mainContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Divider style={styles.divider} />
-            <View style={styles.mapView}>
-              {modalData.map(res => {
-                return (
-                  <TouchableOpacity
-                    style={styles.touchButton}
-                    onPress={() => buttonActions(res)}>
-                    <Ionicons
-                      name={res.iconName}
-                      size={25}
-                      color={colors.defaultTextColor}
-                    />
-                    <Text numberOfLines={2} style={styles.titleStyle}>
-                      {res.title}
-                      {/* {isSaved == false  res?.title : 'unsave post'} */}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
+    <>
+      {modalVisible ? (
+        <SharePostMoadl
+          forHideModal={() => {
+            setModalVisible(false);
+          }}
+          postData={props?.postData}
+        />
+      ) : null}
+      <Modal
+        animationType="slide"
+        onRequestClose={() => props?.forHideModal()}
+        visible={true}
+        transparent={true}
+        swipeDirection={['down', 'up']}
+        // presentationStyle="fullScreen"
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          }}>
+          <Pressable
+            style={{flex: 1}}
+            onPress={() => props?.forHideModal()}></Pressable>
+          <View style={styles.mainContainer}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Divider style={styles.divider} />
+              <View style={styles.mapView}>
+                {modalData.map(res => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.touchButton}
+                      onPress={() => buttonActions(res)}>
+                      <Ionicons
+                        name={res.iconName}
+                        size={25}
+                        color={colors.defaultTextColor}
+                      />
+                      <Text numberOfLines={2} style={styles.titleStyle}>
+                        {res.title}
+                        {/* {isSaved == false  res?.title : 'unsave post'} */}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      {awesomeAlert()}
-    </Modal>
+        {awesomeAlert()}
+      </Modal>
+    </>
   );
 };

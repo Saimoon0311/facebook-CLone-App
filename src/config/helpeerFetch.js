@@ -34,10 +34,11 @@ export const ApiGet = async url => {
     });
 };
 
-export const ApiPut = async (url, body) => {
+export const ApiPut = async (url, body, confirm) => {
   var myHeaders = new Headers();
-
-  myHeaders.append('Content-Type', 'application/json');
+  confirm == true
+    ? myHeaders.append('Content-Type', 'multipart/form-data')
+    : myHeaders.append('Content-Type', 'application/json');
   return fetch(url, {
     method: 'PUT',
     body: body,

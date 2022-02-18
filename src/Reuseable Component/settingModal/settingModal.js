@@ -388,11 +388,13 @@ export const SettingModal = props => {
       props.forHideModal();
     } else if (button.title == 'Delete Your Post') {
       setShowAlert(true);
+    } else if (button.title === 'Update Your Post.') {
+      // console.log(392, props.postData);
+      setModalVisible(true);
     } else if (button.title == 'Hide post' || 'Unhide post') {
       forHidePost();
-    } else if (button.title == 'Update Your Post.') {
       // setModalVisible(true);
-      console.log(389);
+      // console.log(389);
     } else {
       ToastAndroid.show(
         'Ss.engajksdkte!',
@@ -409,8 +411,12 @@ export const SettingModal = props => {
         <SharePostMoadl
           forHideModal={() => {
             setModalVisible(false);
+            props?.forHideModal();
+            props?.whenPostDeleted(true);
           }}
-          postData={props?.postData}
+          postData={props.postData}
+          title="Update Your post"
+          postButtonTitle="Update"
         />
       ) : null}
       <Modal

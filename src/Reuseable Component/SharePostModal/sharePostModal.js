@@ -21,12 +21,13 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
 import {Divider} from 'react-native-paper';
-import {ApiGet, ApiPost} from '../../config/helpeerFetch';
+import {ApiGet, ApiPost, ApiPut} from '../../config/helpeerFetch';
 import {
   ImageUploadUrl,
   IMAGE_BASED_URL,
   PostCreateUrl,
   GetAllPostUrl,
+  UpdatePostUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -61,6 +62,7 @@ export const SharePostMoadl = props => {
   const {userData} = useSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  // console.log(64, props.postData);
   // const toastIdRef = React.useRef();
   const [user, setUser] = useState();
   const [shareText, setShareText] = useState('');
@@ -71,14 +73,18 @@ export const SharePostMoadl = props => {
   const porpsData = () => {
     if (props.postData) {
       setShareText(props.postData.description);
-      setImageFromGalary(props.postData.image);
+      var uri = IMAGE_BASED_URL + props.postData.image;
+      props.postData.image
+        ? setImageFromGalary([{uri: uri}])
+        : setImageFromGalary([]);
+      // console.log(75, imageFromGalary);
     } else {
     }
   };
   useEffect(() => {
+    porpsData();
     (async () => {
       setUser(userData);
-      porpsData();
     })();
   }, []);
 
@@ -298,44 +304,81 @@ export const SharePostMoadl = props => {
   };
 
   const sharePost = async data => {
-    // await sharePostImages();
-    // array > 0 &&
-    //   array.map(res => {
-    //     console.log(2666, res);
-    //   });
-    // images = data;
-    const body = JSON.stringify({
-      description: shareText,
-      userId: user._id,
-      postName: user.username,
-      image: data,
-      profilePicture: user?.profilePicture,
-    });
-    // var myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-    console.log(253, body);
-    console.log(256, images);
-    ApiPost(PostCreateUrl, body, false).then(res => {
-      if (res?.success == true) {
-        ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
-        props?.forHideModal();
-      } else if (res?.success == false) {
-        console.log(259, res);
-        ToastAndroid.show(
-          'Some Thing Want Wrong.',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
-      } else {
-        console.log(312, res);
-        setIsLoading(false);
-        ToastAndroid.show(
-          'Some Thing Want Wrong.',
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-        );
-      }
-    });
+    if (props.postData.description) {
+      console.log(308, props.postData.userId);
+      var body = JSON.stringify({
+        description: shareText,
+        userId: userData._id,
+        // postName: user.username,
+        image: data,
+        // profilePicture: user?.profilePicture,
+      });
+      console.log(316, body);
+      var url = UpdatePostUrl + props.postData._id;
+      console.log(318, url);
+      // var confirm = true;
+      ApiPut(url, body, true).then(res => {
+        if (res?.success == true) {
+          ToastAndroid.show('You post has been updated.', ToastAndroid.LONG);
+          props?.forHideModal();
+        } else if (res?.success == false) {
+          setIsLoading(false);
+          console.log(259, res);
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        } else {
+          console.log(312, res);
+          setIsLoading(false);
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        }
+      });
+    } else {
+      // await sharePostImages();
+      // array > 0 &&
+      //   array.map(res => {
+      //     console.log(2666, res);
+      //   });
+      // images = data;
+      const body = JSON.stringify({
+        description: shareText,
+        userId: user._id,
+        postName: user.username,
+        image: data,
+        profilePicture: user?.profilePicture,
+      });
+      // var myHeaders = new Headers();
+      // myHeaders.append('Content-Type', 'application/json');
+      // console.log(253, body);
+      // console.log(256, images);
+      ApiPost(PostCreateUrl, body, false).then(res => {
+        if (res?.success == true) {
+          ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
+          props?.forHideModal();
+        } else if (res?.success == false) {
+          console.log(259, res);
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        } else {
+          console.log(312, res);
+          setIsLoading(false);
+          ToastAndroid.show(
+            'Some Thing Want Wrong.',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          );
+        }
+      });
+    }
   };
 
   return (
@@ -357,7 +400,7 @@ export const SharePostMoadl = props => {
             </TouchableOpacity>
             <View style={styles.modalText}>
               <Text style={{fontSize: hp('3'), color: colors.defaultTextColor}}>
-                Create Post
+                {props.title ? props.title : 'Create Post'}
               </Text>
             </View>
             <View style={styles.modalButtonView}>
@@ -372,7 +415,9 @@ export const SharePostMoadl = props => {
                       style={{alignSelf: 'center'}}
                     />
                   ) : (
-                    <Text style={{color: 'white'}}>Post</Text>
+                    <Text style={{color: 'white'}}>
+                      {props.postButtonTitle ? props.postButtonTitle : 'Post'}
+                    </Text>
                   )}
                 </TouchableOpacity>
               )}

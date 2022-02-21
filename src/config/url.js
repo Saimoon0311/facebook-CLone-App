@@ -18,3 +18,4 @@ export const UpdatePostUrl = getApi('posts/updatePost/');
 export const DeletePostUrl = getApi('posts/');
 export const GetAllPostUrl = getApi('posts/post/AllPost');
 export const HidePostUrl = getApi('posts/');
+export const UpdateUserUrl = getApi('users/');

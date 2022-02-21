@@ -102,6 +102,7 @@ export const styles = StyleSheet.create({
     // marginRight: wp('3'),
     backgroundColor: 'white',
     borderRadius: 10,
+    alignItems: 'center',
   },
   button: {
     borderRadius: 20,
@@ -120,11 +121,13 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: hp('2'),
     // textAlign: 'center',
     fontSize: hp('3'),
-    marginLeft: wp('3'),
+    // marginLeft: wp('3'),
     marginTop: hp('2'),
+    textAlign: 'center',
+    color: colors.defaultTextColor,
   },
   devider: {
     flex: 1,

@@ -7,6 +7,7 @@ import NotificationScreen from './NotificationScreen/NotificationScreen';
 import FriendRequestScreen from './FriendRequestScreen/FriendRequestScreen';
 import topBarNavigation from '../navigation/topBarNavigation';
 import videoScreen from './VideoScreen/videoScreen';
+import userScreen from './UserScreen/userScreen';
 
 export const Screens = {
   HomeScreen,
@@ -18,4 +19,5 @@ export const Screens = {
   FriendRequestScreen,
   topBarNavigation,
   videoScreen,
+  userScreen,
 };

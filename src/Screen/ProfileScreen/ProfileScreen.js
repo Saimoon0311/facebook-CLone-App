@@ -20,7 +20,7 @@ import {
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
-import {Divider} from 'react-native-paper';
+import {Avatar, Divider} from 'react-native-paper';
 import {ApiGet, ApiPut} from '../../config/helpeerFetch';
 import {IMAGE_BASED_URL, LikeUrl, GetAllPostUrl} from '../../config/url';
 import {getUserData} from '../../utils/utils';
@@ -52,8 +52,10 @@ import actions from '../../Redux/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {colors} from '../../Reuseable Component/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
+import UpdateProfileModal from '../../Reuseable Component/updateProfileModal/updateProfileModal';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
   const {userData} = useSelector(state => state.auth);
   const dipatch = useDispatch();
   const [activeSessionHelp, setActiveSessionHelp] = useState([]);
@@ -88,7 +90,7 @@ export default function ProfileScreen() {
   const [settingFunctiontag, setSettingFunctiontag] = useState([
     {
       id: 1,
-      title: 'Setting',
+      title: 'Update Your Profile',
       iconName: 'person-circle',
     },
     {
@@ -209,56 +211,48 @@ export default function ProfileScreen() {
   };
   const darkModeSwitch = data => {
     // console.log(201, data);
-    if (data.title == 'Dark mode') {
+    if (data.title == 'Update Your Profile') {
       setModalVisible(true);
     } else {
       setModalVisible(false);
     }
   };
-  const showThemeModal = () => {
-    return (
-      <View style={styles.centeredView}>
-        <NativeBaseProvider>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Dark Mode</Text>
-                <Radio.Group
-                  value={themeType}
-                  onChange={nextValue => {
-                    setThemeType(nextValue);
-                  }}
-                  style={{marginLeft: wp('3'), marginBottom: hp('3')}}>
-                  <View>
-                    <Radio value="Off" my={1}>
-                      <Text style={styles.radioText}>Off</Text>
-                    </Radio>
-                  </View>
-                  <View
-                    style={{
-                      ...styles.devider,
-                      width: wp('100'),
-                      alignSelf: 'center',
-                      backgroundColor: 'black',
-                    }}
-                  />
-                  <Radio value="On" my={1}>
-                    <Text style={styles.radioText}>On</Text>
-                  </Radio>
-                </Radio.Group>
-              </View>
-            </View>
-          </Modal>
-        </NativeBaseProvider>
-      </View>
-    );
-  };
+  // const showThemeModal = () => {
+  //   return (
+  //     <View style={styles.centeredView}>
+  //       <NativeBaseProvider>
+  //         <Modal
+  //           animationType="slide"
+  //           transparent={true}
+  //           visible={modalVisible}
+  //           onRequestClose={() => {
+  //             setModalVisible(!modalVisible);
+  //           }}>
+  //           <View style={styles.centeredView}>
+  //             <View style={styles.modalView}>
+  //               <Text style={styles.modalText}>Update Your Profile</Text>
+  //               {userData?.profilePicture !== '' ? (
+  //                 <Image
+  //                   source={{uri: IMAGE_BASED_URL + userData?.profilePicture}}
+  //                   style={styles.imageContainer}
+  //                 />
+  //               ) : (
+  //                 <TouchableOpacity>
+  //                   <Entypo
+  //                     name="add-user"
+  //                     size={60}
+  //                     style={{marginLeft: wp('2')}}
+  //                     color={'gray'}
+  //                   />
+  //                 </TouchableOpacity>
+  //               )}
+  //             </View>
+  //           </View>
+  //         </Modal>
+  //       </NativeBaseProvider>
+  //     </View>
+  //   );
+  // };
   const renderContentSetting = item => {
     return settingFunctiontag.map(res => {
       return (
@@ -272,67 +266,91 @@ export default function ProfileScreen() {
       );
     });
   };
+  // if (modalVisible) {
+  //   return (
+  //     <UpdateProfileModal
+  //       forHideModal={() => setModalVisible(false)}
+  //       userData={userData}
+  //     />
+  //   );
+  // }
   return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingBottom: hp('5'),
-        backgroundColor:
-          colors.defaultBgColor == '#242527'
-            ? colors.defaultBgColor
-            : 'transparent',
-      }}
-      showsVerticalScrollIndicator={false}>
-      <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
-          <Text style={{color: colors.defaultTextColor, fontSize: hp('4')}}>
-            Menu
-          </Text>
-          {/* <TouchableOpacity>
+    <>
+      {modalVisible ? (
+        <UpdateProfileModal
+          forHideModal={() => setModalVisible(false)}
+          modalType={modalVisible}
+          // postData={postData}
+          // forHideModal={() => {
+          //   setModalVisible(false);
+          // }}
+          // whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
+          // hideAndUnhide={confirm => props?.hideAndUnhide(confirm)}
+        />
+      ) : null}
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: hp('5'),
+          backgroundColor:
+            colors.defaultBgColor == '#242527'
+              ? colors.defaultBgColor
+              : 'transparent',
+        }}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.mainContainer}>
+          <View style={styles.headerContainer}>
+            <Text style={{color: colors.defaultTextColor, fontSize: hp('4')}}>
+              Menu
+            </Text>
+            {/* <TouchableOpacity>
             <Ionicons name="search" size={hp('5')} color={'black'} />
           </TouchableOpacity> */}
-        </View>
-        <TouchableOpacity style={{flexDirection: 'row', marginBottom: hp('2')}}>
-          <Image
-            source={require('../../Images/removeimage.png')}
-            style={styles.imageContainer}
-          />
-          <View style={{marginLeft: wp('5')}}>
-            <Text style={styles.userName}>{user?.username}</Text>
-            <Text style={styles.extraText}>See Your Profile</Text>
           </View>
-        </TouchableOpacity>
-        <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />
-        <ProfileScreenCategoryData />
-        <Divider style={{borderWidth: 0.3}} />
-        <Accordion
-          activeSections={activeSessionHelp}
-          sections={helpSupport}
-          underlayColor="transparent"
-          renderHeader={e => renderHeaderHelp(e)}
-          renderContent={e => renderContentHelp(e)}
-          onChange={e => updateSectionsHelp(e)}
-        />
-        <Accordion
-          activeSections={activeSessiontSetting}
-          sections={setting}
-          underlayColor="transparent"
-          renderHeader={e => renderHeadersetting(e)}
-          renderContent={e => renderContentSetting(e)}
-          onChange={e => updateSectionssetting(e)}
-        />
-        <TouchableOpacity
-          onPress={() =>
-            setTimeout(() => {
-              actions.logout(dipatch);
-            }, 10)
-          }
-          style={styles.logoutButton}>
-          <Text style={{color: colors.defaultTextColor, fontSize: hp('2.5')}}>
-            Log Out
-          </Text>
-        </TouchableOpacity>
-      </View>
-      {showThemeModal()}
-    </ScrollView>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('userScreen')}
+            style={{flexDirection: 'row', marginBottom: hp('2')}}>
+            <Image
+              source={require('../../Images/removeimage.png')}
+              style={styles.imageContainer}
+            />
+            <View style={{marginLeft: wp('5')}}>
+              <Text style={styles.userName}>{user?.username}</Text>
+              <Text style={styles.extraText}>See Your Profile</Text>
+            </View>
+          </TouchableOpacity>
+          <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />
+          <ProfileScreenCategoryData />
+          <Divider style={{borderWidth: 0.3}} />
+          <Accordion
+            activeSections={activeSessionHelp}
+            sections={helpSupport}
+            underlayColor="transparent"
+            renderHeader={e => renderHeaderHelp(e)}
+            renderContent={e => renderContentHelp(e)}
+            onChange={e => updateSectionsHelp(e)}
+          />
+          <Accordion
+            activeSections={activeSessiontSetting}
+            sections={setting}
+            underlayColor="transparent"
+            renderHeader={e => renderHeadersetting(e)}
+            renderContent={e => renderContentSetting(e)}
+            onChange={e => updateSectionssetting(e)}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              setTimeout(() => {
+                actions.logout(dipatch);
+              }, 10)
+            }
+            style={styles.logoutButton}>
+            <Text style={{color: colors.defaultTextColor, fontSize: hp('2.5')}}>
+              Log Out
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {/* {showThemeModal()} */}
+      </ScrollView>
+    </>
   );
 }

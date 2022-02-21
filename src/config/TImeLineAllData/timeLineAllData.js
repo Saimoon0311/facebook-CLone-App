@@ -209,10 +209,12 @@ export const TimeLineData = props => {
             // source={{
             //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
             // }}
-            resizeMode="cover"
+            resizeMode="contain"
             style={{
               width: wp('100'),
               height: hp('40'),
+              backgroundColor: 'rgba(231,241,254,0.5)',
+              // backgroundColor: '#E7F1FE',
             }}
           />
         ) : null}

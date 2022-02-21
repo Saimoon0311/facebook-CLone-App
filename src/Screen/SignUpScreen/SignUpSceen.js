@@ -19,6 +19,7 @@ export default function SignUpScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const handleClick = () => setShow(!show);
   const [show, setShow] = useState(false);
@@ -31,6 +32,8 @@ export default function SignUpScreen({navigation}) {
       username !== '' &&
       email !== null &&
       email !== '' &&
+      phoneNumber !== '' &&
+      phoneNumber !== null &&
       password !== null &&
       password !== '' &&
       password === confirmPassword
@@ -38,6 +41,7 @@ export default function SignUpScreen({navigation}) {
       var body = JSON.stringify({
         username: username,
         email: email,
+        PhoenNumber: phoneNumber,
         password: password,
       });
       ApiPost(SignUpUrl, body, false).then(res => {
@@ -131,6 +135,14 @@ export default function SignUpScreen({navigation}) {
             onChangeText={e => setUsername(e)}
             value={username}
             firstIconName="person-outline"
+          />
+          <InputField
+            label="Phone Number"
+            onChangeText={e => setPhoneNumber(e)}
+            value={phoneNumber}
+            autoCapble="none"
+            firstIconName="call-outline"
+            keyboardType="phone-pad"
           />
           <InputField
             label="Email"

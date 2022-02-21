@@ -9,10 +9,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const InputField = props => {
+  var inputWidth = props?.inputWidth ? props.inputWidth : '90';
   return (
     <View
       style={{
-        width: wp('90'),
+        width: wp(inputWidth),
         alignSelf: 'center',
         marginTop: hp('2'),
         flexDirection: 'row',
@@ -47,11 +48,13 @@ export const InputField = props => {
           width: wp('60'),
           color: 'black',
         }}
+        editable={props?.editable}
         value={props?.value}
         autoCapitalize={props?.autoCapble}
         onChangeText={props?.onChangeText}
         placeholderTextColor={'gray'}
         keyboardType={props?.keyboardType}
+        // keyboardType={"phone-pad"}
         secureTextEntry={props?.secureTextEntry}
         theme={{colors: {primary: colors.themePrimaryColor}}}
       />

@@ -272,9 +272,10 @@ export const SharePostMoadl = props => {
 
   const sharePostImages = async () => {
     setIsLoading(true);
-    if (imageFromGalary.length > 0) {
+    if (imageFromGalary.length > 0 && !props?.postData?.image) {
       var formdata = new FormData();
       formdata.append('upload_preset', 'upload');
+      // formdata.append('folder', 'UserImages');
       formdata.append('file', {
         name: imageFromGalary[0]?.fileName,
         uri: imageFromGalary[0]?.uri,
@@ -291,33 +292,36 @@ export const SharePostMoadl = props => {
         .then(response => response.json())
         .then(result => {
           const {public_id} = result;
-          console.log('url', result.public_id);
+          // console.log('url', result.public_id);
           setImagesArray(public_id);
           sharePost(public_id);
+          setIsLoading(false);
         })
         .catch(error => {
           setIsLoading(false), console.log('error', error);
         });
     } else {
-      sharePost();
+      // console.log(302, props.postData.image);
+      var empty = imageFromGalary.uri ? props?.postData?.image : '';
+      sharePost(empty);
     }
   };
 
   const sharePost = async data => {
-    if (props.postData.description) {
-      console.log(308, props.postData.userId);
+    if (props?.postData?.description) {
+      // console.log(308, props.postData.userId);
       var body = JSON.stringify({
         description: shareText,
         userId: userData._id,
-        // postName: user.username,
+        postName: userData.username,
         image: data,
-        // profilePicture: user?.profilePicture,
+        profilePicture: userData?.profilePicture,
       });
-      console.log(316, body);
+      // console.log(316, data);
       var url = UpdatePostUrl + props.postData._id;
-      console.log(318, url);
+      // console.log(318, url);
       // var confirm = true;
-      ApiPut(url, body, true).then(res => {
+      ApiPut(url, body, false).then(res => {
         if (res?.success == true) {
           ToastAndroid.show('You post has been updated.', ToastAndroid.LONG);
           props?.forHideModal();

@@ -62,46 +62,7 @@ export default function Navigation() {
           />
         </>
       )}
-      {/* <Stack.Screen
-        options={{
-          title: 'Sign In',
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#FFDDC9',
-          },
-          headerTintColor: '#512500',
-
-          headerTitleStyle: {
-            fontSize: 18,
-          },
-        }}
-        name="LoginScreen"
-        component={Screens.LoginScreen}
-      />
-      <Stack.Screen
-        options={{
-          title: 'Sign In',
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#FFDDC9',
-          },
-          headerTintColor: '#512500',
-
-          headerTitleStyle: {
-            fontSize: 18,
-          },
-        }}
-        name="SignUpScreen"
-        component={Screens.SignUpScreen}
-      /> */}
-      {/* <Stack.Screen name="Details" component={Details} />
-      <Stack.Screen name="Cart" component={Cart} />
-      <Stack.Screen name="Cartdetails" component={Cartdetails} />
-      <Stack.Screen name="Userdeatils" component={Userdeatils} />
-      <Stack.Screen name="subcatdetails" component={subcatdetails} />
-      <Stack.Screen name="changepassword" component={changepassword} />
-      <Stack.Screen name="checkOut" component={checkOut} />
-      <Stack.Screen name="OrderDetails" component={OrderDetails} /> */}
+      <Stack.Screen name="userScreen" component={Screens.userScreen} />
     </Stack.Navigator>
   );
 }

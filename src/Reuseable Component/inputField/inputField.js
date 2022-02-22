@@ -46,7 +46,7 @@ export const InputField = props => {
         style={{
           backgroundColor: 'transparent',
           width: wp('60'),
-          color: 'black',
+          color: props?.TextInputColor ? props.TextInputColor : 'black',
         }}
         editable={props?.editable}
         value={props?.value}

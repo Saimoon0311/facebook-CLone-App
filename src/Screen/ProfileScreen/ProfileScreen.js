@@ -54,6 +54,7 @@ import {colors} from '../../Reuseable Component/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import UpdateProfileModal from '../../Reuseable Component/updateProfileModal/updateProfileModal';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 export default function ProfileScreen({navigation}) {
   const {userData} = useSelector(state => state.auth);
@@ -280,12 +281,6 @@ export default function ProfileScreen({navigation}) {
         <UpdateProfileModal
           forHideModal={() => setModalVisible(false)}
           modalType={modalVisible}
-          // postData={postData}
-          // forHideModal={() => {
-          //   setModalVisible(false);
-          // }}
-          // whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
-          // hideAndUnhide={confirm => props?.hideAndUnhide(confirm)}
         />
       ) : null}
       <ScrollView
@@ -309,12 +304,26 @@ export default function ProfileScreen({navigation}) {
           <TouchableOpacity
             onPress={() => navigation.navigate('userScreen')}
             style={{flexDirection: 'row', marginBottom: hp('2')}}>
-            <Image
+            {userData.profilePicture ? (
+              <Image
+                source={{
+                  uri: IMAGE_BASED_URL + userData.profilePicture,
+                }}
+                style={styles.imageContainer}
+              />
+            ) : (
+              <EvilIcons
+                name={'user'}
+                size={60}
+                color={colors.defaultTextColor}
+              />
+            )}
+            {/* <Image
               source={require('../../Images/removeimage.png')}
               style={styles.imageContainer}
-            />
+            /> */}
             <View style={{marginLeft: wp('5')}}>
-              <Text style={styles.userName}>{user?.username}</Text>
+              <Text style={styles.userName}>{userData?.username}</Text>
               <Text style={styles.extraText}>See Your Profile</Text>
             </View>
           </TouchableOpacity>

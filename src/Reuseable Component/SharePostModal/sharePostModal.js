@@ -302,7 +302,7 @@ export const SharePostMoadl = props => {
         });
     } else {
       // console.log(302, props.postData.image);
-      var empty = imageFromGalary.uri ? props?.postData?.image : '';
+      var empty = imageFromGalary[0].uri ? props?.postData?.image : '';
       sharePost(empty);
     }
   };
@@ -327,14 +327,14 @@ export const SharePostMoadl = props => {
           props?.forHideModal();
         } else if (res?.success == false) {
           setIsLoading(false);
-          console.log(259, res);
+          // console.log(259, res);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
         } else {
-          console.log(312, res);
+          // console.log(312, res);
           setIsLoading(false);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
@@ -366,14 +366,14 @@ export const SharePostMoadl = props => {
           ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
           props?.forHideModal();
         } else if (res?.success == false) {
-          console.log(259, res);
+          // console.log(259, res);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
         } else {
-          console.log(312, res);
+          // console.log(312, res);
           setIsLoading(false);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
@@ -434,6 +434,7 @@ export const SharePostMoadl = props => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                marginTop: hp('2'),
               }}>
               {user?.profilePicture !== '' ? (
                 <Image

@@ -37,6 +37,7 @@ import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
 import {colors} from '../../Reuseable Component/color';
+import {useIsFocused} from '@react-navigation/native';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -44,6 +45,8 @@ const wait = timeout => {
 
 export default function HomeScreen() {
   const {userData} = useSelector(state => state.auth);
+  const isFocused = useIsFocused();
+
   // const {themeType} = useSelector(state => state.themeChange);
   // console.log(41, themeType);
   // const userDat = useSelector(state => state.auth);
@@ -143,12 +146,15 @@ export default function HomeScreen() {
   };
   useEffect(() => {
     (async () => {
+      if (isFocused) {
+        getTimeLineData();
+      } else {
+      }
+      setUser(userData);
       // const {userData} = await useSelector(state => state.auth);
       // console.log(112, userData);
-      setUser(userData);
-      getTimeLineData();
     })();
-  }, []);
+  }, [isFocused]);
 
   const openModal = () => {
     return <Text>sjkfdjkasdfsbdabf</Text>;
@@ -177,12 +183,17 @@ export default function HomeScreen() {
       }>
       <View>
         <View style={styles.headerContainer}>
-          <TouchableOpacity>
+          {userData.profilePicture ? (
+            <Image
+              source={{uri: IMAGE_BASED_URL + userData.profilePicture}}
+              style={styles.imageContainer}
+            />
+          ) : (
             <Image
               source={require('../../Images/removeimage.png')}
               style={styles.imageContainer}
             />
-          </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.headerComponent}
             onPress={() => setState(true)}>

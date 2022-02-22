@@ -128,6 +128,7 @@ export const styles = StyleSheet.create({
     color: colors.defaultTextColor,
     // fontWeight: 'bold',
     fontSize: hp('3'),
+    marginLeft: wp('1'),
     // marginTop: hp('1'),
     // justifyContent: 'center',
   },

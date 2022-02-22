@@ -177,6 +177,8 @@ import {
   PostCreateUrl,
   GetAllPostUrl,
   HidePostUrl,
+  FollowUserUrl,
+  getaUserUrl,
 } from '../../config/url';
 import {getUserData} from '../../utils/utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -200,6 +202,40 @@ export const SettingModal = props => {
   const dispatch = useDispatch();
   var deleteButton;
   var updateButton;
+  const getUserAndSet = async () => {
+    var url = getaUserUrl + userData._id;
+    console.log(206, url);
+    ApiGet(url).then(res => {
+      if (res.success == true) {
+        dispatch({
+          type: types.LOGIN,
+          payload: res.data,
+        });
+      } else if (res.success == false) {
+        ToastAndroid.show(
+          'Some thing is wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      } else {
+        ToastAndroid.show(
+          'Some thing is wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      }
+    });
+  };
+  var checkId = userData.followings.includes(props.postData.userId)
+    ? 'Unfollow'
+    : 'Follow';
+  var checkIdForIcon = userData.followings.includes(props.postData.userId)
+    ? 'person-remove-outline'
+    : 'person-add-outline';
   if (props.postData.userId == userData._id) {
     deleteButton = {
       id: 2,
@@ -219,10 +255,11 @@ export const SettingModal = props => {
     };
     updateButton = {
       id: 3,
-      title: 'Post',
-      iconName: 'create-outline',
+      title: checkId + ' ' + props.postData.postName,
+      iconName: checkIdForIcon,
     };
   }
+
   const awesomeAlert = () => {
     return (
       <AwesomeAlert
@@ -260,19 +297,15 @@ export const SettingModal = props => {
     );
   };
   const deletePost = () => {
-    // console.log(426, userData._id);
     const url = DeletePostUrl + props.postData._id;
     ApiDelete(url).then(res => {
       if (res.success == true) {
-        // console.log(251, res);
         props?.whenPostDeleted(true);
         props.forHideModal();
       } else if (res.success == false) {
         props?.whenPostDeleted(false);
-        // props.forHideModal();
       } else {
         props?.whenPostDeleted(true);
-        // console.log(252, res);
       }
     });
   };
@@ -288,17 +321,11 @@ export const SettingModal = props => {
   const checkIsSaved = () => {
     const selectedData = props.postData;
     const savedPosts = savePosts;
-    // console.log(289, userData._id);
-
     selectedData.hidePost.map(res => {
-      // console.log(288, res);
-      // console.log(289, userData._id);
       if (res == userData._id) {
         deleteButton.title = 'Unhide post';
         setDummy(dummy + 1);
-        // console.log(292, deleteButton);
       } else {
-        // console.log(294, deleteButton);
         deleteButton.title = 'Hide post';
         setDummy(dummy + 1);
       }
@@ -342,7 +369,6 @@ export const SettingModal = props => {
           );
         }
       } else if (res.success == false) {
-        // props?.forHideModal();
         props?.hideAndUnhide(false);
         ToastAndroid.show(
           'Some Thing Is Wrong!',
@@ -357,9 +383,90 @@ export const SettingModal = props => {
   useEffect(() => {
     checkIsSaved();
   }, []);
+  const followAndUnfollow = async title => {
+    if (title == `Follow ${props.postData.postName}`) {
+      var url = FollowUserUrl + props.postData.userId + '/followUser';
+      console.log(364, url);
+      var body = JSON.stringify({
+        userId: userData._id,
+      });
+      ApiPut(url, body, false).then(async res => {
+        if (res.success == true) {
+          await getUserAndSet();
+          updateButton.title = `Unfollow ${props.postData.postName}`;
+          updateButton.iconName = 'person-remove-outline';
+          props?.forHideModal();
+          props?.hideAndUnhide(true);
+          ToastAndroid.show(
+            'The user has been followed!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else if (res.success == false) {
+          props?.forHideModal();
+          props?.hideAndUnhide(false);
+          ToastAndroid.show(
+            'Some thing is wrong!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else {
+          ToastAndroid.show(
+            'Some thing is wrong!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        }
+      });
+    } else if (title == `Unfollow ${props.postData.postName}`) {
+      var url = FollowUserUrl + props.postData.userId + '/unfollowUser';
+      console.log(364, url);
+      var body = JSON.stringify({
+        userId: userData._id,
+      });
+      ApiPut(url, body, false).then(async res => {
+        if (res.success == true) {
+          await getUserAndSet();
+          updateButton.title = `Follow ${props.postData.postName}`;
+          updateButton.iconName = 'person-add-outline';
+          props?.forHideModal();
+          props?.hideAndUnhide(true);
+          ToastAndroid.show(
+            'The user has been Unfollowed!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else if (res.success == false) {
+          props?.forHideModal();
+          props?.hideAndUnhide(false);
+          ToastAndroid.show(
+            'Some thing is wrong!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else {
+          ToastAndroid.show(
+            'Some thing is wrong!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        }
+      });
+    }
+  };
   const buttonActions = button => {
-    console.log(361, button);
-    console.log(362, updateButton);
     if (button.title == 'Save Post') {
       dispatch({
         type: types.SAVEPOSTS,
@@ -389,20 +496,14 @@ export const SettingModal = props => {
     } else if (button.title == 'Delete Your Post') {
       setShowAlert(true);
     } else if (button.title === 'Update Your Post.') {
-      // console.log(392, props.postData);
       setModalVisible(true);
-    } else if (button.title == 'Hide post' || 'Unhide post') {
+    } else if (
+      button.title == `Follow ${props.postData.postName}` ||
+      `Unfollow ${props.postData.postName}`
+    ) {
+      followAndUnfollow(button.title);
+    } else if (button.title === 'Hide post' || 'Unhide post') {
       forHidePost();
-      // setModalVisible(true);
-      // console.log(389);
-    } else {
-      ToastAndroid.show(
-        'Ss.engajksdkte!',
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-        25,
-        500,
-      );
     }
   };
   return (
@@ -424,9 +525,7 @@ export const SettingModal = props => {
         onRequestClose={() => props?.forHideModal()}
         visible={true}
         transparent={true}
-        swipeDirection={['down', 'up']}
-        // presentationStyle="fullScreen"
-      >
+        swipeDirection={['down', 'up']}>
         <View
           style={{
             flex: 1,
@@ -451,7 +550,6 @@ export const SettingModal = props => {
                       />
                       <Text numberOfLines={2} style={styles.titleStyle}>
                         {res.title}
-                        {/* {isSaved == false  res?.title : 'unsave post'} */}
                       </Text>
                     </TouchableOpacity>
                   );

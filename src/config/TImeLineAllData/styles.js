@@ -40,12 +40,14 @@ export const styles = StyleSheet.create({
     height: Dimensions.get('screen').width * 0.13,
     backgroundColor: colors.defaultBgColor,
     // marginTop: hp('2'),
-    marginLeft: hp('2'),
+    marginLeft: hp('1.5'),
+    marginTop: hp('0.5'),
   },
   postName: {
     textAlignVertical: 'center',
     color: colors.defaultTextColor,
     fontSize: hp('3'),
+    marginLeft: wp('1.5'),
   },
   description: {
     color: colors.defaultTextColor,

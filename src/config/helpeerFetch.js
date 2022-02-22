@@ -35,7 +35,7 @@ export const ApiGet = async url => {
 };
 
 export const ApiPut = async (url, body, confirm) => {
-  console.log(38, body);
+  // console.log(38, body);
   var myHeaders = new Headers();
   confirm == true
     ? myHeaders.append('Content-Type', 'multipart/form-data')

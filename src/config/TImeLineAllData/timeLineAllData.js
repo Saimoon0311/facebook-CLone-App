@@ -168,11 +168,13 @@ export const TimeLineData = props => {
             ) : (
               <EvilIcons
                 name={'user'}
-                size={60}
+                size={55}
                 color={colors.defaultTextColor}
               />
             )}
-            <Text style={styles.postName}>{item?.postName}</Text>
+            <Text numberOfLines={2} style={styles.postName}>
+              {item?.postName}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true), setPostData(item);
@@ -350,7 +352,11 @@ export const TimeLineData = props => {
             }
             style={styles.likeButton}>
             <Text style={styles.shareText}>Share</Text>
-            <MaterialCommunityIcons name="share-all-outline" size={25} />
+            <MaterialCommunityIcons
+              color={colors.defaultTextColor}
+              name="share-all-outline"
+              size={25}
+            />
           </TouchableOpacity>
         </View>
       </View>

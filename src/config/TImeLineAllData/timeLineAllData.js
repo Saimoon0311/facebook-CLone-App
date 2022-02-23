@@ -139,7 +139,9 @@ export const TimeLineData = props => {
             <Text style={{...styles.postName, textAlignVertical: 'top'}}>
               {item?.postName}
             </Text>
-            <Text>(This post was hidden)</Text>
+            <Text style={{color: 'gray', marginLeft: wp('1.5')}}>
+              (This post was hidden)
+            </Text>
           </View>
           <TouchableOpacity
             onPress={() => {

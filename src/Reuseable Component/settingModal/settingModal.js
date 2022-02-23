@@ -342,6 +342,7 @@ export const SettingModal = props => {
       });
   };
   const forHidePost = () => {
+    console.log(345);
     var body = JSON.stringify({
       userId: userData._id,
     });
@@ -497,13 +498,13 @@ export const SettingModal = props => {
       setShowAlert(true);
     } else if (button.title === 'Update Your Post.') {
       setModalVisible(true);
+    } else if (button.title == 'Hide post' || button.title == 'Unhide post') {
+      forHidePost();
     } else if (
       button.title == `Follow ${props.postData.postName}` ||
-      `Unfollow ${props.postData.postName}`
+      button.title == `Unfollow ${props.postData.postName}`
     ) {
       followAndUnfollow(button.title);
-    } else if (button.title === 'Hide post' || 'Unhide post') {
-      forHidePost();
     }
   };
   return (

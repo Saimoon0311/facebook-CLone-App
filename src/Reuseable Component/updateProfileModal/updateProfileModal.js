@@ -61,6 +61,7 @@ function UpdateProfileModal(props) {
   const [city, setCity] = useState(userData?.city);
   const [profilePicture, setProfilePicture] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [description, setDescription] = useState(userData?.description);
   const pickImage = () => {
     launchImageLibrary(
       {
@@ -130,6 +131,7 @@ function UpdateProfileModal(props) {
         city,
         profilePicture,
         userId,
+        description,
       });
       // console.log(133, body);
       ApiPut(url, body, false).then(res => {
@@ -269,6 +271,19 @@ function UpdateProfileModal(props) {
                 firstIconName="earth-outline"
                 inputWidth="80"
                 // keyboardType="phone-pad"
+              />
+              <InputField
+                label="Description"
+                onChangeText={e => setDescription(e)}
+                TextInputColor={colors.defaultTextColor}
+                value={description}
+                autoCapble="none"
+                multiline={true}
+                firstIconName="description"
+                inputWidth="80"
+                numberOfLines={5}
+                textAlignVertical="top"
+                iconType={true}
               />
               <TouchableButton
                 iconName="create-outline"

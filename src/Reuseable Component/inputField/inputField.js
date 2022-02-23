@@ -7,6 +7,7 @@ import {
 import {colors} from '../color';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const InputField = props => {
   var inputWidth = props?.inputWidth ? props.inputWidth : '90';
@@ -21,17 +22,32 @@ export const InputField = props => {
         borderWidth: 2,
         borderColor: 'gray',
       }}>
-      <Ionicons
-        name={props?.firstIconName}
-        size={30}
-        style={{
-          justifyContent: 'center',
-          alignSelf: 'center',
-          marginLeft: wp('3'),
-          marginRight: wp('3'),
-          color: 'gray',
-        }}
-      />
+      {props?.iconType == true ? (
+        <MaterialIcons
+          name={props?.firstIconName}
+          size={30}
+          style={{
+            justifyContent: 'center',
+            alignSelf: 'flex-start',
+            marginLeft: wp('3'),
+            marginRight: wp('3'),
+            color: 'gray',
+            marginTop: hp('3'),
+          }}
+        />
+      ) : (
+        <Ionicons
+          name={props?.firstIconName}
+          size={30}
+          style={{
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginLeft: wp('3'),
+            marginRight: wp('3'),
+            color: 'gray',
+          }}
+        />
+      )}
       <View
         style={{
           height: '80%',
@@ -43,10 +59,13 @@ export const InputField = props => {
       />
       <TextInput
         placeholder={props?.label}
+        multiline={props.multiline ? true : false}
+        numberOfLines={props?.numberOfLines}
         style={{
           backgroundColor: 'transparent',
           width: wp('60'),
           color: props?.TextInputColor ? props.TextInputColor : 'black',
+          textAlignVertical: props?.textAlignVertical,
         }}
         editable={props?.editable}
         value={props?.value}
@@ -54,7 +73,6 @@ export const InputField = props => {
         onChangeText={props?.onChangeText}
         placeholderTextColor={'gray'}
         keyboardType={props?.keyboardType}
-        // keyboardType={"phone-pad"}
         secureTextEntry={props?.secureTextEntry}
         theme={{colors: {primary: colors.themePrimaryColor}}}
       />

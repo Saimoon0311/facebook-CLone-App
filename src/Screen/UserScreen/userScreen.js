@@ -21,6 +21,9 @@ import {Avatar, Divider, NativeBaseProvider} from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from './styles';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {BlurView} from '@react-native-community/blur';
+
 // import {Avatar} from 'react-native-elements';
 
 function UserScreen() {
@@ -30,9 +33,9 @@ function UserScreen() {
   const [fLoading, setFloading] = useState(true);
   const getFollowing = () => {
     var url = getAllFriendsUrl + userData._id;
-    console.log(19, url);
+    // console.log(19, url);
     ApiGet(url).then(res => {
-      console.log(20, res);
+      // console.log(20, res);
 
       if (res.success == true) {
         setFloading(false);
@@ -65,118 +68,151 @@ function UserScreen() {
   }, []);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        backgroundColor: colors.defaultBgColor,
-        paddingBottom: hp('5'),
+    <View
+      style={{
+        // backgroundColor: colors.defaultBgColor,
+        flex: 1,
       }}>
-      <NativeBaseProvider>
-        <ImageBackground
-          borderRadius={15}
-          style={styles.topImage}
-          source={{
-            uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-          }}>
-          <Avatar
-            style={styles.userImage}
-            mr={1}
-            background="transparent"
-            size={100}
+      <ImageBackground
+        // onLayout={}
+        blurRadius={10}
+        // source={require('../../Images/downloa.png')}
+        source={{
+          uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+        }}
+        tintColor="transparent"
+        style={{
+          flexDirection: 'row',
+          // backgroundColor: 'transparent',
+          // backgroundColor: 'rgba(232,64,64,0.5)',
+          height: hp('10'),
+          alignItems: 'center',
+          opacity: 0.5,
+          // blurRadius: 0.5,
+        }}>
+        <Ionicons
+          name="arrow-back-outline"
+          color={colors.defaultTextColor}
+          size={hp('6')}
+        />
+        <View></View>
+        <View></View>
+      </ImageBackground>
+      <ScrollView
+        contentContainerStyle={{
+          backgroundColor: colors.defaultBgColor,
+          paddingBottom: hp('5'),
+        }}>
+        <NativeBaseProvider>
+          <ImageBackground
+            borderRadius={15}
+            style={styles.topImage}
             source={{
-              uri: picture,
-            }}
-          />
-        </ImageBackground>
-        <Text style={styles.userName}>{userData.username}</Text>
-        {fLoading ? (
-          <SkeletonPlaceholder>
-            <Divider style={styles.divider} />
-            <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
-              <SkeletonPlaceholder.Item
-                width={60}
-                height={60}
-                borderRadius={50}
-                borderWidth={2}
-                borderColor="red"
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                height={60}
-                borderRadius={50}
-                borderWidth={2}
-                borderColor="white"
-                left={wp(-5)}
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                height={60}
-                left={wp(-8)}
-                borderRadius={50}
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                left={wp(-11)}
-                height={60}
-                borderWidth={2}
-                borderColor="red"
-                borderRadius={50}
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                left={wp(-13)}
-                height={60}
-                borderWidth={2}
-                borderColor="red"
-                borderRadius={50}
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                left={wp(-17)}
-                height={60}
-                borderWidth={2}
-                borderColor="red"
-                borderRadius={50}
-              />
-              <SkeletonPlaceholder.Item
-                width={60}
-                left={wp(-21)}
-                height={60}
-                borderWidth={2}
-                borderColor="red"
-                borderRadius={50}
-                marginBottom={hp('1')}
-              />
-            </View>
-            <Divider style={styles.divider} />
-          </SkeletonPlaceholder>
-        ) : (
-          followings.length > 0 && (
-            <>
+              uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+            }}>
+            <Avatar
+              style={styles.userImage}
+              mr={1}
+              background="transparent"
+              size={100}
+              source={{
+                uri: picture,
+              }}
+            />
+          </ImageBackground>
+          <Text style={styles.userName}>{userData.username}</Text>
+          {fLoading ? (
+            <SkeletonPlaceholder>
               <Divider style={styles.divider} />
-              <Text style={styles.subHeadings}>You Following</Text>
-              <View style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
-                <TouchableOpacity>
-                  <Avatar.Group>
-                    {followings.map(res => {
-                      return (
-                        <Avatar
-                          bg="green.500"
-                          size={wp('15')}
-                          source={{
-                            uri: IMAGE_BASED_URL + res?.profilePicture,
-                          }}>
-                          SM
-                        </Avatar>
-                      );
-                    })}
-                  </Avatar.Group>
-                </TouchableOpacity>
+              <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  height={60}
+                  borderRadius={50}
+                  borderWidth={2}
+                  borderColor="red"
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  height={60}
+                  borderRadius={50}
+                  borderWidth={2}
+                  borderColor="white"
+                  left={wp(-5)}
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  height={60}
+                  left={wp(-8)}
+                  borderRadius={50}
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  left={wp(-11)}
+                  height={60}
+                  borderWidth={2}
+                  borderColor="red"
+                  borderRadius={50}
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  left={wp(-13)}
+                  height={60}
+                  borderWidth={2}
+                  borderColor="red"
+                  borderRadius={50}
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  left={wp(-17)}
+                  height={60}
+                  borderWidth={2}
+                  borderColor="red"
+                  borderRadius={50}
+                />
+                <SkeletonPlaceholder.Item
+                  width={60}
+                  left={wp(-21)}
+                  height={60}
+                  borderWidth={2}
+                  borderColor="red"
+                  borderRadius={50}
+                  marginBottom={hp('1')}
+                />
               </View>
               <Divider style={styles.divider} />
-            </>
-          )
-        )}
-        {/* {followers.length > 0 && (
+            </SkeletonPlaceholder>
+          ) : (
+            followings.length > 0 && (
+              <>
+                <Divider style={styles.divider} />
+                <Text style={styles.subHeadings}>You Following</Text>
+                <View style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
+                  <TouchableOpacity>
+                    <Avatar.Group>
+                      {followings.map(res => {
+                        var str = res.username;
+                        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+                        var acronym = matches.join('');
+                        return (
+                          <Avatar
+                            bg="green.500"
+                            size={wp('15')}
+                            source={{
+                              uri: IMAGE_BASED_URL + res?.profilePicture,
+                            }}>
+                            {acronym}
+                          </Avatar>
+                        );
+                      })}
+                    </Avatar.Group>
+                  </TouchableOpacity>
+                </View>
+                <Divider style={styles.divider} />
+              </>
+            )
+          )}
+          {/* {followers.length > 0 && (
           <>
             <Text
               style={{
@@ -205,15 +241,16 @@ function UserScreen() {
             </View>
           </>
         )} */}
-        {userData?.description && (
-          <View>
-            <Text style={styles.subHeadings}>About</Text>
-            <Text style={styles.description}>{userData?.description}</Text>
-            <Divider style={styles.divider} />
-          </View>
-        )}
-      </NativeBaseProvider>
-    </ScrollView>
+          {userData?.description && (
+            <View>
+              <Text style={styles.subHeadings}>About</Text>
+              <Text style={styles.description}>{userData?.description}</Text>
+              <Divider style={styles.divider} />
+            </View>
+          )}
+        </NativeBaseProvider>
+      </ScrollView>
+    </View>
   );
 }
 

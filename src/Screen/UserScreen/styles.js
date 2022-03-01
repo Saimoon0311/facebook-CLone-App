@@ -7,17 +7,18 @@ import {
 
 export const styles = StyleSheet.create({
   topImage: {
-    width: wp('97'),
+    width: wp('100'),
     height: hp('35'),
     alignItems: 'center',
     alignSelf: 'center',
-    // marginTop: hp('2'),
+    // marginTop: hp('5'),
   },
   userImage: {
     top: hp('26'),
     alignSelf: 'center',
-    borderWidth: 2.5,
+    borderWidth: 3,
     borderColor: 'white',
+    textAlignVertical: 'center',
   },
   userName: {
     fontSize: hp('3'),
@@ -25,6 +26,8 @@ export const styles = StyleSheet.create({
     top: hp('8'),
     textAlign: 'center',
     marginBottom: hp('10'),
+    width: wp('50'),
+    alignSelf: 'center',
   },
   divider: {
     borderWidth: wp('1'),
@@ -40,5 +43,20 @@ export const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'justify',
     padding: wp('2'),
+  },
+  createPostButton: {
+    width: wp('80'),
+    height: hp('8'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.themePrimaryColor,
+    alignSelf: 'center',
+    marginBottom: hp('2'),
+    borderRadius: 8,
+  },
+  createPostText: {
+    color: 'white',
+    fontSize: hp('2.5'),
+    fontWeight: '600',
   },
 });

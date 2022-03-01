@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
   ToastAndroid,
+  StatusBar,
+  RefreshControl,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -14,23 +16,116 @@ import {
 } from 'react-native-responsive-screen';
 import {colors} from '../../Reuseable Component/color';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllFriendsUrl, getApi, IMAGE_BASED_URL} from '../../config/url';
+import {
+  getAllFriendsUrl,
+  getApi,
+  getUserAllPostUrl,
+  IMAGE_BASED_URL,
+  LikeUrl,
+} from '../../config/url';
 import Svg, {Circle} from 'react-native-svg';
-import {ApiGet} from '../../config/helpeerFetch';
-import {Avatar, Divider, NativeBaseProvider} from 'native-base';
+import {ApiGet, ApiPut} from '../../config/helpeerFetch';
+import {Avatar, NativeBaseProvider} from 'native-base';
+import {Divider} from 'react-native-paper';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from './styles';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BlurView} from '@react-native-community/blur';
+import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
+import UpdateProfileModal from '../../Reuseable Component/updateProfileModal/updateProfileModal';
+import {TouchableButton} from '../../Reuseable Component/touchableButton/touchableButton';
+import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePostModal';
 
 // import {Avatar} from 'react-native-elements';
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 function UserScreen() {
   const {userData} = useSelector(state => state.auth);
   const [followings, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [fLoading, setFloading] = useState(true);
+  const [timeLineData, setTimeLineData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [like, setLike] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [pagination, setPagination] = useState(2);
+  const [modalVisible, setModalVisible] = useState(false);
+  const onRefresh = useCallback(() => {
+    setLoading(true);
+    setFloading(true);
+    wait(2000).then(() => {
+      getTimeLineData(), setLoading(false), getFollowing(), setFloading(false);
+    });
+  }, []);
+  const getTimeLineData = async () => {
+    const userName = userData.username;
+    ApiGet(getUserAllPostUrl + userName).then(res => {
+      if (res?.success == true) {
+        setLoading(false);
+        setTimeLineData(res?.data);
+        console.log(69, res);
+      } else if (res?.success == false) {
+        console.log(69, res);
+        setLoading(true);
+      }
+    });
+  };
+  const likeAndDislike = (id, val) => {
+    var body = JSON.stringify({
+      userId: userData._id,
+    });
+    var url = LikeUrl + id + '/like';
+    ApiPut(url, body).then(res => {
+      if (res.success == true) {
+        if (res?.data == 'The post has been liked!') {
+          setLike(true);
+          getTimeLineData();
+          ToastAndroid.show(
+            'The post has been liked!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            500,
+          );
+        } else if (res?.data == 'The post has been disliked!') {
+          setLike(false);
+          getTimeLineData();
+          ToastAndroid.show(
+            'The post has been disliked!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
+        }
+      } else if (res.success == false) {
+        ToastAndroid.show(
+          'Some Thing Is Wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      }
+    });
+  };
+  const whenPostDeleted = confirm => {
+    if (confirm == true) {
+      setLoading(true);
+      getTimeLineData();
+    } else if (confirm == false) {
+      showMessage({
+        type: 'warning',
+        icon: 'warning',
+        message: 'Warning',
+        description: 'Some thing is wrong',
+        backgroundColor: colors.statusBarColor,
+      });
+    }
+  };
+
   const getFollowing = () => {
     var url = getAllFriendsUrl + userData._id;
     // console.log(19, url);
@@ -62,18 +157,47 @@ function UserScreen() {
     userData.followings.length > 0 ? userData.followings.length : 0;
   var picture = userData.profilePicture
     ? IMAGE_BASED_URL + userData?.profilePicture
-    : 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260';
+    : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
   useEffect(() => {
     getFollowing();
+    getTimeLineData();
   }, []);
+  const increaseText = () => {
+    if (pagination == 2) {
+      setPagination(undefined);
+    } else {
+      setPagination(2);
+    }
+  };
+  const [state, setState] = useState(false);
+  const forHideModal = async () => {
+    await setState(false);
+    await setLoading(true);
+    await setFloading(true);
+    getTimeLineData();
+    getFollowing();
+  };
+  if (state) {
+    return <SharePostMoadl forHideModal={() => forHideModal()} />;
+  }
 
   return (
     <View
       style={{
-        // backgroundColor: colors.defaultBgColor,
         flex: 1,
+        backgroundColor: colors.defaultBgColor,
       }}>
-      <ImageBackground
+      <StatusBar
+        backgroundColor={colors.themePrimaryColor}
+        barStyle="light-content"
+      />
+      {modalVisible ? (
+        <UpdateProfileModal
+          forHideModal={() => setModalVisible(false)}
+          modalType={modalVisible}
+        />
+      ) : null}
+      {/* <ImageBackground
         // onLayout={}
         blurRadius={10}
         // source={require('../../Images/downloa.png')}
@@ -97,30 +221,43 @@ function UserScreen() {
         />
         <View></View>
         <View></View>
-      </ImageBackground>
+      </ImageBackground> */}
       <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           backgroundColor: colors.defaultBgColor,
-          paddingBottom: hp('5'),
+          paddingBottom: hp('1'),
         }}>
         <NativeBaseProvider>
           <ImageBackground
-            borderRadius={15}
             style={styles.topImage}
+            borderBottomRightRadius={25}
+            borderBottomLeftRadius={25}
+            resizeMode="cover"
             source={{
               uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
             }}>
-            <Avatar
-              style={styles.userImage}
-              mr={1}
-              background="transparent"
-              size={100}
-              source={{
-                uri: picture,
-              }}
-            />
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Avatar
+                style={styles.userImage}
+                // mr={1}
+                background="transparent"
+                size={100}
+                source={{
+                  uri: picture,
+                }}
+              />
+            </TouchableOpacity>
           </ImageBackground>
           <Text style={styles.userName}>{userData.username}</Text>
+          <TouchableOpacity
+            onPress={() => setState(true)}
+            style={styles.createPostButton}>
+            <Text style={styles.createPostText}>Create Post</Text>
+          </TouchableOpacity>
           {fLoading ? (
             <SkeletonPlaceholder>
               <Divider style={styles.divider} />
@@ -196,7 +333,7 @@ function UserScreen() {
                         var acronym = matches.join('');
                         return (
                           <Avatar
-                            bg="green.500"
+                            bg={colors.themePrimaryColor}
                             size={wp('15')}
                             source={{
                               uri: IMAGE_BASED_URL + res?.profilePicture,
@@ -208,7 +345,7 @@ function UserScreen() {
                     </Avatar.Group>
                   </TouchableOpacity>
                 </View>
-                <Divider style={styles.divider} />
+                {/* <Divider style={{...styles.divider, marginTop: hp('1.5')}} /> */}
               </>
             )
           )}
@@ -241,13 +378,30 @@ function UserScreen() {
             </View>
           </>
         )} */}
-          {userData?.description && (
+          {userData.description ? (
             <View>
+              <Divider style={{...styles.divider, marginTop: hp('1')}} />
               <Text style={styles.subHeadings}>About</Text>
-              <Text style={styles.description}>{userData?.description}</Text>
-              <Divider style={styles.divider} />
+              <TouchableOpacity onPress={() => increaseText()}>
+                <Text numberOfLines={pagination} style={styles.description}>
+                  {userData?.description}
+                </Text>
+              </TouchableOpacity>
+              {/* <Divider style={styles.divider} /> */}
             </View>
-          )}
+          ) : null}
+          <View
+            style={{backgroundColor: colors.postDivider, marginTop: hp('1')}}>
+            <TimeLineData
+              timeLineData={timeLineData}
+              isloading={loading}
+              user={userData}
+              like={likeAndDislike}
+              Islike={like}
+              // hideAndUnhide={confirm => hideAndUnhide(confirm)}
+              whenPostDeleted={confirm => whenPostDeleted(confirm)}
+            />
+          </View>
         </NativeBaseProvider>
       </ScrollView>
     </View>

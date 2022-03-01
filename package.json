@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.2.5",
     "@reduxjs/toolkit": "^1.7.1",
     "accordion-collapse-react-native": "^1.1.0",
+    "moment": "^2.29.1",
     "native-base": "^3.3.0",
     "react": "17.0.2",
     "react-clip-path": "^0.0.6",

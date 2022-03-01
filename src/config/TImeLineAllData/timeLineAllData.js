@@ -69,17 +69,18 @@ import {SettingModal} from '../../Reuseable Component/settingModal/settingModal'
 import {ModalPortal} from 'react-native-modals';
 import darkColors from 'react-native-elements/dist/config/colorsDark';
 import {useSelector} from 'react-redux';
+import moment from 'moment';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [dummyImages, setDummyImages] = useState([]);
+  // const [pagination, setPagination] = useState(2);
+  const [dummy, setDummy] = useState(1);
   const [modaShow, setModalShow] = useState(false);
   const [like, setLike] = useState(false);
   const [stateBounce, setStateBounce] = useState('');
   const [postData, setPostData] = useState([]);
-  let popupRef = React.createRef();
-  var dummy;
+  const [click, setClick] = useState();
   var data = props?.timeLineData;
   const {userData} = useSelector(state => state.auth);
 
@@ -129,17 +130,21 @@ export const TimeLineData = props => {
               style={styles.postImage}
             />
           ) : (
-            <EvilIcons
-              name={'user'}
-              size={60}
+            <Ionicons
+              name={'person-circle-outline'}
+              size={50}
               color={colors.defaultTextColor}
+              style={{paddingLeft: wp('1')}}
             />
           )}
-          <View style={{flexDirection: 'column'}}>
-            <Text style={{...styles.postName, textAlignVertical: 'top'}}>
-              {item?.postName}
-            </Text>
-            <Text style={{color: 'gray', marginLeft: wp('1.5')}}>
+          <View
+            style={{
+              flexDirection: 'column',
+              marginLeft: wp('1'),
+              marginTop: hp('1'),
+            }}>
+            <Text style={{...styles.postName}}>{item?.postName}</Text>
+            <Text style={{color: 'gray', fontSize: hp('2')}}>
               (This post was hidden)
             </Text>
           </View>
@@ -155,7 +160,18 @@ export const TimeLineData = props => {
     );
   };
 
-  const flatListData = item => {
+  const flatListData = (item, index) => {
+    var pagination = index == click ? undefined : 2;
+    // var postTime = moment(item.createdAt).calendar();
+    var postTime = moment(item.createdAt).format('DD MMM YY, h:mm a');
+    const showPagination = index => {
+      setClick(index);
+      if (click == index) {
+        pagination = undefined;
+      } else {
+        pagination = 2;
+      }
+    };
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity>
@@ -168,15 +184,23 @@ export const TimeLineData = props => {
                 style={styles.postImage}
               />
             ) : (
-              <EvilIcons
-                name={'user'}
-                size={55}
+              <Ionicons
+                name={'person-circle-outline'}
+                size={50}
                 color={colors.defaultTextColor}
+                style={{paddingLeft: wp('1')}}
               />
             )}
-            <Text numberOfLines={2} style={styles.postName}>
-              {item?.postName}
-            </Text>
+            <View
+              style={{
+                marginLeft: wp('1.5'),
+                marginTop: hp('1'),
+              }}>
+              <Text numberOfLines={2} style={styles.postName}>
+                {item?.postName}
+              </Text>
+              <Text style={{color: 'gray', fontSize: hp('2')}}>{postTime}</Text>
+            </View>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true), setPostData(item);
@@ -194,19 +218,23 @@ export const TimeLineData = props => {
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
-        <Text style={styles.description}>
-          {item?.description}
-          {/* Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum. */}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            showPagination(index);
+          }}>
+          <Text numberOfLines={pagination} style={styles.description}>
+            {item?.description}
+            {/* Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum. */}
+          </Text>
+        </TouchableOpacity>
         {item.image ? (
           <Image
             source={{uri: IMAGE_BASED_URL + item?.image}}
@@ -296,14 +324,16 @@ export const TimeLineData = props => {
                   </ScrollView> */}
         {item?.likes.length > 0 && (
           <TouchableOpacity style={styles.likeContainer}>
-            <AntDesign name={'like1'} size={20} color={'#2055FB'} />
+            <AntDesign name={'like1'} size={19} color={'#2055FB'} />
             <Text
               style={{
-                fontSize: hp('3'),
+                fontSize: hp('2.5'),
                 color:
                   colors.defaultTextColor == '#f1f2f6'
                     ? colors.defaultTextColor
                     : '#2055FB',
+                marginTop: hp('0.5'),
+                marginLeft: wp('1'),
               }}>
               {item?.likes.length}
             </Text>
@@ -332,7 +362,7 @@ export const TimeLineData = props => {
               </Text>
               <AntDesign
                 name={item.likes.includes(props?.user._id) ? 'like1' : 'like2'}
-                size={20}
+                size={19}
                 color={
                   item.likes.includes(props?.user._id)
                     ? '#2055FB'
@@ -565,14 +595,14 @@ export const TimeLineData = props => {
             contentContainerStyle={{
               paddingBottom: hp('1'),
             }}
-            renderItem={({item}) => {
-              for (let index = 0; index < item?.image?.length; index++) {
-                const obj = IMAGE_BASED_URL + item?.image[index];
-                dummy = obj;
-              }
+            renderItem={({item, index}) => {
+              // for (let index = 0; index < item?.image?.length; index++) {
+              //   const obj = IMAGE_BASED_URL + item?.image[index];
+              //   dummy = obj;
+              // }
               return item.hidePost && item.hidePost.includes(userData._id)
                 ? hidePostContainer(item)
-                : flatListData(item);
+                : flatListData(item, index);
             }}
           />
         )}

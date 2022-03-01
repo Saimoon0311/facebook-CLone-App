@@ -218,42 +218,6 @@ export default function ProfileScreen({navigation}) {
       setModalVisible(false);
     }
   };
-  // const showThemeModal = () => {
-  //   return (
-  //     <View style={styles.centeredView}>
-  //       <NativeBaseProvider>
-  //         <Modal
-  //           animationType="slide"
-  //           transparent={true}
-  //           visible={modalVisible}
-  //           onRequestClose={() => {
-  //             setModalVisible(!modalVisible);
-  //           }}>
-  //           <View style={styles.centeredView}>
-  //             <View style={styles.modalView}>
-  //               <Text style={styles.modalText}>Update Your Profile</Text>
-  //               {userData?.profilePicture !== '' ? (
-  //                 <Image
-  //                   source={{uri: IMAGE_BASED_URL + userData?.profilePicture}}
-  //                   style={styles.imageContainer}
-  //                 />
-  //               ) : (
-  //                 <TouchableOpacity>
-  //                   <Entypo
-  //                     name="add-user"
-  //                     size={60}
-  //                     style={{marginLeft: wp('2')}}
-  //                     color={'gray'}
-  //                   />
-  //                 </TouchableOpacity>
-  //               )}
-  //             </View>
-  //           </View>
-  //         </Modal>
-  //       </NativeBaseProvider>
-  //     </View>
-  //   );
-  // };
   const renderContentSetting = item => {
     return settingFunctiontag.map(res => {
       return (
@@ -267,14 +231,6 @@ export default function ProfileScreen({navigation}) {
       );
     });
   };
-  // if (modalVisible) {
-  //   return (
-  //     <UpdateProfileModal
-  //       forHideModal={() => setModalVisible(false)}
-  //       userData={userData}
-  //     />
-  //   );
-  // }
   return (
     <>
       {modalVisible ? (
@@ -314,7 +270,7 @@ export default function ProfileScreen({navigation}) {
             ) : (
               <EvilIcons
                 name={'user'}
-                size={60}
+                size={55}
                 color={colors.defaultTextColor}
               />
             )}
@@ -322,7 +278,7 @@ export default function ProfileScreen({navigation}) {
               source={require('../../Images/removeimage.png')}
               style={styles.imageContainer}
             /> */}
-            <View style={{marginLeft: wp('5')}}>
+            <View style={{marginLeft: wp('2'), justifyContent: 'center'}}>
               <Text style={styles.userName}>{userData?.username}</Text>
               <Text style={styles.extraText}>See Your Profile</Text>
             </View>

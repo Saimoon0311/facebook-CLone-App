@@ -22,3 +22,4 @@ export const UpdateUserUrl = getApi('users/');
 export const FollowUserUrl = getApi('users/');
 export const getaUserUrl = getApi('users/');
 export const getAllFriendsUrl = getApi('users/friends/');
+export const getUserAllPostUrl = getApi('posts/profile/');

@@ -13,6 +13,7 @@ import {
   ImageBackground,
   ToastAndroid,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -387,6 +388,7 @@ export const SharePostMoadl = props => {
 
   return (
     <NativeBaseProvider>
+      <StatusBar barStyle="dark-content" />
       <Modal
         animationType="slide"
         transparent={false}

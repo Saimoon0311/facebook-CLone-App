@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     width: wp('100'),
     backgroundColor: colors.defaultBgColor,
     marginTop: hp('1'),
-    marginBottom: hp('0.5'),
   },
   header: {
     flexDirection: 'row',
@@ -44,10 +43,9 @@ export const styles = StyleSheet.create({
     marginTop: hp('0.5'),
   },
   postName: {
-    textAlignVertical: 'center',
+    // textAlignVertical: 'center',
     color: colors.defaultTextColor,
-    fontSize: hp('3'),
-    marginLeft: wp('1.5'),
+    fontSize: hp('2.5'),
   },
   description: {
     color: colors.defaultTextColor,

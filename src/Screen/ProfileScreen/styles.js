@@ -39,13 +39,13 @@ export const styles = StyleSheet.create({
     marginBottom: hp('3'),
   },
   userName: {
-    fontSize: hp('3'),
+    fontSize: hp('2.7'),
     color: colors.defaultTextColor,
     fontWeight: 'bold',
   },
   extraText: {
     color: 'gray',
-    fontSize: hp('2.5'),
+    fontSize: hp('2'),
   },
   AccordionHeaderContainer: {
     height: hp('8'),
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingLeft: wp('2'),
-    marginBottom: hp('1'),
+    // marginBottom: hp('1'),
   },
   AccordionHeaderTitle: {
     fontSize: hp('2.5'),

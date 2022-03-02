@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   userName: {
     fontSize: hp('3'),
     color: colors.defaultTextColor,
-    top: hp('8'),
+    top: hp('7'),
     textAlign: 'center',
     marginBottom: hp('10'),
     width: wp('50'),

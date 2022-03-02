@@ -26,6 +26,7 @@ export const colors = {
   postDivider: themeType == 'light' ? '#F3F3F3' : '#18191b',
   sharePostModalIcon: themeType == 'light' ? '#225178' : 'white',
   headerFacebookIcon: themeType == 'light' ? 'blue' : 'white',
+  roundIconsBgColorHeader: themeType == 'light' ? 'white' : '#393a3e',
   roundIconsBgColor: themeType == 'light' ? '#D9D9D9' : '#393a3e',
   roundIconsColor: themeType == 'light' ? '#1A1A1A' : '#e6e7eb',
   seacrhBar: themeType == 'light' ? '#E7E7E7' : '#393a3c',

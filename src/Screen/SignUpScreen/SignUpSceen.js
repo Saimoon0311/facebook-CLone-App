@@ -107,28 +107,26 @@ export default function SignUpScreen({navigation}) {
   // }
   return (
     <ImageBackground
-      style={{width: wp('100'), height: hp('100'), flex: 1}}
-      source={require('../../Images/rm222batch3-mind-03.jpg')}>
+      style={{width: wp('100'), height: hp('100'), zIndex: 1}}
+      blurRadius={3}
+      source={require('../../Images/backgroundImage.jpeg')}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         // alwaysBounceVertical={true}
         contentContainerStyle={{
-          paddingBottom: hp('20'),
+          paddingBottom: hp('10'),
           // backgroundColor: 'yellow',
         }}>
         <View style={styles.mainContainer}>
-          <MaterialIcons
-            name="facebook"
-            size={100}
-            color={colors.themePrimaryColor}
-          />
+          <MaterialIcons name="facebook" size={100} color={'white'} />
           <LinearTextGradient
             style={styles.Heading}
             locations={[0, 1]}
-            colors={[colors.statusBarColor, colors.themePrimaryColor]}
+            // colors={[colors.statusBarColor, colors.themePrimaryColor]}
+            colors={[colors.statusBarColor, 'white']}
             start={{x: 0, y: 5}}
             end={{x: 1, y: 0}}>
-            <Text>Sign Up With facebook</Text>
+            <Text>SignUp with facebook</Text>
           </LinearTextGradient>
           <InputField
             label="Username"

@@ -234,8 +234,8 @@ function UserScreen() {
         <NativeBaseProvider>
           <ImageBackground
             style={styles.topImage}
-            borderBottomRightRadius={25}
-            borderBottomLeftRadius={25}
+            // borderBottomRightRadius={25}
+            borderBottomLeftRadius={100}
             resizeMode="cover"
             source={{
               uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',

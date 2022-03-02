@@ -28,18 +28,21 @@ export default function TopBarNavigation() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
-        tabBarActiveTintColor: colors.themePrimaryColor,
+        tabBarActiveTintColor: 'white',
+        // tabBarActiveTintColor: colors.statusBarColor,
         tabBarActiveBackgroundColor: '#E9691D',
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: 'white',
         upperCaseLabel: false,
+
         // style: {
         //   backgroundColor: 'red', //color you want to change
         // },
         tabBarStyle: {
-          backgroundColor: colors.defaultBgColor,
+          backgroundColor: colors.themePrimaryColor,
+          // backgroundColor: colors.defaultBgColor,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: colors.themePrimaryColor,
+          backgroundColor: colors.statusBarColor,
         },
       })}>
       <Tab.Screen
@@ -52,7 +55,7 @@ export default function TopBarNavigation() {
               }`}
               // name={'home'}
               color={color}
-              size={wp('7')}
+              size={wp('6')}
             />
           ),
           title: '',
@@ -72,7 +75,7 @@ export default function TopBarNavigation() {
                 colors.defaultBgColor == '#242527' ? '' : '-outline'
               }`}
               color={color}
-              size={wp('7')}
+              size={wp('6')}
             />
           ),
           title: '',
@@ -87,7 +90,7 @@ export default function TopBarNavigation() {
         name="videoScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <MaterialIcons name="live-tv" color={color} size={wp('7')} />
+            <MaterialIcons name="live-tv" color={color} size={wp('6')} />
           ),
           title: '',
           tabBarLabelStyle: {
@@ -106,7 +109,7 @@ export default function TopBarNavigation() {
                 colors.defaultBgColor == '#242527' ? '' : '-outline'
               }`}
               color={color}
-              size={wp('7')}
+              size={wp('6')}
             />
           ),
           title: '',
@@ -121,7 +124,7 @@ export default function TopBarNavigation() {
         name="ProfileScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
-            <Ionicons name="list" color={color} size={wp('7')} />
+            <Ionicons name="list" color={color} size={wp('6')} />
           ),
           title: '',
           tabBarLabelStyle: {

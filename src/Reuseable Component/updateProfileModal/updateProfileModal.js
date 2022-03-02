@@ -14,6 +14,7 @@ import {
   FlatList,
   Switch,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -198,100 +199,118 @@ function UpdateProfileModal(props) {
           <View style={styles.centeredView}>
             <ScrollView
               showsVerticalScrollIndicator={false}
+              scrollEnabled={true}
               contentContainerStyle={styles.modalView}>
-              <Text style={styles.modalText}>Update Your Profile</Text>
-              {/* {imageData()} */}
-              {profilePicture.length > 0 ? (
-                <TouchableOpacity onPress={() => pickImage()}>
-                  <Image
-                    source={{uri: profilePicture[0]?.uri}}
-                    style={styles.imageContainer}
+              <ImageBackground
+                borderRadius={20}
+                style={{
+                  width: wp('100'),
+                  // paddingBottom: hp('10'),
+                  overflow: 'hidden',
+                }}
+                blurRadius={3}
+                source={require('../../Images/backgroundImage.jpeg')}>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{paddingBottom: hp('2')}}>
+                  <Text style={styles.modalText}>Update Your Profile</Text>
+                  {profilePicture.length > 0 ? (
+                    <TouchableOpacity onPress={() => pickImage()}>
+                      <Image
+                        source={{uri: profilePicture[0]?.uri}}
+                        style={styles.imageContainer}
+                      />
+                    </TouchableOpacity>
+                  ) : userData.profilePicture ? (
+                    <TouchableOpacity onPress={() => pickImage()}>
+                      <Image
+                        source={{
+                          uri: IMAGE_BASED_URL + userData.profilePicture,
+                        }}
+                        style={styles.imageContainer}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity onPress={() => pickImage()}>
+                      <Entypo
+                        name="add-user"
+                        size={60}
+                        style={{marginLeft: wp('2')}}
+                        color={'gray'}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  <InputField
+                    label="Name"
+                    onChangeText={e => setUsername(e)}
+                    value={username}
+                    firstIconName="person-outline"
+                    inputWidth="80"
+                    TextInputColor={colors.defaultTextColor}
                   />
-                </TouchableOpacity>
-              ) : userData.profilePicture ? (
-                <TouchableOpacity onPress={() => pickImage()}>
-                  <Image
-                    source={{uri: IMAGE_BASED_URL + userData.profilePicture}}
-                    style={styles.imageContainer}
+                  <InputField
+                    label="Email"
+                    editable={false}
+                    value={userData.email}
+                    autoCapble="none"
+                    firstIconName="mail-outline"
+                    TextInputColor={colors.defaultTextColor}
+                    inputWidth="80"
                   />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity onPress={() => pickImage()}>
-                  <Entypo
-                    name="add-user"
-                    size={60}
-                    style={{marginLeft: wp('2')}}
-                    color={'gray'}
+                  <InputField
+                    label="Phone Number"
+                    onChangeText={e => setPhoneNumber(e)}
+                    value={phoneNumber}
+                    TextInputColor={colors.defaultTextColor}
+                    autoCapble="none"
+                    firstIconName="call-outline"
+                    keyboardType="phone-pad"
+                    inputWidth="80"
                   />
-                </TouchableOpacity>
-              )}
-              <InputField
-                label="Name"
-                onChangeText={e => setUsername(e)}
-                value={username}
-                firstIconName="person-outline"
-                inputWidth="80"
-                TextInputColor={colors.defaultTextColor}
-              />
-              <InputField
-                label="Email"
-                editable={false}
-                value={userData.email}
-                autoCapble="none"
-                firstIconName="mail-outline"
-                TextInputColor={colors.defaultTextColor}
-                inputWidth="80"
-              />
-              <InputField
-                label="Phone Number"
-                onChangeText={e => setPhoneNumber(e)}
-                value={phoneNumber}
-                TextInputColor={colors.defaultTextColor}
-                autoCapble="none"
-                firstIconName="call-outline"
-                keyboardType="phone-pad"
-                inputWidth="80"
-              />
-              <InputField
-                label="City"
-                onChangeText={e => setCity(e)}
-                value={city}
-                TextInputColor={colors.defaultTextColor}
-                autoCapble="none"
-                firstIconName="home-outline"
-                inputWidth="80"
-                // keyboardType="phone-pad"
-              />
-              <InputField
-                label="Country"
-                onChangeText={e => setCountry(e)}
-                TextInputColor={colors.defaultTextColor}
-                value={country}
-                autoCapble="none"
-                firstIconName="earth-outline"
-                inputWidth="80"
-                // keyboardType="phone-pad"
-              />
-              <InputField
-                label="Description"
-                onChangeText={e => setDescription(e)}
-                TextInputColor={colors.defaultTextColor}
-                value={description}
-                autoCapble="none"
-                multiline={true}
-                firstIconName="description"
-                inputWidth="80"
-                numberOfLines={5}
-                textAlignVertical="top"
-                iconType={true}
-              />
-              <TouchableButton
-                iconName="create-outline"
-                iconColor="white"
-                text="Update"
-                loading={isLoading}
-                onPress={() => updateProfilePicture()}
-              />
+                  <InputField
+                    label="City"
+                    onChangeText={e => setCity(e)}
+                    value={city}
+                    TextInputColor={colors.defaultTextColor}
+                    autoCapble="none"
+                    firstIconName="home-outline"
+                    inputWidth="80"
+                    // keyboardType="phone-pad"
+                  />
+                  <InputField
+                    label="Country"
+                    onChangeText={e => setCountry(e)}
+                    TextInputColor={colors.defaultTextColor}
+                    value={country}
+                    autoCapble="none"
+                    firstIconName="earth-outline"
+                    inputWidth="80"
+                    // keyboardType="phone-pad"
+                  />
+                  <InputField
+                    TextInputColor="white"
+                    label="Description"
+                    onChangeText={e => setDescription(e)}
+                    TextInputColor={colors.defaultTextColor}
+                    value={description}
+                    autoCapble="none"
+                    multiline={true}
+                    firstIconName="description"
+                    inputWidth="80"
+                    numberOfLines={5}
+                    textAlignVertical="top"
+                    iconType={true}
+                  />
+                  <TouchableButton
+                    // width="65"
+                    iconName="create-outline"
+                    iconColor="white"
+                    text="Update"
+                    loading={isLoading}
+                    onPress={() => updateProfilePicture()}
+                  />
+                </ScrollView>
+              </ImageBackground>
             </ScrollView>
           </View>
         </Modal>
@@ -313,10 +332,13 @@ const styles = StyleSheet.create({
   modalView: {
     margin: wp('4'),
     // marginRight: wp('3'),
-    backgroundColor: colors.defaultBgColor,
-    borderRadius: 10,
     alignItems: 'center',
-    paddingBottom: hp('5'),
+    // paddingBottom: hp('10'),
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: hp('10'),
+    height: hp('91'),
+    zIndex: 1,
   },
   modalText: {
     marginBottom: hp('2'),
@@ -325,7 +347,7 @@ const styles = StyleSheet.create({
     // marginLeft: wp('3'),
     marginTop: hp('2'),
     textAlign: 'center',
-    color: colors.defaultTextColor,
+    color: colors.defaultBgColor,
   },
   imageContainer: {
     // width: wp('20'),
@@ -337,6 +359,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.2,
     height: Dimensions.get('screen').width * 0.2,
     backgroundColor: 'white',
+    alignSelf: 'center',
     // marginTop: hp('2'),
   },
 });

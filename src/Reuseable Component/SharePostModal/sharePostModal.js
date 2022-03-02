@@ -7,13 +7,13 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  Modal,
   Pressable,
   TextInput,
   ImageBackground,
   ToastAndroid,
   ActivityIndicator,
   StatusBar,
+  Modal,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -38,6 +38,7 @@ import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import {colors} from '../color';
 import {useSelector} from 'react-redux';
+// import Modal from 'react-native-modal';
 
 // const uploaders = files.map(file => {
 //   // Initial FormData
@@ -388,10 +389,30 @@ export const SharePostMoadl = props => {
 
   return (
     <NativeBaseProvider>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        hidden={false}
+        barStyle="dark-content"
+        // backgroundColor={'red'}
+      />
       <Modal
+        // animationIn="slideInUp"
+        // isVisible
+        // coverScreen={true}
+        // animationInTiming={5000}
         animationType="slide"
+        animated={true}
         transparent={false}
+        // animationType="slide"
+        // style={{
+        //   width: wp('100'),
+        //   marginLeft: 'auto',
+        //   height: hp('100'),
+        //   marginTop: 'auto',
+        //   marginBottom: 'auto',
+        // }}
+        // animationInTiming={300}
+        // animationOut="slideOutDown"
+        // onBackButtonPress={() => props?.forHideModal()}
         onRequestClose={() => props?.forHideModal()}>
         <View style={styles.centeredView}>
           <View style={styles.modalHeader}>

@@ -266,7 +266,7 @@ export const SettingModal = props => {
         show={showAlert}
         showProgress={false}
         title="Delete a Post!"
-        message="Are you sure you want to remove this post."
+        message="Are you sure you want to remove this post?"
         contentContainerStyle={{
           width: wp('80%'),
           backgroundColor: colors.postDivider,

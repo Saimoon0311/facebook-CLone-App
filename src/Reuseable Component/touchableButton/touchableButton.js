@@ -16,26 +16,20 @@ import AnimateLoadingButton from 'react-native-animate-loading-button';
 import LinearGradient from 'react-native-linear-gradient';
 
 export const TouchableButton = props => {
-  //   const inputRef = useRef();
-  //   const _onPressBotton1Handler = () => {
-  //     this.loadingButton1.showLoading(true);
-  //     inputRef.current?.showLoading
-  //     // mock
-  //     setTimeout(() => {
-  //       this.loadingButton1.showLoading(false);
-  //     }, 2000);
-  //   }
+  var width = props.width ? props.width : 70;
   return (
     <TouchableOpacity
       onPress={props?.onPress}
       style={{
-        width: wp('70'),
+        width: wp(width),
         backgroundColor: colors.themePrimaryColor,
-        // backgroundColor: props?.bgColor,
         flexDirection: 'row',
         marginTop: hp('5'),
         height: hp('7'),
-        borderRadius: 25,
+        // borderRadius: 25,
+        borderTopRightRadius: 25,
+        borderBottomLeftRadius: 25,
+        alignSelf: 'center',
       }}>
       <View
         style={{
@@ -43,7 +37,6 @@ export const TouchableButton = props => {
           justifyContent: 'center',
           alignItems: 'center',
           paddingLeft: hp('2'),
-          // backgroundColor: 'red',
         }}>
         <Ionicons name={props?.iconName} size={25} color={props?.iconColor} />
       </View>
@@ -52,14 +45,6 @@ export const TouchableButton = props => {
           width: wp('47'),
           justifyContent: 'center',
         }}>
-        {/* <Text
-          style={{
-            color: props?.textColor,
-            textAlign: 'center',
-            fontSize: hp('3'),
-          }}>
-          {props?.text}
-        </Text> */}
         {props?.loading ? (
           <ActivityIndicator size={'small'} color={'white'} />
         ) : (
@@ -72,27 +57,6 @@ export const TouchableButton = props => {
           overflow: 'hidden',
         }}></View>
     </TouchableOpacity>
-
-    // <TouchableOpacity onPress={props?.onPress}>
-    //   <LinearGradient
-    //     start={{x: 0.2, y: 0.3}}
-    //     // start={{x: 0.1, y: 0.03}}
-    //     end={{x: 0.9, y: 0.9}}
-    //     // start={{x: 0, y: 0}}
-    //     // end={{x: 1, y: 0}}
-    //     // locations={[1, 0]}
-    //     colors={props?.linearColor}
-    //     // colors={[colors.themeColorOne, '#8E3E9F', '#5F21AF']}
-    //     style={styles.continueButtonNew}>
-    //     <Ionicons name={props?.iconName} style={styles.mobileIcon} />
-    //     {props?.loading ? (
-    //       <ActivityIndicator size={'small'} color={'white'} />
-    //     ) : (
-    //       <Text style={styles.continueText}>{props?.text}</Text>
-    //     )}
-    //     <View></View>
-    //   </LinearGradient>
-    // </TouchableOpacity>
   );
 };
 

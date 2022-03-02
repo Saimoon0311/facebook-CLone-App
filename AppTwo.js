@@ -123,6 +123,7 @@ import {
   LogBox,
   ImageBackground,
   Appearance,
+  StatusBar,
 } from 'react-native';
 import Navigation from './src/navigation/navigation';
 import {NavigationContainer} from '@react-navigation/native';
@@ -188,7 +189,7 @@ function AppTwo({navigation}) {
   // };
   const time = () => {
     if (Platform?.OS == 'android') {
-      return 5000;
+      return 2000;
     } else {
       return 0;
     }
@@ -221,11 +222,11 @@ function AppTwo({navigation}) {
   {
     let Splash_Screen = (
       <ImageBackground
-        source={require('./src/Images/bg1.png')}
+        source={require('./src/Images/XDsplashScreen.png')}
         style={styles.SplashScreen_RootView}>
-        <View style={styles.SplashScreen_ChildView}>
+        {/* <View style={styles.SplashScreen_ChildView}>
           <Image
-            source={require('./src/Images/splashImage.png')}
+            source={require('./src/Images/XDsplashScreen.png')}
             style={{
               width: 150,
               height: '100%',
@@ -233,11 +234,12 @@ function AppTwo({navigation}) {
               marginTop: 20,
             }}
           />
-        </View>
+        </View> */}
       </ImageBackground>
     );
     return (
       <>
+        <StatusBar hidden={true} />
         {isVisible === true ? (
           Platform?.OS == 'android' && Splash_Screen
         ) : (

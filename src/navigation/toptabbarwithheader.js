@@ -157,14 +157,26 @@ export function TopbartabBarHeader() {
       />
       <Animatable.View style={styles.maincontainer}>
         <View style={{width: wp('70')}}>
-          <Animatable.Image
-            source={require('../Images/splashImage.png')}
-            tintColor={colors.headerFacebookIcon}
+          {/* <Animatable.Image
+            // source={require('../Images/splashImage.png')}
+            source={{uri: 'https://image.pngaaa.com/74/2672074-small.png'}}
+            // tintColor={colors.themePrimaryColor}
             style={{
               width: wp('50'),
               height: hp('10'),
+              backgroundColor: colors.themePrimaryColor,
             }}
-          />
+          /> */}
+
+          <Text
+            style={{
+              fontSize: wp('10'),
+              color: 'white',
+              marginLeft: wp('3'),
+              fontFamily: 'Poppins-SemiBold',
+            }}>
+            facebook
+          </Text>
         </View>
         <TouchableOpacity
           onPress={() => setIsFouced(true)}
@@ -192,7 +204,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.11,
     height: Dimensions.get('screen').width * 0.11,
-    backgroundColor: colors.roundIconsBgColor,
+    backgroundColor: colors.roundIconsBgColorHeader,
     justifyContent: 'center',
     alignItems: 'center',
     //     marginRight: wp('1'),
@@ -200,7 +212,7 @@ const styles = StyleSheet.create({
   },
   maincontainer: {
     flexDirection: 'row',
-    backgroundColor: colors.defaultBgColor,
+    backgroundColor: colors.themePrimaryColor,
     width: wp('100'),
   },
   inputBox: {

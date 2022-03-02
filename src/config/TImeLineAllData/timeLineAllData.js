@@ -558,10 +558,12 @@ export const TimeLineData = props => {
         ) : data?.length == 0 ? (
           <View
             style={{
-              backgroundColor: colors.postDivider,
+              backgroundColor: 'yellow',
+              // backgroundColor: colors.postDivider,
               height: hp('80'),
               alignItems: 'center',
               paddingTop: hp('10'),
+              marginBottom: hp('-30'),
             }}>
             <View
               style={{

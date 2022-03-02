@@ -18,9 +18,10 @@ export const InputField = props => {
         alignSelf: 'center',
         marginTop: hp('2'),
         flexDirection: 'row',
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: 'gray',
+        // borderRadius: 10,
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
       }}>
       {props?.iconType == true ? (
         <MaterialIcons
@@ -31,7 +32,7 @@ export const InputField = props => {
             alignSelf: 'flex-start',
             marginLeft: wp('3'),
             marginRight: wp('3'),
-            color: 'gray',
+            color: 'white',
             marginTop: hp('3'),
           }}
         />
@@ -44,7 +45,7 @@ export const InputField = props => {
             alignSelf: 'center',
             marginLeft: wp('3'),
             marginRight: wp('3'),
-            color: 'gray',
+            color: 'white',
           }}
         />
       )}
@@ -52,7 +53,7 @@ export const InputField = props => {
         style={{
           height: '80%',
           width: 1,
-          backgroundColor: 'gray',
+          backgroundColor: 'white',
           marginRight: wp('2'),
           alignSelf: 'center',
         }}
@@ -71,7 +72,7 @@ export const InputField = props => {
         value={props?.value}
         autoCapitalize={props?.autoCapble}
         onChangeText={props?.onChangeText}
-        placeholderTextColor={'gray'}
+        placeholderTextColor={'white'}
         keyboardType={props?.keyboardType}
         secureTextEntry={props?.secureTextEntry}
         theme={{colors: {primary: colors.themePrimaryColor}}}
@@ -85,7 +86,7 @@ export const InputField = props => {
           alignSelf: 'center',
           marginLeft: wp('3'),
           marginRight: wp('3'),
-          color: 'gray',
+          color: 'white',
         }}
       />
     </View>

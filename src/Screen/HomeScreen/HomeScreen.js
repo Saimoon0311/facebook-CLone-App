@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   Animated,
   Appearance,
+  StatusBar,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -175,42 +176,49 @@ export default function HomeScreen() {
     );
   }
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{backgroundColor: colors.postDivider}}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
-      <View>
-        <View style={styles.headerContainer}>
-          {userData.profilePicture ? (
-            <Image
-              source={{uri: IMAGE_BASED_URL + userData.profilePicture}}
-              style={styles.imageContainer}
-            />
-          ) : (
-            <Image
-              source={require('../../Images/removeimage.png')}
-              style={styles.imageContainer}
-            />
-          )}
-          <TouchableOpacity
-            style={styles.headerComponent}
-            onPress={() => setState(true)}>
-            <Text style={styles.headerText}>What's on your mind ?</Text>
-          </TouchableOpacity>
-        </View>
-        <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />
-      </View>
-      <TimeLineData
-        timeLineData={timeLineData}
-        isloading={loading}
-        user={user}
-        like={likeAndDislike}
-        Islike={like}
-        hideAndUnhide={confirm => hideAndUnhide(confirm)}
-        whenPostDeleted={confirm => whenPostDeleted(confirm)}
+    <>
+      <StatusBar
+        hidden={false}
+        backgroundColor={colors.themePrimaryColor}
+        barStyle="light-content"
       />
-    </ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{backgroundColor: colors.postDivider}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <View>
+          <View style={styles.headerContainer}>
+            {userData.profilePicture ? (
+              <Image
+                source={{uri: IMAGE_BASED_URL + userData.profilePicture}}
+                style={styles.imageContainer}
+              />
+            ) : (
+              <Image
+                source={require('../../Images/removeimage.png')}
+                style={styles.imageContainer}
+              />
+            )}
+            <TouchableOpacity
+              style={styles.headerComponent}
+              onPress={() => setState(true)}>
+              <Text style={styles.headerText}>What's on your mind ?</Text>
+            </TouchableOpacity>
+          </View>
+          <Divider style={{borderColor: 'gray', borderWidth: 0.3}} />
+        </View>
+        <TimeLineData
+          timeLineData={timeLineData}
+          isloading={loading}
+          user={user}
+          like={likeAndDislike}
+          Islike={like}
+          hideAndUnhide={confirm => hideAndUnhide(confirm)}
+          whenPostDeleted={confirm => whenPostDeleted(confirm)}
+        />
+      </ScrollView>
+    </>
   );
 }

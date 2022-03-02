@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     alignSelf: 'center',
-    marginTop: hp('10'),
+    // marginTop: hp('10'),
     alignItems: 'center',
     // backgroundColor: 'yellow',
   },

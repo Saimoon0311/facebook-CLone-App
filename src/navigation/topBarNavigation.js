@@ -29,20 +29,22 @@ export default function TopBarNavigation() {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarActiveTintColor: 'white',
-        // tabBarActiveTintColor: colors.statusBarColor,
+        tabBarActiveTintColor: colors.themePrimaryColor,
         tabBarActiveBackgroundColor: '#E9691D',
-        tabBarInactiveTintColor: 'white',
+        tabBarInactiveTintColor: colors.defaultTextColor,
         upperCaseLabel: false,
-
         // style: {
         //   backgroundColor: 'red', //color you want to change
         // },
         tabBarStyle: {
-          backgroundColor: colors.themePrimaryColor,
-          // backgroundColor: colors.defaultBgColor,
+          // backgroundColor: colors.mainHeaderTextColor,
+          backgroundColor: colors.defaultBgColor,
+          backfaceVisibility: 'hidden',
         },
         tabBarIndicatorStyle: {
-          backgroundColor: colors.statusBarColor,
+          backgroundColor: colors.themePrimaryColor,
+          height: hp('1'),
+          borderRadius: 20,
         },
       })}>
       <Tab.Screen

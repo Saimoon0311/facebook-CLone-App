@@ -274,6 +274,7 @@ export const SharePostMoadl = props => {
 
   const sharePostImages = async () => {
     setIsLoading(true);
+    console.log(308);
     if (imageFromGalary.length > 0 && !props?.postData?.image) {
       var formdata = new FormData();
       formdata.append('upload_preset', 'upload');
@@ -304,14 +305,15 @@ export const SharePostMoadl = props => {
         });
     } else {
       // console.log(302, props.postData.image);
-      var empty = imageFromGalary[0].uri ? props?.postData?.image : '';
+      var empty = imageFromGalary[0]?.uri ? props?.postData?.image : '';
+      console.log(308, empty);
       sharePost(empty);
     }
   };
 
   const sharePost = async data => {
     if (props?.postData?.description) {
-      // console.log(308, props.postData.userId);
+      console.log(316);
       var body = JSON.stringify({
         description: shareText,
         userId: userData._id,
@@ -331,7 +333,7 @@ export const SharePostMoadl = props => {
           setIsLoading(false);
           // console.log(259, res);
           ToastAndroid.show(
-            'Some Thing Want Wrong.',
+            'Some Thing Want .',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
@@ -368,9 +370,9 @@ export const SharePostMoadl = props => {
           ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
           props?.forHideModal();
         } else if (res?.success == false) {
-          // console.log(259, res);
+          console.log(259, res);
           ToastAndroid.show(
-            'Some Thing Want Wrong.',
+            'Some Thing Want .',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
@@ -452,7 +454,7 @@ export const SharePostMoadl = props => {
           </View>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: hp('8')}}>
+            contentContainerStyle={{paddingBottom: hp('50')}}>
             <View
               style={{
                 flexDirection: 'row',

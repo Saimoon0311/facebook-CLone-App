@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('3'),
     fontSize: hp('2.5'),
     width: wp('95'),
-    paddingBottom: hp('2'),
+    // backgroundColor: 'yellow',
   },
   likeContainer: {
     flexDirection: 'row',

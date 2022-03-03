@@ -43,7 +43,12 @@ const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-function UserScreen() {
+function UserScreen({route, navigation}) {
+  const confirms = route.params;
+  // const data = route.params;
+  console.log(48, confirms);
+  var userName;
+  // console.log(50, data);
   const {userData} = useSelector(state => state.auth);
   const [followings, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -54,6 +59,7 @@ function UserScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [pagination, setPagination] = useState(2);
   const [modalVisible, setModalVisible] = useState(false);
+  const [checkUser, setCheckUser] = useState(false);
   const onRefresh = useCallback(() => {
     setLoading(true);
     setFloading(true);
@@ -67,9 +73,9 @@ function UserScreen() {
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
-        console.log(69, res);
+        // console.log(69, res);
       } else if (res?.success == false) {
-        console.log(69, res);
+        // console.log(69, res);
         setLoading(true);
       }
     });
@@ -155,9 +161,21 @@ function UserScreen() {
     userData.followers.length > 0 ? userData.followers.length : 0;
   var UserFollowings =
     userData.followings.length > 0 ? userData.followings.length : 0;
-  var picture = userData.profilePicture
-    ? IMAGE_BASED_URL + userData?.profilePicture
-    : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
+  if (confirms) {
+    console.log(163, confirms.data.profilePicture);
+    var picture = confirms.data.profilePicture
+      ? IMAGE_BASED_URL + confirms.data.profilePicture
+      : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
+    userName = confirms.data.postName;
+    setCheckUser(false);
+  } else {
+    console.log(163, confirms.data.profilePicture);
+    var picture = userData.profilePicture
+      ? IMAGE_BASED_URL + userData?.profilePicture
+      : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
+    userName = userData.username;
+    setCheckUser(true);
+  }
   useEffect(() => {
     getFollowing();
     getTimeLineData();
@@ -252,103 +270,109 @@ function UserScreen() {
               />
             </TouchableOpacity>
           </ImageBackground>
-          <Text style={styles.userName}>{userData.username}</Text>
-          <TouchableOpacity
-            onPress={() => setState(true)}
-            style={styles.createPostButton}>
-            <Text style={styles.createPostText}>Create Post</Text>
-          </TouchableOpacity>
-          {fLoading ? (
-            <SkeletonPlaceholder>
-              <Divider style={styles.divider} />
-              <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  height={60}
-                  borderRadius={50}
-                  borderWidth={2}
-                  borderColor="red"
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  height={60}
-                  borderRadius={50}
-                  borderWidth={2}
-                  borderColor="white"
-                  left={wp(-5)}
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  height={60}
-                  left={wp(-8)}
-                  borderRadius={50}
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  left={wp(-11)}
-                  height={60}
-                  borderWidth={2}
-                  borderColor="red"
-                  borderRadius={50}
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  left={wp(-13)}
-                  height={60}
-                  borderWidth={2}
-                  borderColor="red"
-                  borderRadius={50}
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  left={wp(-17)}
-                  height={60}
-                  borderWidth={2}
-                  borderColor="red"
-                  borderRadius={50}
-                />
-                <SkeletonPlaceholder.Item
-                  width={60}
-                  left={wp(-21)}
-                  height={60}
-                  borderWidth={2}
-                  borderColor="red"
-                  borderRadius={50}
-                  marginBottom={hp('1')}
-                />
-              </View>
-              <Divider style={styles.divider} />
-            </SkeletonPlaceholder>
-          ) : (
-            followings.length > 0 && (
-              <>
-                <Divider style={styles.divider} />
-                <Text style={styles.subHeadings}>You Following</Text>
-                <View style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
-                  <TouchableOpacity>
-                    <Avatar.Group>
-                      {followings.map(res => {
-                        var str = res.username;
-                        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-                        var acronym = matches.join('');
-                        return (
-                          <Avatar
-                            bg={colors.themePrimaryColor}
-                            size={wp('15')}
-                            source={{
-                              uri: IMAGE_BASED_URL + res?.profilePicture,
-                            }}>
-                            {acronym}
-                          </Avatar>
-                        );
-                      })}
-                    </Avatar.Group>
-                  </TouchableOpacity>
-                </View>
-                {/* <Divider style={{...styles.divider, marginTop: hp('1.5')}} /> */}
-              </>
-            )
-          )}
+          <Text style={styles.userName}>{userName}</Text>
+          {checkUser == true ? (
+            <>
+              <TouchableOpacity
+                onPress={() => setState(true)}
+                style={styles.createPostButton}>
+                <Text style={styles.createPostText}>Create Post</Text>
+              </TouchableOpacity>
+              {fLoading ? (
+                <SkeletonPlaceholder>
+                  <Divider style={styles.divider} />
+                  <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      height={60}
+                      borderRadius={50}
+                      borderWidth={2}
+                      borderColor="red"
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      height={60}
+                      borderRadius={50}
+                      borderWidth={2}
+                      borderColor="white"
+                      left={wp(-5)}
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      height={60}
+                      left={wp(-8)}
+                      borderRadius={50}
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      left={wp(-11)}
+                      height={60}
+                      borderWidth={2}
+                      borderColor="red"
+                      borderRadius={50}
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      left={wp(-13)}
+                      height={60}
+                      borderWidth={2}
+                      borderColor="red"
+                      borderRadius={50}
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      left={wp(-17)}
+                      height={60}
+                      borderWidth={2}
+                      borderColor="red"
+                      borderRadius={50}
+                    />
+                    <SkeletonPlaceholder.Item
+                      width={60}
+                      left={wp(-21)}
+                      height={60}
+                      borderWidth={2}
+                      borderColor="red"
+                      borderRadius={50}
+                      marginBottom={hp('1')}
+                    />
+                  </View>
+                  <Divider style={styles.divider} />
+                </SkeletonPlaceholder>
+              ) : (
+                followings.length > 0 && (
+                  <>
+                    <Divider style={styles.divider} />
+                    <Text style={styles.subHeadings}>You Following</Text>
+                    <View
+                      style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
+                      <TouchableOpacity>
+                        <Avatar.Group>
+                          {followings.map(res => {
+                            var str = res.username;
+                            var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+                            var acronym = matches.join('');
+                            return (
+                              <Avatar
+                                bg={colors.themePrimaryColor}
+                                size={wp('15')}
+                                source={{
+                                  uri: IMAGE_BASED_URL + res?.profilePicture,
+                                }}>
+                                {acronym}
+                              </Avatar>
+                            );
+                          })}
+                        </Avatar.Group>
+                      </TouchableOpacity>
+                    </View>
+                    {/* <Divider style={{...styles.divider, marginTop: hp('1.5')}} /> */}
+                  </>
+                )
+              )}
+            </>
+          ) : null}
+
           {/* {followers.length > 0 && (
           <>
             <Text

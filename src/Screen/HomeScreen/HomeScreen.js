@@ -44,7 +44,7 @@ const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const {userData} = useSelector(state => state.auth);
   const isFocused = useIsFocused();
 
@@ -80,7 +80,10 @@ export default function HomeScreen() {
       });
     }
   };
-
+  const navigate = (confirm, data) => {
+    console.log(84, confirm, data);
+    navigation.navigate('userScreen', {confirms: confirm, data: data});
+  };
   const getTimeLineData = async () => {
     const userId = await userData._id;
     ApiGet(GetAllPostUrl).then(res => {
@@ -179,8 +182,8 @@ export default function HomeScreen() {
     <>
       <StatusBar
         hidden={false}
-        backgroundColor={colors.themePrimaryColor}
-        barStyle="light-content"
+        // backgroundColor={colors.mainHeaderColor}
+        // barStyle="light-content"
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -217,6 +220,7 @@ export default function HomeScreen() {
           Islike={like}
           hideAndUnhide={confirm => hideAndUnhide(confirm)}
           whenPostDeleted={confirm => whenPostDeleted(confirm)}
+          onPress={(confirm, data) => navigate(confirm, data)}
         />
       </ScrollView>
     </>

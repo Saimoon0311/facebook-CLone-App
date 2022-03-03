@@ -199,6 +199,7 @@ export default function groupScreen() {
           paddingTop: hp('2'),
           paddingBottom: hp('1'),
           backgroundColor: colors.defaultBgColor,
+          paddingRight: wp('3'),
         }}>
         {group.map(res => {
           return (

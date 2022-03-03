@@ -172,9 +172,14 @@ export const TimeLineData = props => {
         pagination = 2;
       }
     };
+    const checkUser = data => {
+      var checkId = userData._id == item.userId ? true : false;
+      props?.onPress(checkId, data);
+      console.log(178, checkId, data);
+    };
     return (
       <View style={styles.mainContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => checkUser(item)}>
           <View style={styles.header}>
             {item.profilePicture ? (
               <Image
@@ -246,6 +251,7 @@ export const TimeLineData = props => {
               width: wp('100'),
               height: hp('40'),
               backgroundColor: 'rgba(231,241,254,0.5)',
+              marginTop: hp('2'),
               // backgroundColor: '#E7F1FE',
             }}
           />
@@ -595,6 +601,7 @@ export const TimeLineData = props => {
             inverted={true}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
+              paddingTop: hp('5'),
               paddingBottom: hp('1'),
             }}
             renderItem={({item, index}) => {

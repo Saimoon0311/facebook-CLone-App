@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   Easing,
   StatusBar,
+  ImageBackground,
 } from 'react-native';
 import TopBarNavigation from './topBarNavigation';
 import {
@@ -146,18 +147,23 @@ export function TopbartabBarHeader() {
   return (
     <>
       <StatusBar
-        backgroundColor={colors.defaultBgColor}
-        barStyle={
-          colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
-        }
+      // backgroundColor={colors.mainHeaderColor}
+      // barStyle={
+      //   colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
+      // }
+      // barStyle={'light-content'}
       />
       <ShowInputField
         onPress={isFouced}
         hideInputField={() => setIsFouced(false)}
       />
-      <Animatable.View style={styles.maincontainer}>
-        <View style={{width: wp('70')}}>
-          {/* <Animatable.Image
+      <ImageBackground
+        resizeMode="cover"
+        source={require('../Images/upperImage.png')}
+        style={{width: wp('100'), height: hp('100')}}>
+        <Animatable.View style={styles.maincontainer}>
+          <View style={{width: wp('70')}}>
+            {/* <Animatable.Image
             // source={require('../Images/splashImage.png')}
             source={{uri: 'https://image.pngaaa.com/74/2672074-small.png'}}
             // tintColor={colors.themePrimaryColor}
@@ -168,30 +174,32 @@ export function TopbartabBarHeader() {
             }}
           /> */}
 
-          <Text
-            style={{
-              fontSize: wp('10'),
-              color: 'white',
-              marginLeft: wp('3'),
-              fontFamily: 'Poppins-SemiBold',
-            }}>
-            facebook
-          </Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => setIsFouced(true)}
-          style={styles.sideicon}>
-          <Ionicons name="search" size={26} color={colors.roundIconsColor} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sideicon}>
-          <Ionicons
-            name="md-chatbubble-ellipses"
-            size={26}
-            color={colors.roundIconsColor}
-          />
-        </TouchableOpacity>
-      </Animatable.View>
-      <TopBarNavigation />
+            <Text
+              style={{
+                fontSize: wp('10'),
+                color: colors.mainHeaderTextColor,
+                marginLeft: wp('3'),
+                fontFamily: 'Poppins-SemiBold',
+              }}>
+              facebook
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => setIsFouced(true)}
+            style={styles.sideicon}>
+            <Ionicons name="search" size={26} color={colors.roundIconsColor} />
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.sideicon}>
+            <Ionicons
+              name="md-chatbubble-ellipses"
+              size={26}
+              // color={colors.roundIconsColor}
+              color="#1A1A1A"
+            />
+          </TouchableOpacity> */}
+        </Animatable.View>
+        <TopBarNavigation />
+      </ImageBackground>
     </>
   );
 }
@@ -204,15 +212,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.11,
     height: Dimensions.get('screen').width * 0.11,
-    backgroundColor: colors.roundIconsBgColorHeader,
+    backgroundColor: colors.roundIconsBgColor,
     justifyContent: 'center',
     alignItems: 'center',
-    //     marginRight: wp('1'),
-    marginLeft: wp('3'),
+    marginRight: wp('4'),
+    marginLeft: 'auto',
   },
   maincontainer: {
     flexDirection: 'row',
-    backgroundColor: colors.themePrimaryColor,
+    backgroundColor: colors.defaultBgColor,
     width: wp('100'),
   },
   inputBox: {

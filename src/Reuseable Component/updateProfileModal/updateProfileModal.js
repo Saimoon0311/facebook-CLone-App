@@ -235,8 +235,8 @@ function UpdateProfileModal(props) {
                       <Entypo
                         name="add-user"
                         size={60}
-                        style={{marginLeft: wp('2')}}
-                        color={'gray'}
+                        style={{marginLeft: wp('2'), alignSelf: 'center'}}
+                        color={'white'}
                       />
                     </TouchableOpacity>
                   )}

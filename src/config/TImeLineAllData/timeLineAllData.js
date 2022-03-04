@@ -159,7 +159,9 @@ export const TimeLineData = props => {
       </View>
     );
   };
-
+  // console.log(162, props.routeName);
+  // const l = props.routeName;
+  // const nae = l.name;
   const flatListData = (item, index) => {
     var pagination = index == click ? undefined : 2;
     // var postTime = moment(item.createdAt).calendar();
@@ -174,8 +176,12 @@ export const TimeLineData = props => {
     };
     const checkUser = data => {
       var checkId = userData._id == item.userId ? true : false;
-      props?.onPress(checkId, data);
-      console.log(178, checkId, data);
+      if (props.routeName == 'userScreen') {
+        console.log(178);
+      } else {
+        props?.onPress(checkId, data);
+        // console.log(178, checkId, data);
+      }
     };
     return (
       <View style={styles.mainContainer}>

@@ -258,7 +258,7 @@ export default function ProfileScreen({navigation}) {
           </TouchableOpacity> */}
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('userScreen')}
+            onPress={() => navigation.navigate('userScreen', {confirms: true})}
             style={{flexDirection: 'row', marginBottom: hp('2')}}>
             {userData.profilePicture ? (
               <Image

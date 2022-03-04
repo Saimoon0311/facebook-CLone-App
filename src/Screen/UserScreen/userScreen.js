@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   getAllFriendsUrl,
   getApi,
+  getaUserUrl,
   getUserAllPostUrl,
   IMAGE_BASED_URL,
   LikeUrl,
@@ -36,6 +37,7 @@ import {TimeLineData} from '../../config/TImeLineAllData/timeLineAllData';
 import UpdateProfileModal from '../../Reuseable Component/updateProfileModal/updateProfileModal';
 import {TouchableButton} from '../../Reuseable Component/touchableButton/touchableButton';
 import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePostModal';
+import {useRoute} from '@react-navigation/native';
 
 // import {Avatar} from 'react-native-elements';
 
@@ -44,12 +46,16 @@ const wait = timeout => {
 };
 
 function UserScreen({route, navigation}) {
-  const confirms = route.params;
-  // const data = route.params;
-  console.log(48, confirms);
-  var userName;
-  // console.log(50, data);
   const {userData} = useSelector(state => state.auth);
+  const routes = useRoute();
+  const screenName = routes.name;
+  console.log(51, routes.name);
+  let g;
+  const confirms = route.params;
+  // console.log(48, confirms);
+  var description;
+  var usersName;
+  // var userName;
   const [followings, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [fLoading, setFloading] = useState(true);
@@ -60,6 +66,10 @@ function UserScreen({route, navigation}) {
   const [pagination, setPagination] = useState(2);
   const [modalVisible, setModalVisible] = useState(false);
   const [checkUser, setCheckUser] = useState(false);
+  const [userName, setUserName] = useState();
+  const [userPicture, setUserPicture] = useState();
+  const [userDescription, setUserDescription] = useState('');
+  const [getUser, setGetUser] = useState();
   const onRefresh = useCallback(() => {
     setLoading(true);
     setFloading(true);
@@ -67,13 +77,13 @@ function UserScreen({route, navigation}) {
       getTimeLineData(), setLoading(false), getFollowing(), setFloading(false);
     });
   }, []);
-  const getTimeLineData = async () => {
-    const userName = userData.username;
-    ApiGet(getUserAllPostUrl + userName).then(res => {
+  const getTimeLineData = async name => {
+    // usersName = userData.username;
+    ApiGet(getUserAllPostUrl + name).then(res => {
+      console.log(69, res);
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
-        // console.log(69, res);
       } else if (res?.success == false) {
         // console.log(69, res);
         setLoading(true);
@@ -131,7 +141,33 @@ function UserScreen({route, navigation}) {
       });
     }
   };
-
+  var users;
+  const getUserData = async () => {
+    var id = confirms.datas.userId;
+    var url = getaUserUrl + id;
+    await ApiGet(url).then(res => {
+      console.log(143, res);
+      if (res.success == true) {
+        users = res.data;
+      } else if (res.success == false) {
+        ToastAndroid.show(
+          'SOme thing is wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      } else {
+        ToastAndroid.show(
+          'SOme thing is wrong!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          500,
+        );
+      }
+    });
+  };
   const getFollowing = () => {
     var url = getAllFriendsUrl + userData._id;
     // console.log(19, url);
@@ -161,24 +197,38 @@ function UserScreen({route, navigation}) {
     userData.followers.length > 0 ? userData.followers.length : 0;
   var UserFollowings =
     userData.followings.length > 0 ? userData.followings.length : 0;
-  if (confirms) {
-    console.log(163, confirms.data.profilePicture);
-    var picture = confirms.data.profilePicture
-      ? IMAGE_BASED_URL + confirms.data.profilePicture
-      : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
-    userName = confirms.data.postName;
-    setCheckUser(false);
-  } else {
-    console.log(163, confirms.data.profilePicture);
-    var picture = userData.profilePicture
-      ? IMAGE_BASED_URL + userData?.profilePicture
-      : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
-    userName = userData.username;
-    setCheckUser(true);
-  }
+  const check = async () => {
+    if (confirms.confirms == false) {
+      await getUserData();
+      g = users.profilePicture
+        ? IMAGE_BASED_URL + users.profilePicture
+        : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
+      setUserPicture(g);
+      var des = users.description ? users.description : '';
+      setUserDescription(des);
+      // console.log(207, userPicture);
+      setUserName(users.username);
+      setCheckUser(false);
+      console.log(208, userName);
+      getTimeLineData(users.username);
+    } else {
+      g = userData.profilePicture
+        ? IMAGE_BASED_URL + userData.profilePicture
+        : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
+      setUserPicture(g);
+      setUserDescription(userData.description);
+      setUserName(userData.username);
+      setCheckUser(true);
+      getFollowing();
+      getTimeLineData(userData.username);
+    }
+  };
   useEffect(() => {
-    getFollowing();
-    getTimeLineData();
+    (async () => {
+      await check();
+      // getFollowing();
+      // getTimeLineData();
+    })();
   }, []);
   const increaseText = () => {
     if (pagination == 2) {
@@ -195,6 +245,16 @@ function UserScreen({route, navigation}) {
     getTimeLineData();
     getFollowing();
   };
+  const forShowModal = () => {
+    if (userName == userData.username) {
+      setModalVisible(true);
+    } else {
+      console.log(248);
+    }
+  };
+  // console.log(270, g);
+  console.log(213, description);
+
   if (state) {
     return <SharePostMoadl forHideModal={() => forHideModal()} />;
   }
@@ -252,20 +312,19 @@ function UserScreen({route, navigation}) {
         <NativeBaseProvider>
           <ImageBackground
             style={styles.topImage}
-            // borderBottomRightRadius={25}
             borderBottomLeftRadius={100}
             resizeMode="cover"
             source={{
               uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
             }}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Avatar
+            <TouchableOpacity onPress={() => forShowModal()}>
+              {console.log(316, userPicture)}
+              <Image
                 style={styles.userImage}
-                // mr={1}
-                background="transparent"
-                size={100}
+                // background="transparent"
+
                 source={{
-                  uri: picture,
+                  uri: userPicture,
                 }}
               />
             </TouchableOpacity>
@@ -402,13 +461,13 @@ function UserScreen({route, navigation}) {
             </View>
           </>
         )} */}
-          {userData.description ? (
+          {userDescription !== '' ? (
             <View>
               <Divider style={{...styles.divider, marginTop: hp('1')}} />
               <Text style={styles.subHeadings}>About</Text>
               <TouchableOpacity onPress={() => increaseText()}>
                 <Text numberOfLines={pagination} style={styles.description}>
-                  {userData?.description}
+                  {userDescription}
                 </Text>
               </TouchableOpacity>
               {/* <Divider style={styles.divider} /> */}
@@ -424,6 +483,7 @@ function UserScreen({route, navigation}) {
               Islike={like}
               // hideAndUnhide={confirm => hideAndUnhide(confirm)}
               whenPostDeleted={confirm => whenPostDeleted(confirm)}
+              routeName={screenName}
             />
           </View>
         </NativeBaseProvider>

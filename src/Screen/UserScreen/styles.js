@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {colors} from '../../Reuseable Component/color';
 import {
   widthPercentageToDP as wp,
@@ -14,11 +14,20 @@ export const styles = StyleSheet.create({
     // marginTop: hp('5'),
   },
   userImage: {
-    top: hp('26'),
+    top: hp('25'),
     alignSelf: 'center',
     borderWidth: 3,
     borderColor: 'white',
     textAlignVertical: 'center',
+    // width: wp('50'),
+    // height: hp('20'),
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    // alignSelf: 'center',
+    width: Dimensions.get('screen').width * 0.3,
+    height: Dimensions.get('screen').width * 0.3,
+    // borderRadius: 100,
   },
   userName: {
     fontSize: hp('3'),

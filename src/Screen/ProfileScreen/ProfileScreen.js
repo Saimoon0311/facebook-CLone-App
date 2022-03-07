@@ -253,9 +253,6 @@ export default function ProfileScreen({navigation}) {
             <Text style={{color: colors.defaultTextColor, fontSize: hp('4')}}>
               Menu
             </Text>
-            {/* <TouchableOpacity>
-            <Ionicons name="search" size={hp('5')} color={'black'} />
-          </TouchableOpacity> */}
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('userScreen', {confirms: true})}
@@ -274,10 +271,6 @@ export default function ProfileScreen({navigation}) {
                 color={colors.defaultTextColor}
               />
             )}
-            {/* <Image
-              source={require('../../Images/removeimage.png')}
-              style={styles.imageContainer}
-            /> */}
             <View style={{marginLeft: wp('2'), justifyContent: 'center'}}>
               <Text style={styles.userName}>{userData?.username}</Text>
               <Text style={styles.extraText}>See Your Profile</Text>
@@ -289,6 +282,7 @@ export default function ProfileScreen({navigation}) {
           <Accordion
             activeSections={activeSessionHelp}
             sections={helpSupport}
+            keyExtractor={(item, index) => `key-${index}`}
             underlayColor="transparent"
             renderHeader={e => renderHeaderHelp(e)}
             renderContent={e => renderContentHelp(e)}
@@ -297,6 +291,7 @@ export default function ProfileScreen({navigation}) {
           <Accordion
             activeSections={activeSessiontSetting}
             sections={setting}
+            keyExtractor={(item, index) => `key-${index}`}
             underlayColor="transparent"
             renderHeader={e => renderHeadersetting(e)}
             renderContent={e => renderContentSetting(e)}
@@ -314,7 +309,6 @@ export default function ProfileScreen({navigation}) {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* {showThemeModal()} */}
       </ScrollView>
     </>
   );

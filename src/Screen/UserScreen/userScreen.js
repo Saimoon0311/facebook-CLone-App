@@ -47,15 +47,11 @@ const wait = timeout => {
 
 function UserScreen({route, navigation}) {
   const {userData} = useSelector(state => state.auth);
+  console.log(50, 'update Redux', userData);
   const routes = useRoute();
   const screenName = routes.name;
-  console.log(51, routes.name);
   let g;
   const confirms = route.params;
-  // console.log(48, confirms);
-  var description;
-  var usersName;
-  // var userName;
   const [followings, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [fLoading, setFloading] = useState(true);
@@ -74,18 +70,19 @@ function UserScreen({route, navigation}) {
     setLoading(true);
     setFloading(true);
     wait(2000).then(() => {
-      getTimeLineData(), setLoading(false), getFollowing(), setFloading(false);
+      getTimeLineData(),
+        setLoading(false),
+        getFollowing(),
+        setFloading(false),
+        check();
     });
   }, []);
   const getTimeLineData = async name => {
-    // usersName = userData.username;
     ApiGet(getUserAllPostUrl + name).then(res => {
-      console.log(69, res);
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
       } else if (res?.success == false) {
-        // console.log(69, res);
         setLoading(true);
       }
     });
@@ -146,7 +143,7 @@ function UserScreen({route, navigation}) {
     var id = confirms.datas.userId;
     var url = getaUserUrl + id;
     await ApiGet(url).then(res => {
-      console.log(143, res);
+      console.log(147, res);
       if (res.success == true) {
         users = res.data;
       } else if (res.success == false) {
@@ -198,7 +195,9 @@ function UserScreen({route, navigation}) {
   var UserFollowings =
     userData.followings.length > 0 ? userData.followings.length : 0;
   const check = async () => {
+    console.log(197, 'check function');
     if (confirms.confirms == false) {
+      console.log(199, 'false');
       await getUserData();
       g = users.profilePicture
         ? IMAGE_BASED_URL + users.profilePicture
@@ -206,12 +205,11 @@ function UserScreen({route, navigation}) {
       setUserPicture(g);
       var des = users.description ? users.description : '';
       setUserDescription(des);
-      // console.log(207, userPicture);
       setUserName(users.username);
       setCheckUser(false);
-      console.log(208, userName);
       getTimeLineData(users.username);
     } else {
+      console.log(199, 'true');
       g = userData.profilePicture
         ? IMAGE_BASED_URL + userData.profilePicture
         : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
@@ -220,16 +218,13 @@ function UserScreen({route, navigation}) {
       setUserName(userData.username);
       setCheckUser(true);
       getFollowing();
+      console.log(220, userData);
       getTimeLineData(userData.username);
     }
   };
   useEffect(() => {
-    (async () => {
-      await check();
-      // getFollowing();
-      // getTimeLineData();
-    })();
-  }, []);
+    check();
+  }, [userData]);
   const increaseText = () => {
     if (pagination == 2) {
       setPagination(undefined);
@@ -240,10 +235,11 @@ function UserScreen({route, navigation}) {
   const [state, setState] = useState(false);
   const forHideModal = async () => {
     await setState(false);
+    await setModalVisible(false);
     await setLoading(true);
     await setFloading(true);
-    getTimeLineData();
-    getFollowing();
+    console.log(238);
+    check();
   };
   const forShowModal = () => {
     if (userName == userData.username) {
@@ -252,8 +248,6 @@ function UserScreen({route, navigation}) {
       console.log(248);
     }
   };
-  // console.log(270, g);
-  console.log(213, description);
 
   if (state) {
     return <SharePostMoadl forHideModal={() => forHideModal()} />;
@@ -269,37 +263,16 @@ function UserScreen({route, navigation}) {
         backgroundColor={colors.themePrimaryColor}
         barStyle="light-content"
       />
+      {console.log(257, userName)}
+      {console.log(262, userData.username)}
       {modalVisible ? (
         <UpdateProfileModal
-          forHideModal={() => setModalVisible(false)}
+          forHideModal={async () => {
+            await forHideModal();
+          }}
           modalType={modalVisible}
         />
       ) : null}
-      {/* <ImageBackground
-        // onLayout={}
-        blurRadius={10}
-        // source={require('../../Images/downloa.png')}
-        source={{
-          uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-        }}
-        tintColor="transparent"
-        style={{
-          flexDirection: 'row',
-          // backgroundColor: 'transparent',
-          // backgroundColor: 'rgba(232,64,64,0.5)',
-          height: hp('10'),
-          alignItems: 'center',
-          opacity: 0.5,
-          // blurRadius: 0.5,
-        }}>
-        <Ionicons
-          name="arrow-back-outline"
-          color={colors.defaultTextColor}
-          size={hp('6')}
-        />
-        <View></View>
-        <View></View>
-      </ImageBackground> */}
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -318,11 +291,8 @@ function UserScreen({route, navigation}) {
               uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
             }}>
             <TouchableOpacity onPress={() => forShowModal()}>
-              {console.log(316, userPicture)}
               <Image
                 style={styles.userImage}
-                // background="transparent"
-
                 source={{
                   uri: userPicture,
                 }}
@@ -461,7 +431,8 @@ function UserScreen({route, navigation}) {
             </View>
           </>
         )} */}
-          {userDescription !== '' ? (
+          {/* {console.log(450, userDescription)} */}
+          {userDescription !== '' && userDescription !== undefined ? (
             <View>
               <Divider style={{...styles.divider, marginTop: hp('1')}} />
               <Text style={styles.subHeadings}>About</Text>
@@ -470,7 +441,6 @@ function UserScreen({route, navigation}) {
                   {userDescription}
                 </Text>
               </TouchableOpacity>
-              {/* <Divider style={styles.divider} /> */}
             </View>
           ) : null}
           <View
@@ -481,7 +451,6 @@ function UserScreen({route, navigation}) {
               user={userData}
               like={likeAndDislike}
               Islike={like}
-              // hideAndUnhide={confirm => hideAndUnhide(confirm)}
               whenPostDeleted={confirm => whenPostDeleted(confirm)}
               routeName={screenName}
             />

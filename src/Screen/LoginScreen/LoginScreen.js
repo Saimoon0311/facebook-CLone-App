@@ -101,20 +101,21 @@ export default function LoginScreen({navigation}) {
         <ImageBackground
           style={{width: wp('100'), height: hp('100'), zIndex: 1}}
           blurRadius={3}
-          source={require('../../Images/backgroundImage.jpeg')}>
+          source={require('../../Images/screen2.png')}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.mainContainer}>
               <MaterialIcons
                 name="facebook"
                 size={100}
-                color={'white'}
+                color={colors.themePrimaryColor}
+                // color={'white'}
                 style={{marginTop: hp('10')}}
               />
               <LinearTextGradient
                 style={styles.Heading}
                 locations={[0, 1]}
                 // colors={[colors.statusBarColor, colors.themePrimaryColor]}
-                colors={[colors.statusBarColor, 'white']}
+                colors={['white', 'white']}
                 start={{x: 0, y: 5}}
                 end={{x: 1, y: 0}}>
                 <Text style={styles.Heading}>Login with facebook</Text>

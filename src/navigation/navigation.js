@@ -17,7 +17,7 @@ export default function Navigation() {
       screenOptions={{
         headerTitleAlign: 'center',
         headerShown: false,
-        animation: 'slide_from_right',
+        animation: 'slide_from_bottom',
       }}>
       {/*  */}
       {!!userData && userData._id ? (

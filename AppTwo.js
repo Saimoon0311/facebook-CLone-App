@@ -189,7 +189,7 @@ function AppTwo({navigation}) {
   // };
   const time = () => {
     if (Platform?.OS == 'android') {
-      return 2000;
+      return 5000;
     } else {
       return 0;
     }
@@ -202,16 +202,13 @@ function AppTwo({navigation}) {
   };
 
   useEffect(() => {
-    // const dispatch = useDispatch();
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     LogBox.ignoreAllLogs(true);
     Appearance.addChangeListener(scheme => {
-      // console.log(2020020200202, scheme.colorScheme);
       dispatch({
         type: 'CheckThemeColor',
         payload: scheme.colorScheme,
       });
-      // changeTheme();
       setDummy(dummy + 1);
     });
     setTimeout(function () {
@@ -222,7 +219,8 @@ function AppTwo({navigation}) {
   {
     let Splash_Screen = (
       <ImageBackground
-        source={require('./src/Images/XDsplashScreen.png')}
+        source={require('./src/Images/ip.png')}
+        // source={require('./src/Images/splashScreen.png')}
         style={styles.SplashScreen_RootView}>
         {/* <View style={styles.SplashScreen_ChildView}>
           <Image

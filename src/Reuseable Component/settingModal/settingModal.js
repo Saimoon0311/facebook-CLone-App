@@ -204,7 +204,7 @@ export const SettingModal = props => {
   var updateButton;
   const getUserAndSet = async () => {
     var url = getaUserUrl + userData._id;
-    console.log(206, url);
+    // console.log(206, url);
     ApiGet(url).then(res => {
       if (res.success == true) {
         dispatch({
@@ -342,7 +342,7 @@ export const SettingModal = props => {
       });
   };
   const forHidePost = () => {
-    console.log(345);
+    // console.log(345);
     var body = JSON.stringify({
       userId: userData._id,
     });
@@ -387,7 +387,7 @@ export const SettingModal = props => {
   const followAndUnfollow = async title => {
     if (title == `Follow ${props.postData.postName}`) {
       var url = FollowUserUrl + props.postData.userId + '/followUser';
-      console.log(364, url);
+      // console.log(364, url);
       var body = JSON.stringify({
         userId: userData._id,
       });
@@ -427,7 +427,7 @@ export const SettingModal = props => {
       });
     } else if (title == `Unfollow ${props.postData.postName}`) {
       var url = FollowUserUrl + props.postData.userId + '/unfollowUser';
-      console.log(364, url);
+      // console.log(364, url);
       var body = JSON.stringify({
         userId: userData._id,
       });

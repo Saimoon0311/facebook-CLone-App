@@ -118,7 +118,8 @@ export const ProfileScreenCategoryData = () => {
       <FlatList
         // data={column1Data}
         data={groupedItems}
-        keyExtractor={item => item.key}
+        // keyExtractor={item => item.key}
+        keyExtractor={(item, index) => `key-${index}`}
         nestedScrollEnabled={true}
         scrollEnabled={false}
         contentContainerStyle={{

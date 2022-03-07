@@ -55,7 +55,6 @@ import types from '../../Redux/type';
 function UpdateProfileModal(props) {
   const dispatch = useDispatch();
   const {userData} = useSelector(state => state.auth);
-  // console.log(57, userData);
   const [username, setUsername] = useState(userData.username);
   const [phoneNumber, setPhoneNumber] = useState(userData?.phoneNumber);
   const [country, setCountry] = useState(userData?.country);
@@ -73,12 +72,6 @@ function UpdateProfileModal(props) {
       res => {
         if (!res?.didCancel) {
           setProfilePicture(res.assets);
-          // console.log(69, profilePicture);
-          // console.log(70, res.assets);
-          // setImageFromGalary(...imageFromGalary, res?.assets);
-          // console.log('Result', res?.assets);
-
-          // console.log('State', imageFromGalary);
         }
       },
     );
@@ -105,19 +98,15 @@ function UpdateProfileModal(props) {
         .then(response => response.json())
         .then(result => {
           const {public_id} = result;
-          // console.log('url', result.public_id);
           updateProfile(public_id);
-          // console.log(105, public_id);
           setIsLoading(false);
         })
         .catch(error => {
           setIsLoading(false), console.log('error', error);
         });
     } else {
-      // console.log(302, props.postData.image);
       var empty = userData.profilePicture ? userData.profilePicture : '';
       updateProfile(empty);
-      // console.log(105, empty);
     }
   };
 
@@ -137,11 +126,13 @@ function UpdateProfileModal(props) {
       // console.log(133, body);
       ApiPut(url, body, false).then(res => {
         if (res.success == true) {
-          dispatch({
-            type: types.LOGIN,
-            payload: res.data,
-          });
           props.forHideModal();
+          setTimeout(() => {
+            dispatch({
+              type: types.LOGIN,
+              payload: res.data,
+            });
+          }, 2000);
           ToastAndroid.show(
             'Your profile has been updated!',
             ToastAndroid.LONG,
@@ -180,18 +171,14 @@ function UpdateProfileModal(props) {
         : setProfilePicture([]);
     } else {
     }
-    // console.log(80, profilePicture);
   };
-
-  // useEffect(() => {
-  //   imageData();
-  // }, []);
   return (
     <View style={styles.centeredView}>
       <NativeBaseProvider>
         <Modal
           animationType="slide"
           transparent={true}
+          collapsable={true}
           visible={props.modalType}
           onRequestClose={() => {
             props.forHideModal();
@@ -209,7 +196,7 @@ function UpdateProfileModal(props) {
                   overflow: 'hidden',
                 }}
                 blurRadius={3}
-                source={require('../../Images/backgroundImage.jpeg')}>
+                source={require('../../Images/screen2.png')}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: hp('2')}}>
@@ -246,7 +233,8 @@ function UpdateProfileModal(props) {
                     value={username}
                     firstIconName="person-outline"
                     inputWidth="80"
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                   />
                   <InputField
                     label="Email"
@@ -254,14 +242,16 @@ function UpdateProfileModal(props) {
                     value={userData.email}
                     autoCapble="none"
                     firstIconName="mail-outline"
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                     inputWidth="80"
                   />
                   <InputField
                     label="Phone Number"
                     onChangeText={e => setPhoneNumber(e)}
                     value={phoneNumber}
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                     autoCapble="none"
                     firstIconName="call-outline"
                     keyboardType="phone-pad"
@@ -271,7 +261,8 @@ function UpdateProfileModal(props) {
                     label="City"
                     onChangeText={e => setCity(e)}
                     value={city}
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                     autoCapble="none"
                     firstIconName="home-outline"
                     inputWidth="80"
@@ -280,7 +271,8 @@ function UpdateProfileModal(props) {
                   <InputField
                     label="Country"
                     onChangeText={e => setCountry(e)}
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                     value={country}
                     autoCapble="none"
                     firstIconName="earth-outline"
@@ -291,7 +283,8 @@ function UpdateProfileModal(props) {
                     TextInputColor="white"
                     label="Description"
                     onChangeText={e => setDescription(e)}
-                    TextInputColor={colors.defaultTextColor}
+                    // TextInputColor={colors.defaultTextColor}
+                    TextInputColor={'black'}
                     value={description}
                     autoCapble="none"
                     multiline={true}
@@ -347,7 +340,8 @@ const styles = StyleSheet.create({
     // marginLeft: wp('3'),
     marginTop: hp('2'),
     textAlign: 'center',
-    color: colors.defaultBgColor,
+    color: 'white',
+    // color: colors.defaultBgColor,
   },
   imageContainer: {
     // width: wp('20'),

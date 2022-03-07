@@ -81,7 +81,7 @@ export default function HomeScreen({navigation}) {
     }
   };
   const navigate = (confirm, data) => {
-    console.log(84, confirm, data);
+    // console.log(84, confirm, data);
     navigation.navigate('userScreen', {confirms: confirm, datas: data});
   };
   const getTimeLineData = async () => {

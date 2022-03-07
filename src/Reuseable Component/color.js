@@ -9,7 +9,6 @@ Appearance.addChangeListener(scheme => {
     type: 'CheckThemeColor',
     payload: scheme.colorScheme,
   });
-  // console.log(13, scheme.colorScheme);
 });
 var themeType = store.getState().themeChange.themeType;
 // console.log(15, themeType);

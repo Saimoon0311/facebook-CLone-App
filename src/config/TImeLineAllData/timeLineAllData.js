@@ -159,12 +159,9 @@ export const TimeLineData = props => {
       </View>
     );
   };
-  // console.log(162, props.routeName);
-  // const l = props.routeName;
-  // const nae = l.name;
+
   const flatListData = (item, index) => {
     var pagination = index == click ? undefined : 2;
-    // var postTime = moment(item.createdAt).calendar();
     var postTime = moment(item.createdAt).format('DD MMM YY, h:mm a');
     const showPagination = index => {
       setClick(index);
@@ -570,8 +567,7 @@ export const TimeLineData = props => {
         ) : data?.length == 0 ? (
           <View
             style={{
-              backgroundColor: 'yellow',
-              // backgroundColor: colors.postDivider,
+              backgroundColor: colors.postDivider,
               height: hp('80'),
               alignItems: 'center',
               paddingTop: hp('10'),
@@ -601,7 +597,9 @@ export const TimeLineData = props => {
           <FlatList
             data={props?.timeLineData}
             extraData={props?.timeLineData}
-            keyExtractor={item => item._id}
+            // keyExtractor={item => item._id}
+            // keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item, index) => `key-${index}`}
             nestedScrollEnabled={true}
             scrollEnabled={false}
             inverted={true}

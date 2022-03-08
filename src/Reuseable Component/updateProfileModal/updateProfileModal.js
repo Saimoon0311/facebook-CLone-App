@@ -280,7 +280,6 @@ function UpdateProfileModal(props) {
                     // keyboardType="phone-pad"
                   />
                   <InputField
-                    TextInputColor="white"
                     label="Description"
                     onChangeText={e => setDescription(e)}
                     // TextInputColor={colors.defaultTextColor}

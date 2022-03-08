@@ -118,8 +118,6 @@ export default function groupScreen() {
     },
   ]);
   const getTimeLineData = async () => {
-    // const {userData} = useSelector(state => state.auth);
-    // console.log(userData);
     const userId = userData._id;
     ApiGet(GetAllPostUrl).then(res => {
       if (res?.success == true) {
@@ -152,7 +150,6 @@ export default function groupScreen() {
             style={{
               justifyContent: 'space-between',
               flexDirection: 'row',
-              // backgroundColor: 'red',
               right: wp('-15'),
             }}>
             <TouchableOpacity style={styles.sideicon}>

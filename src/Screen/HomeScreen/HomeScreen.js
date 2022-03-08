@@ -48,10 +48,6 @@ export default function HomeScreen({navigation}) {
   const {userData} = useSelector(state => state.auth);
   const isFocused = useIsFocused();
 
-  // const {themeType} = useSelector(state => state.themeChange);
-  // console.log(41, themeType);
-  // const userDat = useSelector(state => state.auth);
-
   const toast = useToast();
 
   const [timeLineData, setTimeLineData] = useState([]);
@@ -81,7 +77,6 @@ export default function HomeScreen({navigation}) {
     }
   };
   const navigate = (confirm, data) => {
-    // console.log(84, confirm, data);
     navigation.navigate('userScreen', {confirms: confirm, datas: data});
   };
   const getTimeLineData = async () => {
@@ -90,7 +85,6 @@ export default function HomeScreen({navigation}) {
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
-        // console.log(69, timeLineData);
       } else if (res?.success == false) {
         setLoading(true);
       }
@@ -136,7 +130,6 @@ export default function HomeScreen({navigation}) {
 
   const hideAndUnhide = confirm => {
     if (confirm == true) {
-      // setLoading(true);
       getTimeLineData();
     } else if (confirm == false) {
       showMessage({
@@ -155,8 +148,6 @@ export default function HomeScreen({navigation}) {
       } else {
       }
       setUser(userData);
-      // const {userData} = await useSelector(state => state.auth);
-      // console.log(112, userData);
     })();
   }, [isFocused]);
 
@@ -180,11 +171,7 @@ export default function HomeScreen({navigation}) {
   }
   return (
     <>
-      <StatusBar
-        hidden={false}
-        // backgroundColor={colors.mainHeaderColor}
-        // barStyle="light-content"
-      />
+      <StatusBar hidden={false} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{backgroundColor: colors.postDivider}}

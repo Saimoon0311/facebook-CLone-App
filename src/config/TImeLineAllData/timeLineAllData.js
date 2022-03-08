@@ -34,9 +34,6 @@ import {SharePostMoadl} from '../../Reuseable Component/SharePostModal/sharePost
 import {Button, useToast, Center, NativeBaseProvider} from 'native-base';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-// import PhotoGrid from 'react-native-thumbnail-grid';
-// import ReactPhotoGrid from 'react-photo-grid';
-// import Photogrid from 'react-facebook-photo-grid';
 import PhotoGrid from 'react-native-photo-grid';
 import GridImageView from 'react-native-grid-image-viewer';
 import ImageView from 'react-native-image-view';
@@ -70,6 +67,7 @@ import {ModalPortal} from 'react-native-modals';
 import darkColors from 'react-native-elements/dist/config/colorsDark';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
+import {Avatar} from 'native-base';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
@@ -84,78 +82,57 @@ export const TimeLineData = props => {
   var data = props?.timeLineData;
   const {userData} = useSelector(state => state.auth);
 
-  // const forHidePost = (item) => {
-  //   var body = JSON.stringify({
-  //     userId: userData._id,
-  //   });
-  //   var id = props.postData._id;
-  //   var url = HidePostUrl + id + '/hide';
-  //   ApiPut(url, body).then(res => {
-  //     if (res.success == true) {
-  //       props?.forHideModal();
-  //       if (res?.data == 'The post has been hide!') {
-  //         ToastAndroid.show(
-  //           'The post has been hide!',
-  //           ToastAndroid.LONG,
-  //           ToastAndroid.BOTTOM,
-  //           25,
-  //           500,
-  //         );
-  //       } else if (res?.data == 'The post has been unhide!') {
-  //         ToastAndroid.show(
-  //           'The post has been unhide!',
-  //           ToastAndroid.LONG,
-  //           ToastAndroid.BOTTOM,
-  //         );
-  //       }
-  //     } else if (res.success == false) {
-  //       ToastAndroid.show(
-  //         'Some Thing Is Wrong!',
-  //         ToastAndroid.LONG,
-  //         ToastAndroid.BOTTOM,
-  //         25,
-  //         500,
-  //       );
-  //     }
-  //   });
-  // };
-
   const hidePostContainer = item => {
+    const checkUser = data => {
+      var checkId = userData._id == item.userId ? true : false;
+      if (props.routeName == 'userScreen') {
+        console.log(178);
+      } else {
+        props?.onPress(checkId, data);
+      }
+    };
+    var str = item.postName;
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    var acronym = matches.join('');
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.header}>
-          {item.profilePicture ? (
-            <Image
-              source={{uri: IMAGE_BASED_URL + item.profilePicture}}
-              style={styles.postImage}
-            />
-          ) : (
-            <Ionicons
-              name={'person-circle-outline'}
-              size={50}
-              color={colors.defaultTextColor}
-              style={{paddingLeft: wp('1')}}
-            />
-          )}
-          <View
-            style={{
-              flexDirection: 'column',
-              marginLeft: wp('1'),
-              marginTop: hp('1'),
-            }}>
-            <Text style={{...styles.postName}}>{item?.postName}</Text>
-            <Text style={{color: 'gray', fontSize: hp('2')}}>
-              (This post was hidden)
-            </Text>
+        <TouchableOpacity onPress={() => checkUser(item)}>
+          <View style={styles.header}>
+            <View style={{paddingLeft: hp('0.8'), paddingTop: hp('0.5')}}>
+              <Avatar
+                bg={colors.themePrimaryColor}
+                size={wp('13')}
+                source={{
+                  uri: IMAGE_BASED_URL + item?.profilePicture,
+                }}>
+                {acronym}
+                {userData._id == item.userId ? (
+                  <Avatar.Badge bg="green.500" />
+                ) : (
+                  <Avatar.Badge bg="gray.400" />
+                )}
+              </Avatar>
+            </View>
+            <View
+              style={{
+                flexDirection: 'column',
+                marginLeft: wp('1'),
+                marginTop: hp('1'),
+              }}>
+              <Text style={{...styles.postName}}>{item?.postName}</Text>
+              <Text style={{color: 'gray', fontSize: hp('2')}}>
+                (This post was hidden)
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true), setPostData(item);
+              }}
+              style={styles.hidePostUndoButton}>
+              <Text style={{color: 'white'}}>Undo</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible(true), setPostData(item);
-            }}
-            style={styles.hidePostUndoButton}>
-            <Text style={{color: 'white'}}>Undo</Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -177,28 +154,30 @@ export const TimeLineData = props => {
         console.log(178);
       } else {
         props?.onPress(checkId, data);
-        // console.log(178, checkId, data);
       }
     };
+    var str = item.postName;
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    var acronym = matches.join('');
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity onPress={() => checkUser(item)}>
           <View style={styles.header}>
-            {item.profilePicture ? (
-              <Image
+            <View style={{paddingLeft: hp('0.8'), paddingTop: hp('0.5')}}>
+              <Avatar
+                bg={colors.themePrimaryColor}
+                size={wp('13')}
                 source={{
-                  uri: IMAGE_BASED_URL + item.profilePicture,
-                }}
-                style={styles.postImage}
-              />
-            ) : (
-              <Ionicons
-                name={'person-circle-outline'}
-                size={50}
-                color={colors.defaultTextColor}
-                style={{paddingLeft: wp('1')}}
-              />
-            )}
+                  uri: IMAGE_BASED_URL + item?.profilePicture,
+                }}>
+                {acronym}
+                {userData._id == item.userId ? (
+                  <Avatar.Badge bg="green.500" />
+                ) : (
+                  <Avatar.Badge bg="gray.400" />
+                )}
+              </Avatar>
+            </View>
             <View
               style={{
                 marginLeft: wp('1.5'),
@@ -232,30 +211,17 @@ export const TimeLineData = props => {
           }}>
           <Text numberOfLines={pagination} style={styles.description}>
             {item?.description}
-            {/* Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum. */}
           </Text>
         </TouchableOpacity>
         {item.image ? (
           <Image
             source={{uri: IMAGE_BASED_URL + item?.image}}
-            // source={{
-            //   uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-            // }}
             resizeMode="contain"
             style={{
               width: wp('100'),
               height: hp('40'),
               backgroundColor: 'rgba(231,241,254,0.5)',
               marginTop: hp('2'),
-              // backgroundColor: '#E7F1FE',
             }}
           />
         ) : null}
@@ -405,222 +371,220 @@ export const TimeLineData = props => {
   };
 
   return (
-    <MenuContext>
-      {modalVisible ? (
-        <SettingModal
-          modalType={modalVisible}
-          postData={postData}
-          forHideModal={() => {
-            setModalVisible(false);
-          }}
-          whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
-          hideAndUnhide={confirm => props?.hideAndUnhide(confirm)}
-        />
-      ) : null}
-      <View>
-        {props?.isloading ? (
-          <SkeletonPlaceholder>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <View
-                style={{
-                  ...styles.mainContainer,
-                  backgroundColor: 'transparent',
-                }}>
+    <NativeBaseProvider>
+      <MenuContext>
+        {modalVisible ? (
+          <SettingModal
+            modalType={modalVisible}
+            postData={postData}
+            forHideModal={() => {
+              setModalVisible(false);
+            }}
+            whenPostDeleted={confirm => props?.whenPostDeleted(confirm)}
+            hideAndUnhide={confirm => props?.hideAndUnhide(confirm)}
+          />
+        ) : null}
+        <View>
+          {props?.isloading ? (
+            <SkeletonPlaceholder>
+              <ScrollView showsVerticalScrollIndicator={false}>
                 <View
-                  style={{...styles.header, backgroundColor: 'transparent'}}>
-                  <View style={{...styles.postImage}} />
+                  style={{
+                    ...styles.mainContainer,
+                    backgroundColor: 'transparent',
+                  }}>
+                  <View
+                    style={{...styles.header, backgroundColor: 'transparent'}}>
+                    <View style={{...styles.postImage}} />
+                    <View
+                      style={{
+                        ...styles.postName,
+                        width: wp('40'),
+                        height: hp('4'),
+                        borderRadius: wp('15'),
+                        marginTop: hp('2'),
+                        marginLeft: wp('2'),
+                      }}
+                    />
+                  </View>
                   <View
                     style={{
-                      ...styles.postName,
-                      width: wp('40'),
-                      height: hp('4'),
+                      ...styles.description,
+                      marginTop: hp('1'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
                       borderRadius: wp('15'),
-                      marginTop: hp('2'),
-                      marginLeft: wp('2'),
+                      width: wp('90'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      ...styles.description,
+                      marginBottom: hp('2'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
+                      borderRadius: wp('15'),
+                      width: wp('80'),
+                      marginTop: hp('1'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: wp('100'),
+                      height: hp('40'),
                     }}
                   />
                 </View>
                 <View
                   style={{
-                    ...styles.description,
-                    marginTop: hp('1'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('90'),
-                  }}
-                />
-                <View
-                  style={{
-                    ...styles.description,
-                    marginBottom: hp('2'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('80'),
-                    marginTop: hp('1'),
-                  }}
-                />
-                <View
-                  style={{
-                    width: wp('100'),
-                    height: hp('40'),
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  ...styles.mainContainer,
-                  backgroundColor: 'transparent',
-                }}>
-                <View
-                  style={{...styles.header, backgroundColor: 'transparent'}}>
-                  <View style={{...styles.postImage}} />
+                    ...styles.mainContainer,
+                    backgroundColor: 'transparent',
+                  }}>
+                  <View
+                    style={{...styles.header, backgroundColor: 'transparent'}}>
+                    <View style={{...styles.postImage}} />
+                    <View
+                      style={{
+                        ...styles.postName,
+                        width: wp('40'),
+                        height: hp('4'),
+                        borderRadius: wp('15'),
+                        marginTop: hp('2'),
+                        marginLeft: wp('2'),
+                      }}
+                    />
+                  </View>
                   <View
                     style={{
-                      ...styles.postName,
-                      width: wp('40'),
-                      height: hp('4'),
+                      ...styles.description,
+                      marginTop: hp('1'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
                       borderRadius: wp('15'),
-                      marginTop: hp('2'),
-                      marginLeft: wp('2'),
+                      width: wp('90'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      ...styles.description,
+                      marginBottom: hp('2'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
+                      borderRadius: wp('15'),
+                      width: wp('80'),
+                      marginTop: hp('1'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: wp('100'),
+                      height: hp('40'),
                     }}
                   />
                 </View>
                 <View
                   style={{
-                    ...styles.description,
-                    marginTop: hp('1'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('90'),
-                  }}
-                />
-                <View
-                  style={{
-                    ...styles.description,
-                    marginBottom: hp('2'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('80'),
-                    marginTop: hp('1'),
-                  }}
-                />
-                <View
-                  style={{
-                    width: wp('100'),
-                    height: hp('40'),
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  ...styles.mainContainer,
-                  backgroundColor: 'transparent',
-                }}>
-                <View
-                  style={{...styles.header, backgroundColor: 'transparent'}}>
-                  <View style={{...styles.postImage}} />
+                    ...styles.mainContainer,
+                    backgroundColor: 'transparent',
+                  }}>
+                  <View
+                    style={{...styles.header, backgroundColor: 'transparent'}}>
+                    <View style={{...styles.postImage}} />
+                    <View
+                      style={{
+                        ...styles.postName,
+                        width: wp('40'),
+                        height: hp('4'),
+                        borderRadius: wp('15'),
+                        marginTop: hp('2'),
+                        marginLeft: wp('2'),
+                      }}
+                    />
+                  </View>
                   <View
                     style={{
-                      ...styles.postName,
-                      width: wp('40'),
-                      height: hp('4'),
+                      ...styles.description,
+                      marginTop: hp('1'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
                       borderRadius: wp('15'),
-                      marginTop: hp('2'),
-                      marginLeft: wp('2'),
+                      width: wp('90'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      ...styles.description,
+                      marginBottom: hp('2'),
+                      marginLeft: hp('2'),
+                      height: hp('2'),
+                      borderRadius: wp('15'),
+                      width: wp('80'),
+                      marginTop: hp('1'),
+                    }}
+                  />
+                  <View
+                    style={{
+                      width: wp('100'),
+                      height: hp('40'),
                     }}
                   />
                 </View>
-                <View
-                  style={{
-                    ...styles.description,
-                    marginTop: hp('1'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('90'),
-                  }}
-                />
-                <View
-                  style={{
-                    ...styles.description,
-                    marginBottom: hp('2'),
-                    marginLeft: hp('2'),
-                    height: hp('2'),
-                    borderRadius: wp('15'),
-                    width: wp('80'),
-                    marginTop: hp('1'),
-                  }}
-                />
-                <View
-                  style={{
-                    width: wp('100'),
-                    height: hp('40'),
-                  }}
-                />
-              </View>
-            </ScrollView>
-          </SkeletonPlaceholder>
-        ) : data?.length == 0 ? (
-          <View
-            style={{
-              backgroundColor: colors.postDivider,
-              height: hp('80'),
-              alignItems: 'center',
-              paddingTop: hp('10'),
-              marginBottom: hp('-30'),
-            }}>
+              </ScrollView>
+            </SkeletonPlaceholder>
+          ) : data?.length == 0 ? (
             <View
               style={{
+                backgroundColor: colors.postDivider,
+                height: hp('80'),
                 alignItems: 'center',
-                width: wp('80'),
-                backgroundColor: colors.defaultBgColor,
-                height: hp('30'),
-                justifyContent: 'center',
-                borderRadius: 20,
+                paddingTop: hp('10'),
+                marginBottom: hp('-30'),
               }}>
-              <AntDesign color={'gray'} size={wp('18')} name="warning" />
-              <Text
+              <View
                 style={{
-                  fontSize: hp('2.3'),
-                  color: 'gray',
-                  marginTop: hp('2'),
+                  alignItems: 'center',
+                  width: wp('80'),
+                  backgroundColor: colors.defaultBgColor,
+                  height: hp('30'),
+                  justifyContent: 'center',
+                  borderRadius: 20,
                 }}>
-                You nothing to have currently to view
-              </Text>
+                <AntDesign color={'gray'} size={wp('18')} name="warning" />
+                <Text
+                  style={{
+                    fontSize: hp('2.3'),
+                    color: 'gray',
+                    marginTop: hp('2'),
+                  }}>
+                  You nothing to have currently to view
+                </Text>
+              </View>
             </View>
-          </View>
-        ) : (
-          <FlatList
-            data={props?.timeLineData}
-            extraData={props?.timeLineData}
-            // keyExtractor={item => item._id}
-            // keyExtractor={(item, index) => index.toString()}
-            keyExtractor={(item, index) => `key-${index}`}
-            nestedScrollEnabled={true}
-            scrollEnabled={false}
-            inverted={true}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingTop: hp('5'),
-              paddingBottom: hp('1'),
-            }}
-            renderItem={({item, index}) => {
-              // for (let index = 0; index < item?.image?.length; index++) {
-              //   const obj = IMAGE_BASED_URL + item?.image[index];
-              //   dummy = obj;
-              // }
-              return item.hidePost && item.hidePost.includes(userData._id)
-                ? hidePostContainer(item)
-                : flatListData(item, index);
-            }}
-          />
-        )}
-      </View>
-    </MenuContext>
+          ) : (
+            <FlatList
+              data={props?.timeLineData}
+              extraData={props?.timeLineData}
+              // keyExtractor={item => item._id}
+              // keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item, index) => `key-${index}`}
+              nestedScrollEnabled={true}
+              scrollEnabled={false}
+              inverted={true}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingTop: hp('5'),
+                paddingBottom: hp('1'),
+              }}
+              renderItem={({item, index}) => {
+                return item.hidePost && item.hidePost.includes(userData._id)
+                  ? hidePostContainer(item)
+                  : flatListData(item, index);
+              }}
+            />
+          )}
+        </View>
+      </MenuContext>
+    </NativeBaseProvider>
   );
 };
 

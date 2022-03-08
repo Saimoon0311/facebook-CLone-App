@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     // marginTop: hp('5'),
   },
   userImage: {
-    top: hp('25'),
+    top: hp('27'),
     alignSelf: 'center',
     borderWidth: 3,
     borderColor: 'white',

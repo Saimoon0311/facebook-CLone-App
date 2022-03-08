@@ -274,7 +274,6 @@ export const SharePostMoadl = props => {
 
   const sharePostImages = async () => {
     setIsLoading(true);
-    // console.log(308);
     if (imageFromGalary.length > 0 && !props?.postData?.image) {
       var formdata = new FormData();
       formdata.append('upload_preset', 'upload');
@@ -295,7 +294,6 @@ export const SharePostMoadl = props => {
         .then(response => response.json())
         .then(result => {
           const {public_id} = result;
-          // console.log('url', result.public_id);
           setImagesArray(public_id);
           sharePost(public_id);
           setIsLoading(false);
@@ -304,16 +302,13 @@ export const SharePostMoadl = props => {
           setIsLoading(false), console.log('error', error);
         });
     } else {
-      // console.log(302, props.postData.image);
       var empty = imageFromGalary[0]?.uri ? props?.postData?.image : '';
-      // console.log(308, empty);
       sharePost(empty);
     }
   };
 
   const sharePost = async data => {
     if (props?.postData?.description) {
-      // console.log(316);
       var body = JSON.stringify({
         description: shareText,
         userId: userData._id,
@@ -321,24 +316,19 @@ export const SharePostMoadl = props => {
         image: data,
         profilePicture: userData?.profilePicture,
       });
-      // console.log(316, data);
       var url = UpdatePostUrl + props.postData._id;
-      // console.log(318, url);
-      // var confirm = true;
       ApiPut(url, body, false).then(res => {
         if (res?.success == true) {
           ToastAndroid.show('You post has been updated.', ToastAndroid.LONG);
           props?.forHideModal();
         } else if (res?.success == false) {
           setIsLoading(false);
-          // console.log(259, res);
           ToastAndroid.show(
             'Some Thing Want .',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
         } else {
-          // console.log(312, res);
           setIsLoading(false);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
@@ -363,21 +353,17 @@ export const SharePostMoadl = props => {
       });
       // var myHeaders = new Headers();
       // myHeaders.append('Content-Type', 'application/json');
-      // console.log(253, body);
-      // console.log(256, images);
       ApiPost(PostCreateUrl, body, false).then(res => {
         if (res?.success == true) {
           ToastAndroid.show('You post was shared.', ToastAndroid.LONG);
           props?.forHideModal();
         } else if (res?.success == false) {
-          // console.log(259, res);
           ToastAndroid.show(
             'Some Thing Want .',
             ToastAndroid.LONG,
             ToastAndroid.TOP,
           );
         } else {
-          // console.log(312, res);
           setIsLoading(false);
           ToastAndroid.show(
             'Some Thing Want Wrong.',
@@ -393,7 +379,7 @@ export const SharePostMoadl = props => {
     <NativeBaseProvider>
       <StatusBar
         hidden={false}
-        barStyle="dark-content"
+        barStyle="light-content"
         // backgroundColor={'red'}
       />
       <Modal

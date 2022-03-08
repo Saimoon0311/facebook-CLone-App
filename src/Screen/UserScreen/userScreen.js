@@ -47,7 +47,7 @@ const wait = timeout => {
 
 function UserScreen({route, navigation}) {
   const {userData} = useSelector(state => state.auth);
-  console.log(50, 'update Redux', userData);
+  // console.log(50, 'update Redux', userData);
   const routes = useRoute();
   const screenName = routes.name;
   let g;
@@ -70,7 +70,7 @@ function UserScreen({route, navigation}) {
     setLoading(true);
     setFloading(true);
     wait(2000).then(() => {
-      getTimeLineData(),
+      getTimeLineData(userName),
         setLoading(false),
         getFollowing(),
         setFloading(false),
@@ -79,6 +79,7 @@ function UserScreen({route, navigation}) {
   }, []);
   const getTimeLineData = async name => {
     ApiGet(getUserAllPostUrl + name).then(res => {
+      console.log(82, name);
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
@@ -96,7 +97,7 @@ function UserScreen({route, navigation}) {
       if (res.success == true) {
         if (res?.data == 'The post has been liked!') {
           setLike(true);
-          getTimeLineData();
+          getTimeLineData(userName);
           ToastAndroid.show(
             'The post has been liked!',
             ToastAndroid.LONG,
@@ -106,7 +107,7 @@ function UserScreen({route, navigation}) {
           );
         } else if (res?.data == 'The post has been disliked!') {
           setLike(false);
-          getTimeLineData();
+          getTimeLineData(userName);
           ToastAndroid.show(
             'The post has been disliked!',
             ToastAndroid.LONG,
@@ -127,7 +128,7 @@ function UserScreen({route, navigation}) {
   const whenPostDeleted = confirm => {
     if (confirm == true) {
       setLoading(true);
-      getTimeLineData();
+      getTimeLineData(userData.username);
     } else if (confirm == false) {
       showMessage({
         type: 'warning',
@@ -195,9 +196,9 @@ function UserScreen({route, navigation}) {
   var UserFollowings =
     userData.followings.length > 0 ? userData.followings.length : 0;
   const check = async () => {
-    console.log(197, 'check function');
+    // console.log(197, 'check function');
     if (confirms.confirms == false) {
-      console.log(199, 'false');
+      // console.log(199, 'false');
       await getUserData();
       g = users.profilePicture
         ? IMAGE_BASED_URL + users.profilePicture
@@ -209,7 +210,7 @@ function UserScreen({route, navigation}) {
       setCheckUser(false);
       getTimeLineData(users.username);
     } else {
-      console.log(199, 'true');
+      // console.log(199, 'true');
       g = userData.profilePicture
         ? IMAGE_BASED_URL + userData.profilePicture
         : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
@@ -218,7 +219,7 @@ function UserScreen({route, navigation}) {
       setUserName(userData.username);
       setCheckUser(true);
       getFollowing();
-      console.log(220, userData);
+      // console.log(220, userData);
       getTimeLineData(userData.username);
     }
   };
@@ -238,17 +239,31 @@ function UserScreen({route, navigation}) {
     await setModalVisible(false);
     await setLoading(true);
     await setFloading(true);
-    console.log(238);
+    // console.log(238);
     check();
   };
   const forShowModal = () => {
+    console.log(245);
     if (userName == userData.username) {
       setModalVisible(true);
     } else {
       console.log(248);
     }
   };
-
+  const hideAndUnhide = confirm => {
+    if (confirm == true) {
+      // setLoading(true);
+      getTimeLineData(userName);
+    } else if (confirm == false) {
+      showMessage({
+        type: 'warning',
+        icon: 'warning',
+        message: 'Warning',
+        description: 'Some thing is wrong',
+        backgroundColor: colors.statusBarColor,
+      });
+    }
+  };
   if (state) {
     return <SharePostMoadl forHideModal={() => forHideModal()} />;
   }
@@ -263,8 +278,8 @@ function UserScreen({route, navigation}) {
         backgroundColor={colors.themePrimaryColor}
         barStyle="light-content"
       />
-      {console.log(257, userName)}
-      {console.log(262, userData.username)}
+      {/* {console.log(257, userName)}
+      {console.log(262, userData.username)} */}
       {modalVisible ? (
         <UpdateProfileModal
           forHideModal={async () => {
@@ -316,7 +331,7 @@ function UserScreen({route, navigation}) {
                       height={60}
                       borderRadius={50}
                       borderWidth={2}
-                      borderColor="red"
+                      borderColor="white"
                     />
                     <SkeletonPlaceholder.Item
                       width={60}
@@ -337,7 +352,7 @@ function UserScreen({route, navigation}) {
                       left={wp(-11)}
                       height={60}
                       borderWidth={2}
-                      borderColor="red"
+                      borderColor="white"
                       borderRadius={50}
                     />
                     <SkeletonPlaceholder.Item
@@ -345,7 +360,7 @@ function UserScreen({route, navigation}) {
                       left={wp(-13)}
                       height={60}
                       borderWidth={2}
-                      borderColor="red"
+                      borderColor="white"
                       borderRadius={50}
                     />
                     <SkeletonPlaceholder.Item
@@ -353,7 +368,7 @@ function UserScreen({route, navigation}) {
                       left={wp(-17)}
                       height={60}
                       borderWidth={2}
-                      borderColor="red"
+                      borderColor="white"
                       borderRadius={50}
                     />
                     <SkeletonPlaceholder.Item
@@ -361,7 +376,7 @@ function UserScreen({route, navigation}) {
                       left={wp(-21)}
                       height={60}
                       borderWidth={2}
-                      borderColor="red"
+                      borderColor="white"
                       borderRadius={50}
                       marginBottom={hp('1')}
                     />
@@ -450,6 +465,7 @@ function UserScreen({route, navigation}) {
               isloading={loading}
               user={userData}
               like={likeAndDislike}
+              hideAndUnhide={confirm => hideAndUnhide(confirm)}
               Islike={like}
               whenPostDeleted={confirm => whenPostDeleted(confirm)}
               routeName={screenName}

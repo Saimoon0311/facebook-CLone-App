@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     // marginTop: hp('5'),
   },
   userImage: {
-    top: hp('27'),
+    top: hp('25'),
     alignSelf: 'center',
     borderWidth: 3,
     borderColor: 'white',
@@ -52,6 +52,7 @@ export const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'justify',
     padding: wp('2'),
+    fontFamily: 'Acme-Regular-400',
   },
   createPostButton: {
     width: wp('80'),

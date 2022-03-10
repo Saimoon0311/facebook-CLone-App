@@ -391,13 +391,14 @@ function UserScreen({route, navigation}) {
                     <View
                       style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
                       <TouchableOpacity>
-                        <Avatar.Group>
+                        <Avatar.Group borderWidth={1.2}>
                           {followings.map(res => {
                             var str = res.username;
                             var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
                             var acronym = matches.join('');
                             return (
                               <Avatar
+                                // bgColor={'red.100'}
                                 bg={colors.themePrimaryColor}
                                 size={wp('15')}
                                 source={{

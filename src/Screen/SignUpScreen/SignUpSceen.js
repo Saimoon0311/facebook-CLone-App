@@ -157,7 +157,6 @@ export default function SignUpScreen({navigation}) {
             label="Password"
             onChangeText={e => setPassword(e)}
             value={password}
-            secureTextEntry={true}
             firstIconName="key-outline"
             secureTextEntry={show ? false : true}
             onPress={handleClick}

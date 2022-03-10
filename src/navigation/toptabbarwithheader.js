@@ -31,7 +31,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {ShowInputField} from '../Reuseable Component/ShowInputField/showInputField';
 import {colors} from '../Reuseable Component/color';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
-// MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
 
 export function TopbartabBarHeader() {
   const [keyBoard, setKeyBoard] = useState('');
@@ -52,48 +51,15 @@ export function TopbartabBarHeader() {
       id: 3,
     },
   ]);
-  // const _onFocus = () => {
-  //   setIsFouced(true);
-  //   const _input_box_translate_x_config = {
-  //     duration: 200,
-  //     toValue: 0,
-  //     easing: Easing.inOut(Easing.ease),
-  //     useNativeDriver: true,
-  //   };
-  //   const back_button_opacity_config = {
-  //     duration: 200,
-  //     useNativeDriver: true,
-  //     toValue: 1,
-  //     easing: Easing.inOut(Easing.ease),
-  //   };
-  //   const content_translate_y_config = {
-  //     duration: 0,
-  //     toValue: 0,
-  //     useNativeDriver: true,
 
-  //     easing: Easing.inOut(Easing.ease),
-  //   };
-  //   const content_opacity_config = {
-  //     duration: 200,
-  //     toValue: 1,
-  //     useNativeDriver: true,
-  //     easing: Easing.inOut(Easing.ease),
-  //   };
-  //   timing(_input_box_translate_x, _input_box_translate_x_config).start();
-  //   timing(back_button_opacity, back_button_opacity_config).start();
-  //   timing(content_translate_y, content_translate_y_config).start();
-  //   timing(content_opacity, content_opacity_config).start();
-  // };
   const fade = {
     from: {
       opacity: 0.5,
-      // duration: 1000,
       delay: 0,
     },
     to: {
       opacity: 1,
       delay: 5000,
-      // duration: 2000,
     },
   };
   // const showInputField = () => {
@@ -147,11 +113,10 @@ export function TopbartabBarHeader() {
   return (
     <>
       <StatusBar
-      // backgroundColor={colors.mainHeaderColor}
-      // barStyle={
-      //   colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
-      // }
-      // barStyle={'light-content'}
+        backgroundColor={colors.defaultBgColor}
+        barStyle={
+          colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
+        }
       />
       <ShowInputField
         onPress={isFouced}
@@ -163,17 +128,6 @@ export function TopbartabBarHeader() {
         style={{width: wp('100'), height: hp('100')}}>
         <Animatable.View style={styles.maincontainer}>
           <View style={{width: wp('70')}}>
-            {/* <Animatable.Image
-            // source={require('../Images/splashImage.png')}
-            source={{uri: 'https://image.pngaaa.com/74/2672074-small.png'}}
-            // tintColor={colors.themePrimaryColor}
-            style={{
-              width: wp('50'),
-              height: hp('10'),
-              backgroundColor: colors.themePrimaryColor,
-            }}
-          /> */}
-
             <Text
               style={{
                 fontSize: wp('10'),

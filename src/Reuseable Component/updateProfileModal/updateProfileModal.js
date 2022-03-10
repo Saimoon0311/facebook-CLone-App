@@ -196,33 +196,39 @@ function UpdateProfileModal(props) {
                   overflow: 'hidden',
                 }}
                 blurRadius={3}
-                source={require('../../Images/screen2.png')}>
+                source={require('../../Images/splashScreen.jpg')}>
                 <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{paddingBottom: hp('2')}}>
                   <Text style={styles.modalText}>Update Your Profile</Text>
                   {profilePicture.length > 0 ? (
-                    <TouchableOpacity onPress={() => pickImage()}>
+                    <TouchableOpacity
+                      style={styles.imageContainer}
+                      onPress={() => pickImage()}>
                       <Image
-                        source={{uri: profilePicture[0]?.uri}}
                         style={styles.imageContainer}
+                        source={{uri: profilePicture[0]?.uri}}
                       />
                     </TouchableOpacity>
                   ) : userData.profilePicture ? (
-                    <TouchableOpacity onPress={() => pickImage()}>
+                    <TouchableOpacity
+                      style={styles.imageContainer}
+                      onPress={() => pickImage()}>
                       <Image
+                        style={styles.imageContainer}
                         source={{
                           uri: IMAGE_BASED_URL + userData.profilePicture,
                         }}
-                        style={styles.imageContainer}
                       />
                     </TouchableOpacity>
                   ) : (
-                    <TouchableOpacity onPress={() => pickImage()}>
+                    <TouchableOpacity
+                      style={{marginLeft: wp('2'), alignSelf: 'center'}}
+                      onPress={() => pickImage()}>
                       <Entypo
+                        style={{marginLeft: wp('2'), alignSelf: 'center'}}
                         name="add-user"
                         size={60}
-                        style={{marginLeft: wp('2'), alignSelf: 'center'}}
                         color={'white'}
                       />
                     </TouchableOpacity>
@@ -316,16 +322,11 @@ export default UpdateProfileModal;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // marginTop: 22,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modalView: {
     margin: wp('4'),
-    // marginRight: wp('3'),
     alignItems: 'center',
-    // paddingBottom: hp('10'),
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: hp('10'),
@@ -334,25 +335,18 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: hp('2'),
-    // textAlign: 'center',
     fontSize: hp('3'),
-    // marginLeft: wp('3'),
     marginTop: hp('2'),
     textAlign: 'center',
-    color: 'white',
-    // color: colors.defaultBgColor,
+    color: 'black',
   },
   imageContainer: {
-    // width: wp('20'),
-    // height: hp('15'),
     borderRadius: Math.round(
       Dimensions.get('window').width + Dimensions.get('window').height,
     ),
-    // alignSelf: 'center',
     width: Dimensions.get('screen').width * 0.2,
     height: Dimensions.get('screen').width * 0.2,
     backgroundColor: 'white',
     alignSelf: 'center',
-    // marginTop: hp('2'),
   },
 });

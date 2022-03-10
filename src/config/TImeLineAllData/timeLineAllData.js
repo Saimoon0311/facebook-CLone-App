@@ -68,6 +68,7 @@ import darkColors from 'react-native-elements/dist/config/colorsDark';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
 import {Avatar} from 'native-base';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 export const TimeLineData = props => {
   const [imageArray, setImageArray] = useState([]);
@@ -113,12 +114,7 @@ export const TimeLineData = props => {
                 )}
               </Avatar>
             </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                marginLeft: wp('1'),
-                marginTop: hp('1'),
-              }}>
+            <View style={styles.hiddenView}>
               <Text style={{...styles.postName}}>{item?.postName}</Text>
               <Text style={{color: 'gray', fontSize: hp('2')}}>
                 (This post was hidden)
@@ -347,22 +343,22 @@ export const TimeLineData = props => {
             </Animatable.View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>
-              Share.share({
-                url: 'https://media.istockphoto.com/photos/thumbnail-book-picture-id1287159334?b=1&k=20&m=1287159334&s=170667a&w=0&h=9kPAkWnDSMIP-6qNuEZrJ4EFw4B1Om-cYVcPLVTt4TM=',
-                message: 'sd',
-                // message:
-                //   'React Native | A framework for building native apps using React',
-                // title: 'w',
-                // url: 'https://www.google.com/',
-              })
-            }
+            // onPress={() =>
+            //   Share.share({
+            //     url: 'https://media.istockphoto.com/photos/thumbnail-book-picture-id1287159334?b=1&k=20&m=1287159334&s=170667a&w=0&h=9kPAkWnDSMIP-6qNuEZrJ4EFw4B1Om-cYVcPLVTt4TM=',
+            //     message: 'sd',
+            //     // message:
+            //     //   'React Native | A framework for building native apps using React',
+            //     // title: 'w',
+            //     // url: 'https://www.google.com/',
+            //   })
+            // }
             style={styles.likeButton}>
-            <Text style={styles.shareText}>Share</Text>
-            <MaterialCommunityIcons
+            <Text style={styles.shareText}>Comment</Text>
+            <Octicons
               color={colors.defaultTextColor}
-              name="share-all-outline"
-              size={25}
+              name="comment-discussion"
+              size={23}
             />
           </TouchableOpacity>
         </View>

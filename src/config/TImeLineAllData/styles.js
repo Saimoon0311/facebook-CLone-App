@@ -52,6 +52,8 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('3'),
     fontSize: hp('2.5'),
     width: wp('95'),
+    lineHeight: hp('3.5'),
+    fontFamily: 'Poppins-Regular',
     // backgroundColor: 'yellow',
   },
   likeContainer: {
@@ -90,5 +92,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 5,
+  },
+  hiddenView: {
+    flexDirection: 'column',
+    marginLeft: wp('1'),
+    marginTop: hp('1'),
   },
 });

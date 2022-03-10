@@ -84,7 +84,7 @@ export default function HomeScreen({navigation}) {
     ApiGet(GetAllPostUrl).then(res => {
       if (res?.success == true) {
         setLoading(false);
-        setTimeLineData(res?.data);
+        setTimeLineData(res.data);
       } else if (res?.success == false) {
         setLoading(true);
       }
@@ -142,10 +142,12 @@ export default function HomeScreen({navigation}) {
     }
   };
   useEffect(() => {
-    (async () => {
+    (() => {
       if (isFocused) {
         getTimeLineData();
+        console.log(148);
       } else {
+        console.log(149);
       }
       setUser(userData);
     })();

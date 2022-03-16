@@ -66,7 +66,7 @@ function AppTwo({navigation}) {
     if (Platform?.OS == 'android') {
       return 2000;
     } else {
-      return 0;
+      return 5000;
     }
   };
 
@@ -114,7 +114,7 @@ function AppTwo({navigation}) {
       <>
         <StatusBar hidden={true} />
         {isVisible === true ? (
-          Platform?.OS == 'android' && Splash_Screen
+          Splash_Screen
         ) : (
           <>
             <NavigationContainer>

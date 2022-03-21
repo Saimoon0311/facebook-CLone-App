@@ -108,7 +108,7 @@ export default function SignUpScreen({navigation}) {
   return (
     <ImageBackground
       style={{width: wp('100'), height: hp('100'), zIndex: 1}}
-      // blurRadius={3}
+      blurRadius={3}
       source={require('../../Images/screen2.png')}>
       <ScrollView
         showsVerticalScrollIndicator={false}

@@ -15,6 +15,7 @@ import {
   Switch,
   StyleSheet,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -183,7 +184,9 @@ function UpdateProfileModal(props) {
           onRequestClose={() => {
             props.forHideModal();
           }}>
-          <View style={styles.centeredView}>
+          <Pressable
+            onPress={() => props.forHideModal()}
+            style={styles.centeredView}>
             <ScrollView
               showsVerticalScrollIndicator={false}
               scrollEnabled={true}
@@ -310,7 +313,7 @@ function UpdateProfileModal(props) {
                 </ScrollView>
               </ImageBackground>
             </ScrollView>
-          </View>
+          </Pressable>
         </Modal>
       </NativeBaseProvider>
     </View>
@@ -323,6 +326,7 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    // backgroundColor: 'red',
   },
   modalView: {
     margin: wp('4'),
@@ -332,6 +336,7 @@ const styles = StyleSheet.create({
     marginBottom: hp('10'),
     height: hp('91'),
     zIndex: 1,
+    marginTop: Platform.OS == 'ios' ? hp('6') : hp('4'),
   },
   modalText: {
     marginBottom: hp('2'),

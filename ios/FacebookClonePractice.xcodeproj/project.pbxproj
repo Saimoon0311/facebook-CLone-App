@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* FacebookClonePracticeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FacebookClonePracticeTests.m */; };
-		0485F85527E0E73A0012DC80 /* ios in Resources */ = {isa = PBXBuildFile; fileRef = 0485F85427E0E73A0012DC80 /* ios */; };
 		0485F85627E0E73A0012DC80 /* ios in Resources */ = {isa = PBXBuildFile; fileRef = 0485F85427E0E73A0012DC80 /* ios */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -33,23 +32,42 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FacebookClonePracticeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FacebookClonePracticeTests.m; sourceTree = "<group>"; };
 		02889AD30FC7A5A677D38BB5 /* Pods-FacebookClonePractice-FacebookClonePracticeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FacebookClonePractice-FacebookClonePracticeTests.release.xcconfig"; path = "Target Support Files/Pods-FacebookClonePractice-FacebookClonePracticeTests/Pods-FacebookClonePractice-FacebookClonePracticeTests.release.xcconfig"; sourceTree = "<group>"; };
+		0458960127E48EBF007D0106 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../../../ReactNative/MoyenXpress/daraz-clone/node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		0458960227E48EC6007D0106 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		0458960327E48ECD007D0106 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		0458960427E48ED3007D0106 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		0458960527E48ED9007D0106 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		0458960627E48EE0007D0106 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		0458960727E48EE8007D0106 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		0458960827E48EEE007D0106 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		0458960927E48EF5007D0106 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		0458960A27E48EFB007D0106 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		0458960B27E48F01007D0106 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		0458960C27E48F07007D0106 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		0458960D27E48F0C007D0106 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		0458960E27E48F12007D0106 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		0458960F27E48F19007D0106 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		0458961027E48F1F007D0106 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		0458962127E89B64007D0106 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBold.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		0458962227E89B64007D0106 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLightItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		0458962327E89B64007D0106 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraLight.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		0458962427E89B64007D0106 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-MediumItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0458962527E89B64007D0106 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-LightItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		0458962627E89B64007D0106 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		0458962727E89B64007D0106 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBoldItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		0458962827E89B65007D0106 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Light.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
+		0458962927E89B65007D0106 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Bold.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		0458962A27E89B65007D0106 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BlackItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		0458962B27E89B65007D0106 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		0458962C27E89B65007D0106 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ExtraBoldItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		0458962D27E89B65007D0106 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-BoldItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0458962E27E89B65007D0106 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Black.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
+		0458962F27E89B65007D0106 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Italic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		0458963027E89B65007D0106 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		0458963127E89B65007D0106 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Thin.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		0458963227E89B65007D0106 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-ThinItalic.ttf"; path = "../../android/app/src/main/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		0458963327E8B8CD007D0106 /* FacebookClonePractice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FacebookClonePractice.entitlements; path = FacebookClonePractice/FacebookClonePractice.entitlements; sourceTree = "<group>"; };
 		0485F85427E0E73A0012DC80 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ios; sourceTree = "<group>"; };
-		04DAC8AD27E0E7E0002997FB /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
-		04DAC8AE27E0E7E0002997FB /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
-		04DAC8AF27E0E7E1002997FB /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
-		04DAC8B027E0E7E1002997FB /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
-		04DAC8B127E0E7E1002997FB /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
-		04DAC8B227E0E7E2002997FB /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
-		04DAC8B327E0E7E2002997FB /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
-		04DAC8B427E0E7E2002997FB /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
-		04DAC8B527E0E7E3002997FB /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
-		04DAC8B627E0E7E3002997FB /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
-		04DAC8B727E0E7E3002997FB /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
-		04DAC8B827E0E7E4002997FB /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
-		04DAC8B927E0E7E4002997FB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
-		04DAC8BA27E0E7E4002997FB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
-		04DAC8BB27E0E7E5002997FB /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
-		04DAC8BC27E0E7E5002997FB /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		051E07D987C088047385A779 /* Pods-FacebookClonePractice-FacebookClonePracticeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FacebookClonePractice-FacebookClonePracticeTests.debug.xcconfig"; path = "Target Support Files/Pods-FacebookClonePractice-FacebookClonePracticeTests/Pods-FacebookClonePractice-FacebookClonePracticeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* FacebookClonePractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FacebookClonePractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FacebookClonePractice/AppDelegate.h; sourceTree = "<group>"; };
@@ -102,32 +120,51 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0485F85127E0E3A90012DC80 /* Resources */ = {
+		0458F07627E48D9C007D0106 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				04DAC8B727E0E7E3002997FB /* AntDesign.ttf */,
-				04DAC8B827E0E7E4002997FB /* Entypo.ttf */,
-				04DAC8BB27E0E7E5002997FB /* EvilIcons.ttf */,
-				04DAC8B427E0E7E2002997FB /* Feather.ttf */,
-				04DAC8B027E0E7E1002997FB /* FontAwesome.ttf */,
-				04DAC8BA27E0E7E4002997FB /* FontAwesome5_Brands.ttf */,
-				04DAC8AD27E0E7E0002997FB /* FontAwesome5_Regular.ttf */,
-				04DAC8B627E0E7E3002997FB /* FontAwesome5_Solid.ttf */,
-				04DAC8AF27E0E7E1002997FB /* Fontisto.ttf */,
-				04DAC8B227E0E7E2002997FB /* Foundation.ttf */,
-				04DAC8B527E0E7E3002997FB /* Ionicons.ttf */,
-				04DAC8B927E0E7E4002997FB /* MaterialCommunityIcons.ttf */,
-				04DAC8BC27E0E7E5002997FB /* MaterialIcons.ttf */,
-				04DAC8AE27E0E7E0002997FB /* Octicons.ttf */,
-				04DAC8B327E0E7E2002997FB /* SimpleLineIcons.ttf */,
-				04DAC8B127E0E7E1002997FB /* Zocial.ttf */,
+				0458962E27E89B65007D0106 /* Poppins-Black.ttf */,
+				0458962A27E89B65007D0106 /* Poppins-BlackItalic.ttf */,
+				0458962927E89B65007D0106 /* Poppins-Bold.ttf */,
+				0458962D27E89B65007D0106 /* Poppins-BoldItalic.ttf */,
+				0458962127E89B64007D0106 /* Poppins-ExtraBold.ttf */,
+				0458962C27E89B65007D0106 /* Poppins-ExtraBoldItalic.ttf */,
+				0458962327E89B64007D0106 /* Poppins-ExtraLight.ttf */,
+				0458962227E89B64007D0106 /* Poppins-ExtraLightItalic.ttf */,
+				0458962F27E89B65007D0106 /* Poppins-Italic.ttf */,
+				0458962827E89B65007D0106 /* Poppins-Light.ttf */,
+				0458962527E89B64007D0106 /* Poppins-LightItalic.ttf */,
+				0458963027E89B65007D0106 /* Poppins-Medium.ttf */,
+				0458962427E89B64007D0106 /* Poppins-MediumItalic.ttf */,
+				0458962627E89B64007D0106 /* Poppins-Regular.ttf */,
+				0458962B27E89B65007D0106 /* Poppins-SemiBold.ttf */,
+				0458962727E89B64007D0106 /* Poppins-SemiBoldItalic.ttf */,
+				0458963127E89B65007D0106 /* Poppins-Thin.ttf */,
+				0458963227E89B65007D0106 /* Poppins-ThinItalic.ttf */,
+				0458960427E48ED3007D0106 /* AntDesign.ttf */,
+				0458960227E48EC6007D0106 /* Entypo.ttf */,
+				0458960627E48EE0007D0106 /* EvilIcons.ttf */,
+				0458960827E48EEE007D0106 /* Feather.ttf */,
+				0458960B27E48F01007D0106 /* FontAwesome.ttf */,
+				0458960F27E48F19007D0106 /* FontAwesome5_Brands.ttf */,
+				0458961027E48F1F007D0106 /* FontAwesome5_Regular.ttf */,
+				0458960A27E48EFB007D0106 /* FontAwesome5_Solid.ttf */,
+				0458960327E48ECD007D0106 /* Fontisto.ttf */,
+				0458960927E48EF5007D0106 /* Foundation.ttf */,
+				0458960E27E48F12007D0106 /* Ionicons.ttf */,
+				0458960727E48EE8007D0106 /* MaterialCommunityIcons.ttf */,
+				0458960C27E48F07007D0106 /* MaterialIcons.ttf */,
+				0458960527E48ED9007D0106 /* Octicons.ttf */,
+				0458960D27E48F0C007D0106 /* SimpleLineIcons.ttf */,
+				0458960127E48EBF007D0106 /* Zocial.ttf */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* FacebookClonePractice */ = {
 			isa = PBXGroup;
 			children = (
+				0458963327E8B8CD007D0106 /* FacebookClonePractice.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -170,12 +207,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0458F07627E48D9C007D0106 /* Resources */,
 				13B07FAE1A68108700A75B9A /* FacebookClonePractice */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FacebookClonePracticeTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				0485F85127E0E3A90012DC80 /* Resources */,
 				7BFAC29D823444227EEE9049 /* Pods */,
 			);
 			indentWidth = 2;
@@ -262,6 +299,47 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				"lt-LT",
+				"zh-Hans",
+				ja,
+				"el-GR",
+				"ms-MY",
+				"zh-HK",
+				mt,
+				nb,
+				"ca-ES",
+				"en-GB",
+				es,
+				da,
+				"es-419",
+				it,
+				"nn-NO",
+				"fr-CA",
+				"bg-BG",
+				sv,
+				ko,
+				fil,
+				"zh-Hant",
+				"ro-RO",
+				hu,
+				tr,
+				"et-EE",
+				"pt-BR",
+				"lv-LV",
+				vi,
+				ru,
+				"cs-CZ",
+				"sk-SK",
+				"sl-SI",
+				fr,
+				fi,
+				id,
+				nl,
+				"pl-PL",
+				"pt-PT",
+				hr,
+				tk,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -287,7 +365,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0485F85527E0E73A0012DC80 /* ios in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -529,6 +606,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FacebookClonePractice/FacebookClonePractice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FacebookClonePractice/Info.plist;
@@ -555,6 +633,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FacebookClonePractice/FacebookClonePractice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = FacebookClonePractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

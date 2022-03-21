@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   Easing,
   StatusBar,
+  Platform,
 } from 'react-native';
 // import TopBarNavigation from './topBarNavigation';
 import {
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     height: hp('100'),
     backgroundColor: colors.defaultBgColor,
-    top: 0,
+    top: Platform.OS == 'ios' ? hp('3') : 0,
   },
   insideView: {
     width: wp('100'),

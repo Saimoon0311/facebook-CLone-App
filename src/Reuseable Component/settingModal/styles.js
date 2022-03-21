@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -41,6 +42,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.modalInsideColor,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    paddingBottom: Platform.OS == 'ios' ? hp('3') : hp('0'),
   },
   touchButton: {
     flexDirection: 'row',

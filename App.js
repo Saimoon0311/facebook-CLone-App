@@ -133,7 +133,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+// import OneSignal from 'react-native-onesignal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FlashMessage from 'react-native-flash-message';
 import {Provider, useDispatch} from 'react-redux';
@@ -170,6 +170,13 @@ const styles = StyleSheet.create({
 });
 
 function App({navigation}) {
+  // useEffect(() => {
+  //   OneSignal.setLogLevel(6, 0);
+  //   OneSignal.setAppId('0e42c603-4faf-43b2-a688-cc42dbe75648');
+  //   OneSignal.setNotificationOpenedHandler(notification => {
+  //     console.log(179, notification);
+  //   });
+  // }, []);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

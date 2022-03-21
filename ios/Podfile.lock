@@ -364,7 +364,7 @@ PODS:
     - React
   - RNTextGradientView (0.1.7):
     - React
-  - RNVectorIcons (9.0.0):
+  - RNVectorIcons (9.1.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -602,10 +602,10 @@ SPEC CHECKSUMS:
   RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNTextGradientView: 3eb4744303f801546fad35ac47a53cc82257cb25
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 29f9f68d1d8862fcb175941e07b8c34ef715c1a1
+PODFILE CHECKSUM: 42f7aa72fd081fee1d6f50c33253319663d2cc91
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   FlatList,
   Switch,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -241,7 +242,7 @@ export default function ProfileScreen({navigation}) {
       ) : null}
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: hp('5'),
+          paddingBottom: Platform.OS == 'ios' ? hp('10') : hp('5'),
           backgroundColor:
             colors.defaultBgColor == '#242527'
               ? colors.defaultBgColor

@@ -9,6 +9,7 @@ import {
   ToastAndroid,
   StatusBar,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -305,6 +306,15 @@ function UserScreen({route, navigation}) {
             source={{
               uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
             }}>
+            {/* <TouchableOpacity
+              style={{
+                // backgroundColor: 'red',
+                alignSelf: 'flex-start',
+                position: 'absolute',
+                top: Platform.OS == 'ios' ? hp('5') : hp('0'),
+              }}>
+              <Ionicons name="arrow-back" size={40} color="white" />
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={() => forShowModal()}>
               <Image
                 style={styles.userImage}

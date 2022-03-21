@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, Platform} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -11,6 +11,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const InputField = props => {
   var inputWidth = props?.inputWidth ? props.inputWidth : '90';
+  var inputHeight = !props.multiline
+    ? Platform.OS == 'ios'
+      ? hp('6')
+      : 'auto'
+    : 'auto';
   return (
     <View
       style={{
@@ -18,10 +23,10 @@ export const InputField = props => {
         alignSelf: 'center',
         marginTop: hp('2'),
         flexDirection: 'row',
-        // borderRadius: 10,
         backgroundColor: 'rgba(0,0,0,0.2)',
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 20,
+        height: inputHeight,
       }}>
       {props?.iconType == true ? (
         <MaterialIcons

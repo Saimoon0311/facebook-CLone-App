@@ -13,6 +13,7 @@ import {
   Easing,
   StatusBar,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import TopBarNavigation from './topBarNavigation';
 import {
@@ -113,37 +114,47 @@ export function TopbartabBarHeader() {
   return (
     <>
       <StatusBar
+        // backgroundColor={'red'}
         backgroundColor={colors.defaultBgColor}
         barStyle={
           colors.defaultBgColor == 'white' ? 'dark-content' : 'light-content'
         }
       />
-      <ShowInputField
-        onPress={isFouced}
-        hideInputField={() => setIsFouced(false)}
-      />
-      <ImageBackground
-        resizeMode="cover"
-        source={require('../Images/upperImage.png')}
-        style={{width: wp('100'), height: hp('100')}}>
-        <Animatable.View style={styles.maincontainer}>
-          <View style={{width: wp('70')}}>
-            <Text
-              style={{
-                fontSize: wp('10'),
-                color: colors.mainHeaderTextColor,
-                marginLeft: wp('3'),
-                fontFamily: 'Poppins-SemiBold',
-              }}>
-              facebook
-            </Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => setIsFouced(true)}
-            style={styles.sideicon}>
-            <Ionicons name="search" size={26} color={colors.roundIconsColor} />
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.sideicon}>
+      <View
+        style={{
+          paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
+          backgroundColor: colors.defaultBgColor,
+        }}>
+        <ShowInputField
+          onPress={isFouced}
+          hideInputField={() => setIsFouced(false)}
+        />
+        <ImageBackground
+          resizeMode="cover"
+          source={require('../Images/upperImage.png')}
+          style={{width: wp('100'), height: hp('100')}}>
+          <Animatable.View style={styles.maincontainer}>
+            <View style={{width: wp('70')}}>
+              <Text
+                style={{
+                  fontSize: wp('10'),
+                  color: colors.mainHeaderTextColor,
+                  marginLeft: wp('3'),
+                  fontFamily: 'Poppins-SemiBold',
+                }}>
+                facebook
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => setIsFouced(true)}
+              style={styles.sideicon}>
+              <Ionicons
+                name="search"
+                size={26}
+                color={colors.roundIconsColor}
+              />
+            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.sideicon}>
             <Ionicons
               name="md-chatbubble-ellipses"
               size={26}
@@ -151,9 +162,10 @@ export function TopbartabBarHeader() {
               color="#1A1A1A"
             />
           </TouchableOpacity> */}
-        </Animatable.View>
-        <TopBarNavigation />
-      </ImageBackground>
+          </Animatable.View>
+          <TopBarNavigation />
+        </ImageBackground>
+      </View>
     </>
   );
 }

@@ -1,6 +1,0 @@
-module Pods_ecoders_ecodersTests {
-  umbrella header "Pods-ecoders-ecodersTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

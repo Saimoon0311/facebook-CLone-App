@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -55,6 +56,7 @@ export const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     backgroundColor: colors.defaultBgColor,
+    paddingTop: Platform.OS == 'ios' ? hp('2') : hp('0'),
     // justifyContent: 'center',
     // alignItems: 'center',
     // width: wp('100'),
@@ -145,6 +147,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    marginTop: hp('2'),
   },
   selectImageStyle: {
     width: wp('100'),

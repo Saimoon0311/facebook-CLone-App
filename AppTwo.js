@@ -64,7 +64,7 @@ function AppTwo({navigation}) {
   };
   const time = () => {
     if (Platform?.OS == 'android') {
-      return 2000;
+      return 5000;
     } else {
       return 5000;
     }
@@ -95,7 +95,7 @@ function AppTwo({navigation}) {
     let Splash_Screen = (
       <ImageBackground
         source={require('./src/Images/ip.png')}
-        // source={require('./src/Images/splashScreen.png')}
+        // source={require('./src/Images/screen2.png')}
         style={styles.SplashScreen_RootView}>
         {/* <View style={styles.SplashScreen_ChildView}>
           <Image

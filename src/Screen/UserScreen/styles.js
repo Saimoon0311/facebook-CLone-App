@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'justify',
     padding: wp('2'),
-    fontFamily: 'Acme-Regular-400',
+    fontFamily: 'Poppins-SemiBold',
   },
   createPostButton: {
     width: wp('80'),

@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   FlatList,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -83,7 +84,7 @@ export default function NotificationScreen() {
     <MenuContext>
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: hp('5'),
+          paddingBottom: Platform.OS == 'ios' ? hp('10') : hp('5'),
           backgroundColor: colors.postDivider,
         }}
         showsVerticalScrollIndicator={false}>
@@ -114,8 +115,9 @@ export default function NotificationScreen() {
               <TouchableOpacity
                 style={{
                   flexDirection: 'row',
-                  paddingTop: hp('3'),
+                  paddingTop: hp('1'),
                   backgroundColor: colors.activeNotificationBgcolor,
+                  paddingBottom: hp('1'),
                 }}>
                 <View
                   style={{

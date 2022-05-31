@@ -14,6 +14,8 @@ import {
   Animated,
   Appearance,
   StatusBar,
+  AlertIOS,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -115,6 +117,7 @@ export default function HomeScreen({navigation}) {
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
+          Platform.OS == 'ios' && AlertIOS.alert('The post has been disliked!');
         }
       } else if (res.success == false) {
         ToastAndroid.show(
@@ -145,7 +148,6 @@ export default function HomeScreen({navigation}) {
     (() => {
       if (isFocused) {
         getTimeLineData();
-        console.log(148);
       } else {
         console.log(149);
       }

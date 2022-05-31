@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -28,12 +28,12 @@ const {Value, timing} = Animated;
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 import * as Animatable from 'react-native-animatable';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {ShowInputField} from '../Reuseable Component/ShowInputField/showInputField';
 import {colors} from '../Reuseable Component/color';
-import {color} from 'native-base/lib/typescript/theme/styled-system';
+import {useSelector} from 'react-redux';
 
 export function TopbartabBarHeader() {
+  const {userData} = useSelector(state => state.auth);
   const [keyBoard, setKeyBoard] = useState('');
   const [isFouced, setIsFouced] = useState(false);
   const [fontSize, setFontSize] = useState();
@@ -129,23 +129,43 @@ export function TopbartabBarHeader() {
           onPress={isFouced}
           hideInputField={() => setIsFouced(false)}
         />
-        <ImageBackground
-          resizeMode="cover"
-          source={require('../Images/upperImage.png')}
-          style={{width: wp('100'), height: hp('100')}}>
+        <View
+          style={{
+            width: wp('100'),
+            height: hp('100'),
+          }}>
           <Animatable.View style={styles.maincontainer}>
-            <View style={{width: wp('70')}}>
+            {/* <View>
+              {userData?.profilePicture !== '' ? (
+                <Image
+                  source={{uri: IMAGE_BASED_URL + userData?.profilePicture}}
+                  style={styles.imageContainer}
+                />
+              ) : (
+                <Ionicons
+                  name="md-person-circle-outline"
+                  size={60}
+                  style={{marginLeft: wp('2')}}
+                  color={'gray'}
+                />
+              )}
+            </View> */}
+            <View
+              style={{
+                width: wp('100'),
+                alignSelf: 'center',
+              }}>
               <Text
                 style={{
                   fontSize: wp('10'),
                   color: colors.mainHeaderTextColor,
-                  marginLeft: wp('3'),
                   fontFamily: 'Poppins-SemiBold',
+                  textAlign: 'center',
                 }}>
                 facebook
               </Text>
             </View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setIsFouced(true)}
               style={styles.sideicon}>
               <Ionicons
@@ -153,7 +173,7 @@ export function TopbartabBarHeader() {
                 size={26}
                 color={colors.roundIconsColor}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <TouchableOpacity style={styles.sideicon}>
             <Ionicons
               name="md-chatbubble-ellipses"
@@ -164,7 +184,7 @@ export function TopbartabBarHeader() {
           </TouchableOpacity> */}
           </Animatable.View>
           <TopBarNavigation />
-        </ImageBackground>
+        </View>
       </View>
     </>
   );
@@ -264,22 +284,15 @@ const styles = StyleSheet.create({
   animatedView: {
     position: 'absolute',
     zIndex: 1,
-    // backgroundColor: 'green',
     height: hp('100'),
     backgroundColor: 'white',
   },
   insideView: {
     width: wp('100'),
-    // height: hp('100'),
     top: 0,
     justifyContent: 'space-around',
-    // backgroundColor: 'yellow',
     flexDirection: 'row',
-    // alignItems: 'center',
-    // position: 'absolute',
-    // zIndex: 1,
     paddingTop: hp('2'),
-    // flex: 1,
   },
   insideTextInput: {
     width: wp('85'),
@@ -334,5 +347,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     // backgroundColor: 'yellow',
     width: wp('65'),
+  },
+  imageContainer: {
+    borderRadius: Math.round(
+      Dimensions.get('window').width + Dimensions.get('window').height,
+    ),
+    width: Dimensions.get('screen').width * 0.13,
+    height: Dimensions.get('screen').width * 0.13,
+    backgroundColor: colors.defaultBgColor,
+    alignSelf: 'center',
+    marginLeft: wp('3'),
+    marginTop: hp('0.5'),
   },
 });

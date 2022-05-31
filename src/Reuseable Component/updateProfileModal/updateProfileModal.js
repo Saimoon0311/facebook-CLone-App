@@ -184,136 +184,135 @@ function UpdateProfileModal(props) {
           onRequestClose={() => {
             props.forHideModal();
           }}>
-          <Pressable
+          {/* <Pressable
             onPress={() => props.forHideModal()}
-            style={styles.centeredView}>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={true}
-              contentContainerStyle={styles.modalView}>
-              <ImageBackground
-                borderRadius={20}
-                style={{
-                  width: wp('100'),
-                  // paddingBottom: hp('10'),
-                  overflow: 'hidden',
-                }}
-                blurRadius={3}
-                source={require('../../Images/splashScreen.jpg')}>
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{paddingBottom: hp('2')}}>
-                  <Text style={styles.modalText}>Update Your Profile</Text>
-                  {profilePicture.length > 0 ? (
-                    <TouchableOpacity
+            style={styles.centeredView}> */}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
+            contentContainerStyle={styles.modalView}>
+            <ImageBackground
+              borderRadius={20}
+              style={{
+                width: wp('100'),
+                overflow: 'hidden',
+              }}
+              blurRadius={3}
+              source={require('../../Images/splashScreen.jpg')}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom: hp('2')}}>
+                <Text style={styles.modalText}>Update Your Profile</Text>
+                {profilePicture.length > 0 ? (
+                  <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => pickImage()}>
+                    <Image
                       style={styles.imageContainer}
-                      onPress={() => pickImage()}>
-                      <Image
-                        style={styles.imageContainer}
-                        source={{uri: profilePicture[0]?.uri}}
-                      />
-                    </TouchableOpacity>
-                  ) : userData.profilePicture ? (
-                    <TouchableOpacity
+                      source={{uri: profilePicture[0]?.uri}}
+                    />
+                  </TouchableOpacity>
+                ) : userData.profilePicture ? (
+                  <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => pickImage()}>
+                    <Image
                       style={styles.imageContainer}
-                      onPress={() => pickImage()}>
-                      <Image
-                        style={styles.imageContainer}
-                        source={{
-                          uri: IMAGE_BASED_URL + userData.profilePicture,
-                        }}
-                      />
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
+                      source={{
+                        uri: IMAGE_BASED_URL + userData.profilePicture,
+                      }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={{marginLeft: wp('2'), alignSelf: 'center'}}
+                    onPress={() => pickImage()}>
+                    <Entypo
                       style={{marginLeft: wp('2'), alignSelf: 'center'}}
-                      onPress={() => pickImage()}>
-                      <Entypo
-                        style={{marginLeft: wp('2'), alignSelf: 'center'}}
-                        name="add-user"
-                        size={60}
-                        color={'white'}
-                      />
-                    </TouchableOpacity>
-                  )}
-                  <InputField
-                    label="Name"
-                    onChangeText={e => setUsername(e)}
-                    value={username}
-                    firstIconName="person-outline"
-                    inputWidth="80"
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                  />
-                  <InputField
-                    label="Email"
-                    editable={false}
-                    value={userData.email}
-                    autoCapble="none"
-                    firstIconName="mail-outline"
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                    inputWidth="80"
-                  />
-                  <InputField
-                    label="Phone Number"
-                    onChangeText={e => setPhoneNumber(e)}
-                    value={phoneNumber}
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                    autoCapble="none"
-                    firstIconName="call-outline"
-                    keyboardType="phone-pad"
-                    inputWidth="80"
-                  />
-                  <InputField
-                    label="City"
-                    onChangeText={e => setCity(e)}
-                    value={city}
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                    autoCapble="none"
-                    firstIconName="home-outline"
-                    inputWidth="80"
-                    // keyboardType="phone-pad"
-                  />
-                  <InputField
-                    label="Country"
-                    onChangeText={e => setCountry(e)}
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                    value={country}
-                    autoCapble="none"
-                    firstIconName="earth-outline"
-                    inputWidth="80"
-                    // keyboardType="phone-pad"
-                  />
-                  <InputField
-                    label="Description"
-                    onChangeText={e => setDescription(e)}
-                    // TextInputColor={colors.defaultTextColor}
-                    TextInputColor={'black'}
-                    value={description}
-                    autoCapble="none"
-                    multiline={true}
-                    firstIconName="description"
-                    inputWidth="80"
-                    numberOfLines={5}
-                    textAlignVertical="top"
-                    iconType={true}
-                  />
-                  <TouchableButton
-                    // width="65"
-                    iconName="create-outline"
-                    iconColor="white"
-                    text="Update"
-                    loading={isLoading}
-                    onPress={() => updateProfilePicture()}
-                  />
-                </ScrollView>
-              </ImageBackground>
-            </ScrollView>
-          </Pressable>
+                      name="add-user"
+                      size={60}
+                      color={'white'}
+                    />
+                  </TouchableOpacity>
+                )}
+                <InputField
+                  label="Name"
+                  onChangeText={e => setUsername(e)}
+                  value={username}
+                  firstIconName="person-outline"
+                  inputWidth="80"
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                />
+                <InputField
+                  label="Email"
+                  editable={false}
+                  value={userData.email}
+                  autoCapble="none"
+                  firstIconName="mail-outline"
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                  inputWidth="80"
+                />
+                <InputField
+                  label="Phone Number"
+                  onChangeText={e => setPhoneNumber(e)}
+                  value={phoneNumber}
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                  autoCapble="none"
+                  firstIconName="call-outline"
+                  keyboardType="phone-pad"
+                  inputWidth="80"
+                />
+                <InputField
+                  label="City"
+                  onChangeText={e => setCity(e)}
+                  value={city}
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                  autoCapble="none"
+                  firstIconName="home-outline"
+                  inputWidth="80"
+                  // keyboardType="phone-pad"
+                />
+                <InputField
+                  label="Country"
+                  onChangeText={e => setCountry(e)}
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                  value={country}
+                  autoCapble="none"
+                  firstIconName="earth-outline"
+                  inputWidth="80"
+                  // keyboardType="phone-pad"
+                />
+                <InputField
+                  label="Description"
+                  onChangeText={e => setDescription(e)}
+                  // TextInputColor={colors.defaultTextColor}
+                  TextInputColor={'black'}
+                  value={description}
+                  autoCapble="none"
+                  multiline={true}
+                  firstIconName="description"
+                  inputWidth="80"
+                  numberOfLines={5}
+                  textAlignVertical="top"
+                  iconType={true}
+                />
+                <TouchableButton
+                  // width="65"
+                  iconName="create-outline"
+                  iconColor="white"
+                  text="Update"
+                  loading={isLoading}
+                  onPress={() => updateProfilePicture()}
+                />
+              </ScrollView>
+            </ImageBackground>
+          </ScrollView>
+          {/* </Pressable> */}
         </Modal>
       </NativeBaseProvider>
     </View>

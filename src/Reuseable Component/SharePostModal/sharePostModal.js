@@ -95,7 +95,7 @@ export const SharePostMoadl = props => {
       {
         selectionLimit: 1,
         mediaType: 'photo',
-        quality: 0.3,
+        quality: 0.5,
       },
       res => {
         if (!res?.didCancel) {
@@ -120,7 +120,7 @@ export const SharePostMoadl = props => {
       {
         selectionLimit: 1,
         mediaType: 'photo',
-        quality: 0.3,
+        quality: 0.5,
       },
       res => {
         if (!res?.didCancel) {

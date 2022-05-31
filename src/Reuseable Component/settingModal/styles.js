@@ -18,14 +18,16 @@ import {colors} from '../color';
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    bottom: 0,
+    bottom: hp('3'),
     position: 'absolute',
-    width: wp('100'),
+    width: wp('95'),
     backgroundColor: colors.modalMainContainer,
     maxHeight: Dimensions.get('screen').height * 0.8,
     height: 'auto',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    // borderTopLeftRadius: 15,
+    // borderTopRightRadius: 15,
+    alignSelf: 'center',
+    borderRadius: 20,
   },
   divider: {
     alignSelf: 'center',
@@ -40,9 +42,10 @@ export const styles = StyleSheet.create({
     width: wp('90'),
     alignSelf: 'center',
     backgroundColor: colors.modalInsideColor,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    paddingBottom: Platform.OS == 'ios' ? hp('3') : hp('0'),
+    // borderTopLeftRadius: 10,
+    // borderTopRightRadius: 10,
+    marginBottom: hp('2'),
+    borderRadius: 10,
   },
   touchButton: {
     flexDirection: 'row',

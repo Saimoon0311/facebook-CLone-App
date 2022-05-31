@@ -35,7 +35,6 @@ const ImagePicker = () => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         return false;
       }
     } else return true;
@@ -54,7 +53,6 @@ const ImagePicker = () => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         alert('Write permission err', err);
       }
       return false;
@@ -90,13 +88,7 @@ const ImagePicker = () => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.base64);
-        console.log('uri -> ', response.uri);
-        console.log('width -> ', response.width);
-        console.log('height -> ', response.height);
-        console.log('fileSize -> ', response.fileSize);
-        console.log('type -> ', response.type);
-        console.log('fileName -> ', response.fileName);
+
         setFilePath(response);
       });
     }
@@ -110,8 +102,6 @@ const ImagePicker = () => {
       quality: 5,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         alert('User cancelled camera picker');
         return;
@@ -125,13 +115,6 @@ const ImagePicker = () => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.base64);
-      console.log('uri -> ', response.uri);
-      console.log('width -> ', response.width);
-      console.log('height -> ', response.height);
-      console.log('fileSize -> ', response.fileSize);
-      console.log('type -> ', response.type);
-      console.log('fileName -> ', response.fileName);
       setFilePath(response);
     });
   };

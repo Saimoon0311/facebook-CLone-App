@@ -204,7 +204,6 @@ export const SettingModal = props => {
   var updateButton;
   const getUserAndSet = async () => {
     var url = getaUserUrl + userData._id;
-    // console.log(206, url);
     ApiGet(url).then(res => {
       if (res.success == true) {
         dispatch({
@@ -280,10 +279,8 @@ export const SettingModal = props => {
         cancelText="No"
         confirmButtonStyle={styles.buttonstyle}
         cancelButtonStyle={styles.buttonstyle}
-        cancelButtonTextStyle={{fontSize: hp('2.2%')}}
-        confirmButtonTextStyle={{fontSize: hp('2.2%')}}
-        confirmButtonTextStyle={{textAlign: 'center'}}
-        cancelButtonTextStyle={{textAlign: 'center'}}
+        cancelButtonTextStyle={{fontSize: hp('2.2%'), textAlign: 'center'}}
+        confirmButtonTextStyle={{fontSize: hp('2.2%'), textAlign: 'center'}}
         titleStyle={{color: colors.defaultTextColor}}
         messageStyle={{color: 'gray', textAlign: 'center'}}
         onConfirmPressed={() => {
@@ -342,7 +339,6 @@ export const SettingModal = props => {
       });
   };
   const forHidePost = () => {
-    // console.log(345);
     var body = JSON.stringify({
       userId: userData._id,
     });
@@ -387,7 +383,6 @@ export const SettingModal = props => {
   const followAndUnfollow = async title => {
     if (title == `Follow ${props.postData.postName}`) {
       var url = FollowUserUrl + props.postData.userId + '/followUser';
-      // console.log(364, url);
       var body = JSON.stringify({
         userId: userData._id,
       });
@@ -427,7 +422,6 @@ export const SettingModal = props => {
       });
     } else if (title == `Unfollow ${props.postData.postName}`) {
       var url = FollowUserUrl + props.postData.userId + '/unfollowUser';
-      // console.log(364, url);
       var body = JSON.stringify({
         userId: userData._id,
       });
@@ -517,7 +511,7 @@ export const SettingModal = props => {
             props?.whenPostDeleted(true);
           }}
           postData={props.postData}
-          title="Update Your post"
+          title="Update Your Post"
           postButtonTitle="Update"
         />
       ) : null}

@@ -27,6 +27,7 @@ const Tab = createMaterialTopTabNavigator();
 export default function TopBarNavigation() {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarActiveTintColor: 'white',
         tabBarActiveTintColor: colors.themePrimaryColor,
@@ -40,13 +41,36 @@ export default function TopBarNavigation() {
           // backgroundColor: colors.mainHeaderTextColor,
           backgroundColor: colors.defaultBgColor,
           backfaceVisibility: 'hidden',
+          borderBottomWidth: 1,
+          // borderBottomColor: 'white',
         },
         tabBarIndicatorStyle: {
           backgroundColor: colors.themePrimaryColor,
           height: hp('1'),
           borderRadius: 20,
+          marginBottom: Platform.OS == 'ios' ? hp('1.5') : hp('0.2'),
         },
       })}>
+      <Tab.Screen
+        name="NotificationScreen"
+        options={{
+          tabBarIcon: ({focused, color, size}) => (
+            <Ionicons
+              name={`notifications${
+                colors.defaultBgColor == '#242527' ? '' : '-outline'
+              }`}
+              color={color}
+              size={wp('6')}
+            />
+          ),
+          title: '',
+          tabBarLabelStyle: {
+            fontSize: 0,
+            fontWeight: 'bold',
+          },
+        }}
+        component={Screens.NotificationScreen}
+      />
       <Tab.Screen
         name="Home"
         options={{
@@ -68,7 +92,7 @@ export default function TopBarNavigation() {
         }}
         component={Screens.HomeScreen}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="groupScreen"
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -101,27 +125,8 @@ export default function TopBarNavigation() {
           },
         }}
         component={Screens.videoScreen}
-      />
-      <Tab.Screen
-        name="NotificationScreen"
-        options={{
-          tabBarIcon: ({focused, color, size}) => (
-            <Ionicons
-              name={`notifications${
-                colors.defaultBgColor == '#242527' ? '' : '-outline'
-              }`}
-              color={color}
-              size={wp('6')}
-            />
-          ),
-          title: '',
-          tabBarLabelStyle: {
-            fontSize: 0,
-            fontWeight: 'bold',
-          },
-        }}
-        component={Screens.NotificationScreen}
-      />
+      /> */}
+
       <Tab.Screen
         name="ProfileScreen"
         options={{

@@ -87,7 +87,6 @@ export const TimeLineData = props => {
     const checkUser = data => {
       var checkId = userData._id == item.userId ? true : false;
       if (props.routeName == 'userScreen') {
-        console.log(178);
       } else {
         props?.onPress(checkId, data);
       }
@@ -147,7 +146,6 @@ export const TimeLineData = props => {
     const checkUser = data => {
       var checkId = userData._id == item.userId ? true : false;
       if (props.routeName == 'userScreen') {
-        console.log(178);
       } else {
         props?.onPress(checkId, data);
       }

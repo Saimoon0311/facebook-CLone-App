@@ -21,6 +21,7 @@ export const colors = {
   // mainHeaderTextColor: themeType == 'light' ? '#225178' : 'white',
   // mainHeaderColor: themeType == 'light' ? '#225178' : '#00b2f7',
   defaultBgColor: themeType == 'light' ? 'white' : '#242527',
+  // defaultBgColor: themeType == 'light' ? 'white' : 'rgba(36,37,39,1)',
   defaultTextColor: themeType == 'light' ? 'black' : '#f1f2f6',
   defaultPostTextColor: 'black',
   modalMainContainer: themeType == 'light' ? '#f1f2f7' : '#242527',

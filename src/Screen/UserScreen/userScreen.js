@@ -10,6 +10,7 @@ import {
   StatusBar,
   RefreshControl,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -48,7 +49,6 @@ const wait = timeout => {
 
 function UserScreen({route, navigation}) {
   const {userData} = useSelector(state => state.auth);
-  // console.log(50, 'update Redux', userData);
   const routes = useRoute();
   const screenName = routes.name;
   let g;
@@ -64,7 +64,7 @@ function UserScreen({route, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [checkUser, setCheckUser] = useState(false);
   const [userName, setUserName] = useState();
-  const [userPicture, setUserPicture] = useState();
+  const [userPicture, setUserPicture] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [getUser, setGetUser] = useState();
   const onRefresh = useCallback(() => {
@@ -80,7 +80,6 @@ function UserScreen({route, navigation}) {
   }, []);
   const getTimeLineData = async name => {
     ApiGet(getUserAllPostUrl + name).then(res => {
-      console.log(82, name);
       if (res?.success == true) {
         setLoading(false);
         setTimeLineData(res?.data);
@@ -197,9 +196,7 @@ function UserScreen({route, navigation}) {
   var UserFollowings =
     userData.followings.length > 0 ? userData.followings.length : 0;
   const check = async () => {
-    // console.log(197, 'check function');
     if (confirms.confirms == false) {
-      // console.log(199, 'false');
       await getUserData();
       g = users.profilePicture
         ? IMAGE_BASED_URL + users.profilePicture
@@ -211,7 +208,6 @@ function UserScreen({route, navigation}) {
       setCheckUser(false);
       getTimeLineData(users.username);
     } else {
-      // console.log(199, 'true');
       g = userData.profilePicture
         ? IMAGE_BASED_URL + userData.profilePicture
         : 'https://res.cloudinary.com/dd6tdswt5/image/upload/v1646134270/UserImages/txtwdjl60bddnqd8qxsc.png';
@@ -220,7 +216,6 @@ function UserScreen({route, navigation}) {
       setUserName(userData.username);
       setCheckUser(true);
       getFollowing();
-      // console.log(220, userData);
       getTimeLineData(userData.username);
     }
   };
@@ -240,11 +235,9 @@ function UserScreen({route, navigation}) {
     await setModalVisible(false);
     await setLoading(true);
     await setFloading(true);
-    // console.log(238);
     check();
   };
   const forShowModal = () => {
-    console.log(245);
     if (userName == userData.username) {
       setModalVisible(true);
     } else {
@@ -253,7 +246,6 @@ function UserScreen({route, navigation}) {
   };
   const hideAndUnhide = confirm => {
     if (confirm == true) {
-      // setLoading(true);
       getTimeLineData(userName);
     } else if (confirm == false) {
       showMessage({
@@ -275,38 +267,43 @@ function UserScreen({route, navigation}) {
         flex: 1,
         backgroundColor: colors.defaultBgColor,
       }}>
-      <StatusBar
-        backgroundColor={colors.themePrimaryColor}
-        barStyle="light-content"
-      />
-      {/* {console.log(257, userName)}
-      {console.log(262, userData.username)} */}
-      {modalVisible ? (
-        <UpdateProfileModal
-          forHideModal={async () => {
-            await forHideModal();
-          }}
-          modalType={modalVisible}
-        />
-      ) : null}
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          backgroundColor: colors.defaultBgColor,
-          paddingBottom: hp('1'),
+      <SafeAreaView
+        style={{
+          // backgroundColor: 'red',
+          backgroundColor: 'rgba(36,37,39,0.1)',
         }}>
-        <NativeBaseProvider>
-          <ImageBackground
-            style={styles.topImage}
-            borderBottomLeftRadius={100}
-            resizeMode="cover"
-            source={{
-              uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
-            }}>
-            {/* <TouchableOpacity
+        <StatusBar
+          backgroundColor={colors.themePrimaryColor}
+          barStyle="light-content"
+        />
+        {/* {console.log(257, userName)}
+      {console.log(262, userData.username)} */}
+        {modalVisible ? (
+          <UpdateProfileModal
+            forHideModal={async () => {
+              await forHideModal();
+            }}
+            modalType={modalVisible}
+          />
+        ) : null}
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            backgroundColor: colors.defaultBgColor,
+            paddingBottom: hp('1'),
+          }}>
+          <NativeBaseProvider>
+            <ImageBackground
+              style={styles.topImage}
+              borderBottomLeftRadius={100}
+              resizeMode="cover"
+              source={{
+                uri: 'https://www.wallpapertip.com/wmimgs/3-36120_person-holding-dslr-camera-blur-blurred-background-blur.jpg',
+              }}>
+              {/* <TouchableOpacity
               style={{
                 // backgroundColor: 'red',
                 alignSelf: 'flex-start',
@@ -315,120 +312,130 @@ function UserScreen({route, navigation}) {
               }}>
               <Ionicons name="arrow-back" size={40} color="white" />
             </TouchableOpacity> */}
-            <TouchableOpacity onPress={() => forShowModal()}>
-              <Image
-                style={styles.userImage}
-                source={{
-                  uri: userPicture,
-                }}
-              />
-            </TouchableOpacity>
-          </ImageBackground>
-          <Text style={styles.userName}>{userName}</Text>
-          {checkUser == true ? (
-            <>
-              <TouchableOpacity
-                onPress={() => setState(true)}
-                style={styles.createPostButton}>
-                <Text style={styles.createPostText}>Create Post</Text>
+              <TouchableOpacity onPress={() => forShowModal()}>
+                {userPicture == '' ? (
+                  <SkeletonPlaceholder>
+                    <View style={styles.userImage} />
+                  </SkeletonPlaceholder>
+                ) : (
+                  <Image
+                    // tintColor="white"
+                    style={styles.userImage}
+                    source={{
+                      uri: userPicture,
+                    }}
+                  />
+                )}
               </TouchableOpacity>
-              {fLoading ? (
-                <SkeletonPlaceholder>
-                  <Divider style={styles.divider} />
-                  <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      height={60}
-                      borderRadius={50}
-                      borderWidth={2}
-                      borderColor="white"
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      height={60}
-                      borderRadius={50}
-                      borderWidth={2}
-                      borderColor="white"
-                      left={wp(-5)}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      height={60}
-                      left={wp(-8)}
-                      borderRadius={50}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      left={wp(-11)}
-                      height={60}
-                      borderWidth={2}
-                      borderColor="white"
-                      borderRadius={50}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      left={wp(-13)}
-                      height={60}
-                      borderWidth={2}
-                      borderColor="white"
-                      borderRadius={50}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      left={wp(-17)}
-                      height={60}
-                      borderWidth={2}
-                      borderColor="white"
-                      borderRadius={50}
-                    />
-                    <SkeletonPlaceholder.Item
-                      width={60}
-                      left={wp(-21)}
-                      height={60}
-                      borderWidth={2}
-                      borderColor="white"
-                      borderRadius={50}
-                      marginBottom={hp('1')}
-                    />
-                  </View>
-                  <Divider style={styles.divider} />
-                </SkeletonPlaceholder>
-              ) : (
-                followings.length > 0 && (
-                  <>
+            </ImageBackground>
+            <Text style={styles.userName}>{userName}</Text>
+            {checkUser == true ? (
+              <>
+                <TouchableOpacity
+                  onPress={() => setState(true)}
+                  style={styles.createPostButton}>
+                  <Text style={styles.createPostText}>Create Post</Text>
+                </TouchableOpacity>
+                {fLoading ? (
+                  <SkeletonPlaceholder>
                     <Divider style={styles.divider} />
-                    <Text style={styles.subHeadings}>You Following</Text>
-                    <View
-                      style={{alignItems: 'flex-start', paddingLeft: wp('2')}}>
-                      <TouchableOpacity>
-                        <Avatar.Group borderWidth={1.2}>
-                          {followings.map(res => {
-                            var str = res.username;
-                            var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-                            var acronym = matches.join('');
-                            return (
-                              <Avatar
-                                // bgColor={'red.100'}
-                                bg={colors.themePrimaryColor}
-                                size={wp('15')}
-                                source={{
-                                  uri: IMAGE_BASED_URL + res?.profilePicture,
-                                }}>
-                                {acronym}
-                              </Avatar>
-                            );
-                          })}
-                        </Avatar.Group>
-                      </TouchableOpacity>
+                    <View style={{flexDirection: 'row', marginLeft: wp('2')}}>
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        height={60}
+                        borderRadius={50}
+                        borderWidth={2}
+                        borderColor="white"
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        height={60}
+                        borderRadius={50}
+                        borderWidth={2}
+                        borderColor="white"
+                        left={wp(-5)}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        height={60}
+                        left={wp(-8)}
+                        borderRadius={50}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        left={wp(-11)}
+                        height={60}
+                        borderWidth={2}
+                        borderColor="white"
+                        borderRadius={50}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        left={wp(-13)}
+                        height={60}
+                        borderWidth={2}
+                        borderColor="white"
+                        borderRadius={50}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        left={wp(-17)}
+                        height={60}
+                        borderWidth={2}
+                        borderColor="white"
+                        borderRadius={50}
+                      />
+                      <SkeletonPlaceholder.Item
+                        width={60}
+                        left={wp(-21)}
+                        height={60}
+                        borderWidth={2}
+                        borderColor="white"
+                        borderRadius={50}
+                        marginBottom={hp('1')}
+                      />
                     </View>
-                    {/* <Divider style={{...styles.divider, marginTop: hp('1.5')}} /> */}
-                  </>
-                )
-              )}
-            </>
-          ) : null}
+                    <Divider style={styles.divider} />
+                  </SkeletonPlaceholder>
+                ) : (
+                  followings.length > 0 && (
+                    <>
+                      <Divider style={styles.divider} />
+                      <Text style={styles.subHeadings}>You Following</Text>
+                      <View
+                        style={{
+                          alignItems: 'flex-start',
+                          paddingLeft: wp('2'),
+                        }}>
+                        <TouchableOpacity>
+                          <Avatar.Group borderWidth={1.2}>
+                            {followings.map(res => {
+                              var str = res.username;
+                              var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+                              var acronym = matches.join('');
+                              return (
+                                <Avatar
+                                  // bgColor={'red.100'}
+                                  bg={colors.themePrimaryColor}
+                                  size={wp('15')}
+                                  source={{
+                                    uri: IMAGE_BASED_URL + res?.profilePicture,
+                                  }}>
+                                  {acronym}
+                                </Avatar>
+                              );
+                            })}
+                          </Avatar.Group>
+                        </TouchableOpacity>
+                      </View>
+                      {/* <Divider style={{...styles.divider, marginTop: hp('1.5')}} /> */}
+                    </>
+                  )
+                )}
+              </>
+            ) : null}
 
-          {/* {followers.length > 0 && (
+            {/* {followers.length > 0 && (
           <>
             <Text
               style={{
@@ -457,33 +464,34 @@ function UserScreen({route, navigation}) {
             </View>
           </>
         )} */}
-          {/* {console.log(450, userDescription)} */}
-          {userDescription !== '' && userDescription !== undefined ? (
-            <View>
-              <Divider style={{...styles.divider, marginTop: hp('1')}} />
-              <Text style={styles.subHeadings}>About</Text>
-              <TouchableOpacity onPress={() => increaseText()}>
-                <Text numberOfLines={pagination} style={styles.description}>
-                  {userDescription}
-                </Text>
-              </TouchableOpacity>
+            {/* {console.log(450, userDescription)} */}
+            {userDescription !== '' && userDescription !== undefined ? (
+              <View>
+                <Divider style={{...styles.divider, marginTop: hp('1')}} />
+                <Text style={styles.subHeadings}>About</Text>
+                <TouchableOpacity onPress={() => increaseText()}>
+                  <Text numberOfLines={pagination} style={styles.description}>
+                    {userDescription}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
+            <View
+              style={{backgroundColor: colors.postDivider, marginTop: hp('1')}}>
+              <TimeLineData
+                timeLineData={timeLineData}
+                isloading={loading}
+                user={userData}
+                like={likeAndDislike}
+                hideAndUnhide={confirm => hideAndUnhide(confirm)}
+                Islike={like}
+                whenPostDeleted={confirm => whenPostDeleted(confirm)}
+                routeName={screenName}
+              />
             </View>
-          ) : null}
-          <View
-            style={{backgroundColor: colors.postDivider, marginTop: hp('1')}}>
-            <TimeLineData
-              timeLineData={timeLineData}
-              isloading={loading}
-              user={userData}
-              like={likeAndDislike}
-              hideAndUnhide={confirm => hideAndUnhide(confirm)}
-              Islike={like}
-              whenPostDeleted={confirm => whenPostDeleted(confirm)}
-              routeName={screenName}
-            />
-          </View>
-        </NativeBaseProvider>
-      </ScrollView>
+          </NativeBaseProvider>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }

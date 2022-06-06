@@ -24,10 +24,11 @@ import {ApiGet, ApiPost} from '../../config/helpeerFetch';
 import {LoginUrl} from '../../config/url';
 import {showMessage} from 'react-native-flash-message';
 import action from '../../Redux/action';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Avatar, NativeBaseProvider} from 'native-base';
 
 export default function LoginScreen({navigation}) {
+  const {deviceToken} = useSelector(state => state.deviceToken);
   const dispatch = useDispatch();
 
   const handleClick = () => setShow(!show);
@@ -48,6 +49,7 @@ export default function LoginScreen({navigation}) {
         {
           email,
           password,
+          deviceToken,
         },
         dispatch,
       );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397458988617",
+    "project_id": "react-native-push-notifi-fabfe",
+    "storage_bucket": "react-native-push-notifi-fabfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397458988617:android:7eb21a77f6daff5fba6998",
+        "android_client_info": {
+          "package_name": "com.facebookclonepractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397458988617-kfe8bfdi3tq06hino508bsnnc6g6490r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqaD6aTht96OmHSyGEm0vO3LHeR5oTFBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397458988617-kfe8bfdi3tq06hino508bsnnc6g6490r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ platform :ios, '11.0'
 
 target 'FacebookClonePractice' do
   config = use_native_modules!
+  pod 'Firebase/Messaging', '~> 8.15.0' # eg 6.31.0
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -15,6 +16,7 @@ target 'FacebookClonePractice' do
 
   target 'FacebookClonePracticeTests' do
     inherit! :complete
+
     # Pods for testing
   end
 
@@ -29,3 +31,6 @@ target 'FacebookClonePractice' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
+
+# target 'ImageNotifications' do
+# end

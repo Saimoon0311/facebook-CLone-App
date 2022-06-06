@@ -30,6 +30,10 @@ import NetInfo from '@react-native-community/netinfo';
 import {ModalPortal} from 'react-native-modals';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/Redux/reducer';
+import PushNotification from 'react-native-push-notification';
+import types from './src/Redux/type';
+import messaging from '@react-native-firebase/messaging';
+import firebase from '@react-native-firebase/app';
 
 const styles = StyleSheet.create({
   MainContainer: {
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+// Must be outside of any component LifeCycle (such as `componentDidMount`).
 
 function AppTwo({navigation}) {
   const [isVisible, setIsVisible] = useState(true);
@@ -70,15 +75,43 @@ function AppTwo({navigation}) {
     }
   };
 
-  const initializeStripe = () => {
-    initStripe({
-      publishableKey: StripePKey,
-    });
+  // PushNotification.configure({
+  //   onRegister: function (token) {
+  //     dispatch({
+  //       type: types.getToken,
+  //       payload: token,
+  //     });
+  //   },
+  //   onNotification: function (notification) {
+  //     console.log('NOTIFICATION:', notification);
+  //   },
+  //   onAction: function (notification) {
+  //     console.log('ACTION:', notification.action);
+  //     console.log('NOTIFICATION:', notification);
+  //   },
+  //   onRegistrationError: function (err) {
+  //     console.error(err.message, err);
+  //   },
+  //   popInitialNotification: true,
+  //   requestPermissions: Platform.OS === 'ios',
+  // });
+
+  const setToken = () => {
+    messaging()
+      .getToken(firebase.app().options.messagingSenderId)
+      .then(token => {
+        dispatch({
+          type: types.getToken,
+          payload: token,
+        });
+        // console.log('token', token);
+      });
   };
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     LogBox.ignoreAllLogs(true);
+    setToken();
     Appearance.addChangeListener(scheme => {
       dispatch({
         type: 'CheckThemeColor',
@@ -117,9 +150,7 @@ function AppTwo({navigation}) {
           Splash_Screen
         ) : (
           <>
-            <NavigationContainer>
-              <Navigation />
-            </NavigationContainer>
+            <Navigation />
           </>
         )}
         <ModalPortal />

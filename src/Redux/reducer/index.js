@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import thunk from 'redux-thunk';
 import savedata from './savedata';
 import themeChange from './themeColor';
+import deviceToken from './deviceToken';
 
 const persistConfig1 = {
   key: 'root',
@@ -19,6 +20,11 @@ const persistConfig2 = {
   whiteList: ['savePosts'],
 };
 
+const persistConfig3 = {
+  key: 'deviceToken',
+  storage: AsyncStorage,
+  whiteList: 'deviceToken',
+};
 // const persistConfig3 = {
 //   key: 'themeChange',
 //   storage: AsyncStorage,
@@ -28,6 +34,7 @@ const persistConfig2 = {
 const rootReducer = combineReducers({
   auth: persistReducer(persistConfig1, auth),
   savePosts: persistReducer(persistConfig2, savedata),
+  deviceToken: persistReducer(persistConfig3, deviceToken),
   themeChange,
 });
 

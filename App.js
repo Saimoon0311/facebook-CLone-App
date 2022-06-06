@@ -1,186 +1,171 @@
-// /**
-//  * Sample React Native App
-//  * https://github.com/facebook/react-native
-//  *
-//  * @format
-//  * @flow strict-local
-//  */
-
-// import React from 'react';
-// import type {Node} from 'react';
-// import {
-//   SafeAreaView,
-//   ScrollView,
-//   StatusBar,
-//   StyleSheet,
-//   Text,
-//   useColorScheme,
-//   View,
-// } from 'react-native';
-
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
-
-// const Section = ({children, title}): Node => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const App: () => Node = () => {
-//   const isDarkMode = useColorScheme() === 'dark';
-
-//   const backgroundStyle = {
-//     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-//   };
-
-//   return (
-//     <SafeAreaView style={backgroundStyle}>
-//       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-//       <ScrollView
-//         contentInsetAdjustmentBehavior="automatic"
-//         style={backgroundStyle}>
-//         <Header />
-//         <View
-//           style={{
-//             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-//           }}>
-//           <Section title="Step One">
-//             Edit <Text style={styles.highlight}>App.js</Text> to change this
-//             screen and then come back to see your edits.
-//           </Section>
-//           <Section title="See Your Changes">
-//             <ReloadInstructions />
-//           </Section>
-//           <Section title="Debug">
-//             <DebugInstructions />
-//           </Section>
-//           <Section title="Learn More">
-//             Read the docs to discover what to do next:
-//           </Section>
-//           <LearnMoreLinks />
-//         </View>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//   },
-//   sectionDescription: {
-//     marginTop: 8,
-//     fontSize: 18,
-//     fontWeight: '400',
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//   },
-// });
-
-// export default App;
-
 import React, {useEffect, Component, useState} from 'react';
-import {
-  Platform,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Alert,
-  LogBox,
-  ImageBackground,
-  Appearance,
-} from 'react-native';
-import Navigation from './src/navigation/navigation';
-import {NavigationContainer} from '@react-navigation/native';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-// import OneSignal from 'react-native-onesignal';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FlashMessage from 'react-native-flash-message';
 import {Provider, useDispatch} from 'react-redux';
-// import store from './src/Redux/store';
-import {getUserData} from './src/utils/utils';
-import {saveUserData} from './src/Redux/action/auth';
-import NetInfo from '@react-native-community/netinfo';
-import {ModalPortal} from 'react-native-modals';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/Redux/reducer';
 import AppTwo from './AppTwo';
+import messaging from '@react-native-firebase/messaging';
+import firebase from '@react-native-firebase/app';
+import types from './src/Redux/type';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 
-const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-  },
+function App() {
+  // const navigation = useNavigation();
 
-  SplashScreen_RootView: {
-    justifyContent: 'center',
-    flex: 1,
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-  },
+  // const createChannel = channelId => {
+  //   PushNotification.createChannel(
+  //     {
+  //       channelId: channelId, // (required)
+  //       channelName: 'My channel', // (required)
+  //       channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
+  //       playSound: true, // (optional) default: true
+  //       soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+  //       importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+  //       vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+  //     },
+  //     created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+  //   );
+  // };
 
-  SplashScreen_ChildView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-});
+  // const showNotification = (channelId, options) => {
+  //   PushNotification.localNotification({
+  //     /* Android Only Properties */
+  //     channelId: channelId, // (required) channelId, if the channel doesn't exist, notification will not trigger.
+  //     largeIconUrl:
+  //       'https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/react-256.png', // (optional) default: undefined
+  //     smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher". Use "" for default small icon.
+  //     bigText:
+  //       'My big text that will be shown when notification is expanded. Styling can be done using HTML tags(see android docs for details)', // (optional) default: "message" prop
+  //     subText: options.subText, // (optional) default: none
+  //     bigPictureUrl: options.bigImage, // (optional) default: undefined
+  //     bigLargeIconUrl:
+  //       'https://cdn0.iconfinder.com/data/icons/logos-brands-in-colors/128/react_color-512.png', // (optional) default: undefined
+  //     color: options?.color, // (optional) default: system default
+  //     vibrate: true, // (optional) default: true
+  //     vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+  //     ongoing: false, // (optional) set whether this is an "ongoing" notification
+  //     priority: 'high', // (optional) set notification priority, default: high
+  //     playSound: true,
+  //     soundName: 'default',
+  //     // actions: ['ReplyInput'],
+  //     // reply_placeholder_text: 'Write your response...', // (required)
+  //     // reply_button_text: 'Reply', // (required)
+  //     /* iOS and Android properties */
+  //     title: options.title, // (optional)
+  //     message: options.message, // (required)
+  //     picture: 'https://www.example.tld/picture.jpg', // (optional) Display an picture with the notification, alias of `bigPictureUrl` for Android. default: undefined
+  //     /* iOS only properties */
+  //     category: '', // (optional) default: empty string
+  //     subtitle: 'My Notification Subtitle', // (optional) smaller title below notification title
 
-function App({navigation}) {
-  // useEffect(() => {
-  //   OneSignal.setLogLevel(6, 0);
-  //   OneSignal.setAppId('0e42c603-4faf-43b2-a688-cc42dbe75648');
-  //   OneSignal.setNotificationOpenedHandler(notification => {
-  //     console.log(179, notification);
+  //     /* iOS and Android properties */
+  //     id: 0, // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
+  //     title: options.title, // (optional)
+  //     message: options.message, // (required)
+  //     picture: 'https://www.example.tld/picture.jpg', // (optional) Display an picture with the notification, alias of `bigPictureUrl` for Android. default: undefined
+  //     userInfo: {}, // (optional) default: {} (using null throws a JSON value '<null>' error)
+  //     playSound: true, // (optional) default: true
+  //     soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+  //     number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
+  //     repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
   //   });
-  // }, []);
+  // };
+  const getToken = () => {
+    messaging()
+      .getToken(firebase.app().options.messagingSenderId)
+      .then(token => {
+        store.dispatch({
+          type: types.getToken,
+          payload: token,
+        });
+        console.log('token', token);
+      });
+    // const unsubscribe = messaging().onMessage(async remoteMsg => {
+    //   const channelId = Math.random().toString(36).substring(7);
+    //   // createChannel(channelId);
+    //   showNotification(channelId, {
+    //     bigImage: remoteMsg.notification.imageUrl,
+    //     title: remoteMsg.notification.title,
+    //     message: remoteMsg.notification.body,
+    //     subText: remoteMsg.data.subTitle,
+    //     customData: remoteMsg.data.customData,
+    //   });
+    //   console.log('remoteMs', remoteMsg);
+    // });
+    // messaging().setBackgroundMessageHandler(async remoteMsg => {
+    //   console.log('remoteMs background', remoteMsg);
+    // });
+    // return unsubscribe;
+  };
+  // const unsubscribe = messaging().onMessage(async remoteMsg => {
+  //   const channelId = Math.random().toString(36).substring(7);
+  //   // createChannel(channelId);
+  //   showNotification(channelId, {
+  //     bigImage: remoteMsg.notification.imageUrl,
+  //     title: remoteMsg.notification.title,
+  //     message: remoteMsg.notification.body,
+  //     subText: remoteMsg.data.subTitle,
+  //     customData: remoteMsg.data.customData,
+  //   });
+  //   console.log('remoteMs', remoteMsg);
+  // });
+  // messaging().setBackgroundMessageHandler(async remoteMsg => {
+  //   console.log('remoteMs background', remoteMsg);
+  // });
+  // const onRemoteNotification = notification => {
+  //   const actionIdentifier = notification.getActionIdentifier();
+
+  //   if (actionIdentifier === 'open') {
+  //     // Perform action based on open action
+  //   }
+
+  //   if (actionIdentifier === 'text') {
+  //     // Text that of user input.
+  //     const userText = notification.getUserText();
+  //     // Perform action based on textinput action
+  //   }
+  // };
+  // const [openSettingsForNotifications] = useMMKVStorage(
+  //   'openSettingsForNotifications',
+  //   MMKV,
+  //   false,
+  // );
+  // const [openSettingsForNotifications] = useMMKVStorage(
+  //   'openSettingsForNotifications',
+  //   false,
+  // );
+  useEffect(async () => {
+    getToken();
+    await messaging().requestPermission({
+      providesAppNotificationSettings: true,
+      sound: false,
+      announcement: true,
+      provisional: true,
+    });
+    // if (openSettingsForNotifications) {
+    //   navigate('showNotificationScreen');
+    // }
+    // messaging().onNotificationOpenedApp(remoteMessage => {
+    //   console.log(
+    //     'Notification caused app to open from background state:',
+    //     remoteMessage.notification,
+    //   );
+    //   navigation.navigate('showNotificationScreen');
+    // });
+    // messaging()
+    //   .getDidOpenSettingsForNotification()
+    //   .then(async didOpenSettingsForNotification => {
+    //     if (didOpenSettingsForNotification) {
+    //       console.log(8909890);
+    //     }
+    //   });
+  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <AppTwo />
+        <NavigationContainer>
+          <AppTwo />
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );

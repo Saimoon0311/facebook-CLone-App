@@ -7,6 +7,7 @@ export default {
   ThemeColorLight: 'ThemeColorLight',
   ThemeColorDark: 'ThemeColorDark',
   CheckThemeColor: 'CheckThemeColor',
+  getToken: 'getToken',
   //   NO_INTERNET: 'NO_INTERNET',
   // GETPRODUCT:"GETPRODUCT"
 };

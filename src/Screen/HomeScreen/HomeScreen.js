@@ -41,6 +41,7 @@ import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
 import {colors} from '../../Reuseable Component/color';
 import {useIsFocused} from '@react-navigation/native';
+import messaging from '@react-native-firebase/messaging';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -48,6 +49,7 @@ const wait = timeout => {
 
 export default function HomeScreen({navigation}) {
   const {userData} = useSelector(state => state.auth);
+  const {deviceToken} = useSelector(state => state.deviceToken);
   const isFocused = useIsFocused();
 
   const toast = useToast();
@@ -97,7 +99,9 @@ export default function HomeScreen({navigation}) {
       userId: user._id,
     });
     var url = LikeUrl + id + '/like';
+    console.log(101, url);
     ApiPut(url, body).then(res => {
+      console.log(4567, res);
       if (res.success == true) {
         if (res?.data == 'The post has been liked!') {
           setLike(true);
@@ -120,6 +124,7 @@ export default function HomeScreen({navigation}) {
           Platform.OS == 'ios' && AlertIOS.alert('The post has been disliked!');
         }
       } else if (res.success == false) {
+        console.log(3456, res);
         ToastAndroid.show(
           'Some Thing Is Wrong!',
           ToastAndroid.LONG,
@@ -144,7 +149,29 @@ export default function HomeScreen({navigation}) {
       });
     }
   };
+  const navigationFunc = () => {
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(
+        'Notification caused app to open from background state:45678',
+        remoteMessage,
+      );
+      // setInitialRoute('showNotificationScreen'); // e.g. "Settings"
+      navigation.navigate('showNotificationScreen');
+    });
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:45678',
+            remoteMessage,
+          );
+          navigation.navigate('showNotificationScreen');
+        }
+      });
+  };
   useEffect(() => {
+    navigationFunc();
     (() => {
       if (isFocused) {
         getTimeLineData();

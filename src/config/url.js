@@ -1,6 +1,6 @@
-export const API_BASED_URL =
-  'https://facebook-clone-saimoon.herokuapp.com/api/v1/';
-// export const API_BASED_URL = 'http://192.168.0.56:8000/api/v1/';
+// export const API_BASED_URL =
+//   'https://facebook-clone-saimoon.herokuapp.com/api/v1/';
+export const API_BASED_URL = 'http://192.168.0.56:8000/api/v1/';
 export const IMAGE_BASED_URL =
   'https://res.cloudinary.com/dd6tdswt5/image/upload/v1644503344/';
 export const POST_IMAGE_URL =

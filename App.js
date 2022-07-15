@@ -137,7 +137,7 @@ function App() {
     getToken();
     await messaging().requestPermission({
       providesAppNotificationSettings: true,
-      sound: false,
+      sound: true,
       announcement: true,
       provisional: true,
     });

@@ -156,7 +156,7 @@ export default function HomeScreen({navigation}) {
         remoteMessage,
       );
       // setInitialRoute('showNotificationScreen'); // e.g. "Settings"
-      navigation.navigate('showNotificationScreen');
+      navigation.navigate('showNotificationScreen', remoteMessage);
     });
     messaging()
       .getInitialNotification()
@@ -166,7 +166,7 @@ export default function HomeScreen({navigation}) {
             'Notification caused app to open from quit state:45678',
             remoteMessage,
           );
-          navigation.navigate('showNotificationScreen');
+          navigation.navigate('showNotificationScreen', remoteMessage);
         }
       });
   };

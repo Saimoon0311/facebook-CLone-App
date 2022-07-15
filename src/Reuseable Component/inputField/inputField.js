@@ -13,7 +13,7 @@ export const InputField = props => {
   var inputWidth = props?.inputWidth ? props.inputWidth : '90';
   var inputHeight = !props.multiline
     ? Platform.OS == 'ios'
-      ? hp('6')
+      ? hp('8')
       : 'auto'
     : 'auto';
   return (
@@ -37,7 +37,10 @@ export const InputField = props => {
             alignSelf: 'flex-start',
             marginLeft: wp('3'),
             marginRight: wp('3'),
-            color: 'white',
+            color:
+              props.iconColor && props.value != undefined && props.value != ''
+                ? props.iconColor
+                : 'white',
             marginTop: hp('3'),
           }}
         />
@@ -50,7 +53,10 @@ export const InputField = props => {
             alignSelf: 'center',
             marginLeft: wp('3'),
             marginRight: wp('3'),
-            color: 'white',
+            color:
+              props.iconColor && props.value != undefined && props.value != ''
+                ? props.iconColor
+                : 'white',
           }}
         />
       )}
@@ -58,7 +64,10 @@ export const InputField = props => {
         style={{
           height: '80%',
           width: 1,
-          backgroundColor: 'white',
+          backgroundColor:
+            props.iconColor && props.value != undefined && props.value != ''
+              ? props.iconColor
+              : 'white',
           marginRight: wp('2'),
           alignSelf: 'center',
         }}
@@ -67,11 +76,20 @@ export const InputField = props => {
         placeholder={props?.label}
         multiline={props.multiline ? true : false}
         numberOfLines={props?.numberOfLines}
+        minHeight={
+          Platform.OS === 'ios' && props?.numberOfLines
+            ? 20 * props?.numberOfLines
+            : null
+        }
         style={{
           backgroundColor: 'transparent',
           width: wp('60'),
           color: props?.TextInputColor ? props.TextInputColor : 'black',
           textAlignVertical: props?.textAlignVertical,
+          paddingTop: props?.numberOfLines
+            ? hp('2')
+            : Platform.OS == 'android' && hp('1'),
+          fontWeight: 'bold',
         }}
         editable={props?.editable}
         value={props?.value}

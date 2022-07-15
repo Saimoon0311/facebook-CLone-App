@@ -125,10 +125,10 @@ export function TopbartabBarHeader() {
           paddingTop: Platform.OS == 'ios' ? hp('5') : hp('0'),
           backgroundColor: colors.defaultBgColor,
         }}>
-        <ShowInputField
+        {/* <ShowInputField
           onPress={isFouced}
           hideInputField={() => setIsFouced(false)}
-        />
+        /> */}
         <View
           style={{
             width: wp('100'),

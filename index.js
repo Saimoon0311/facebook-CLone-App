@@ -83,6 +83,13 @@ import messaging from '@react-native-firebase/messaging';
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
+messaging().onNotificationOpenedApp(remoteMessage => {
+  console.log(
+    'Notification caused app to open from background state:45678',
+    remoteMessage,
+  );
+  // setInitialRoute('showNotificationScreen'); // e.g. "Settings"
+});
 messaging().setOpenSettingsForNotificationsHandler(async () => {
   // Set persistent value, using the MMKV package just as an example of how you might do it
   MMKV.setBool(openSettingsForNotifications, true);

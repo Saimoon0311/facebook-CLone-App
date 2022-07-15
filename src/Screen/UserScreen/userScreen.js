@@ -274,7 +274,7 @@ function UserScreen({route, navigation}) {
         }}>
         <StatusBar
           backgroundColor={colors.themePrimaryColor}
-          barStyle="light-content"
+          barStyle={Platform.OS == 'ios' ? 'dark-content' : 'light-content'}
         />
         {/* {console.log(257, userName)}
       {console.log(262, userData.username)} */}

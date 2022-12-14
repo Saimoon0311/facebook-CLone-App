@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>0</string>
 	<key>Fonts provided by application</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -52,11 +54,11 @@
 		<string>Poppins-LightItalic.ttf</string>
 		<string>Poppins-Medium.ttf</string>
 		<string>Poppins-MediumItalic.ttf</string>
+		<string>Poppins-ThinItalic.ttf</string>
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
 		<string>Poppins-SemiBoldItalic.ttf</string>
 		<string>Poppins-Thin.ttf</string>
-		<string>Poppins-ThinItalic.ttf</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
@@ -129,7 +131,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<string>0</string>
 </dict>
 </plist>

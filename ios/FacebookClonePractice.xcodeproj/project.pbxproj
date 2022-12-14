@@ -854,7 +854,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FacebookClonePractice/FacebookClonePractice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V46T3XQTTR;
+				DEVELOPMENT_TEAM = 656C234Z3K;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FacebookClonePractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -882,7 +882,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FacebookClonePractice/FacebookClonePractice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V46T3XQTTR;
+				DEVELOPMENT_TEAM = 656C234Z3K;
 				INFOPLIST_FILE = FacebookClonePractice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
